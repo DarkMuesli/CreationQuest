@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="45" height="32" tilewidth="32" tileheight="32" nextobjectid="4">
+ <tileset firstgid="1" name="town_forest_tiles" tilewidth="32" tileheight="32" tilecount="110" columns="10">
+  <image source="tilesets/town_forest_tiles.png" width="320" height="352"/>
+  <terraintypes>
+   <terrain name="Neues Terrain" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <layer name="bgr_1" width="45" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzjEKACAMBLDDTfr//7r0C6LQDNlTSQoAoK32+gGT7Q8OE84AANx3AKYNPcs=
+  </data>
+ </layer>
+ <layer name="bgr_2" width="45" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJACAMRcFAVnT/WWysBO2MBO4g8MsHiQAAAKDK+B0ABcZhU8cP7nJdJ12ac9sdmnlrAjTWAbo=
+  </data>
+ </layer>
+ <layer name="bgr_3" width="45" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0aERAAAIAzE2Y/+tmABbEIl62btWAQAAkNLXAyCglybHB8AXA4O9ATw=
+  </data>
+ </layer>
+ <layer name="col_1" width="45" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztkz0LwjAUReM3Doo6+TGpozqqk4KTiqN1s///b3gLDYT4YhJ5xYDvwCFNmr7ctolSgiAIgiAIwr8zhhNYs+zAttGfwtmPMtrYWX1WzQEePXPMPC31nrEYa8KuojPP4QIuPesMAzOf4SUis7YOG457mkHZruAabjzrjAIzc9KHPWJ8C3dwH1kvC9Sc+4xOHcaJsdbV6t8ZalLn5cZQ1wVHZuq8PBjquviU2f4nqZArep/r66r2Oweub1q8U8q5XeRlS/2PjHxC+IZUz6IgpMYL4YwRAw==
+  </data>
+ </layer>
+ <layer name="fgr_2" width="45" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztkkEKgzAQRce90IUotcXeROmuuk1d1vtfwylYkJAGjckkpf/BQxdxeOoQAQCAHLnFVEGzDGiWQe8s2Ypt2FvELht665mt2Qt7pTTb9dZM81v7XbQS+KZlu0CzT4HmPtg+0Ox/ZNzo+uxLPvMwz9gBDrg0F94r9vGL33ki855/7rfsuwrQdYT3O5m6B8szamUspuVq+h+j4XwKzQD4ADucJjOYWBKQ
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="2" name="back" type="Trigger" x="160" y="864" width="64" height="96">
+   <properties>
+    <property name="nextMap" value="bright.tmx"/>
+   </properties>
+  </object>
+  <object id="3" name="back" type="Trigger" x="64" y="928" width="32" height="32">
+   <properties>
+    <property name="nextMap" value="bright.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

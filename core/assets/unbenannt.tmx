@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="buch-outdoor" tilewidth="16" tileheight="16" tilecount="288" columns="24">
+  <image source="tilesets/buch-outdoor.png" width="384" height="192"/>
+ </tileset>
+ <layer name="Kachelebene 1" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJwNwwc6ggEAANCfQtzAHjewIjdIw7iBEXEDIeMGWeEGkXmDEHIDsziJ977vNQVB0GzIsC222mbEdjvstMtue+y1z34HHHTIYUccdcxxo044acwp406bMGnKtDPOOue8Cy665LIZV1w165rrbphz0y23zbvjrnvuW/DAQ4889sSip555bskLLy175bU33nrnvRUffPTJqs+++GrNN9/98NMvv/2xbsNf//wH3BIsVw==
+  </data>
+ </layer>
+</map>
