@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="13">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="14">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" width="352" height="288"/>
   <tile id="141">
@@ -39,11 +39,6 @@
    eJzt1LkNgEAMBECeRnhrph6qoAp6wEQQceGhuxlpIye2ZG3TAEDdtjb3BnkMkTEyRebIEllzLvRje6U/cjsqvv1M3F5yd/Td9/zdHXrjoSvqlOqKkqW6AgAAAAAAAAAAcroAWvAHpQ==
   </data>
  </layer>
- <layer name="trg_1" width="63" height="52">
-  <data encoding="base64" compression="zlib">
-   eJzt0sEJACAMA8DqNi7rzD4comjuIP8EUgUAACRY8yZR8vY9uhv8IflDAAAAAAAAAADwogMXWAGS
-  </data>
- </layer>
  <objectgroup name="objects">
   <object id="6" name="Entry_Merchant" type="Trigger" x="176" y="192" width="32" height="32">
    <properties>
@@ -56,5 +51,6 @@
     <property name="nextMap" value="dark.tmx"/>
    </properties>
   </object>
+  <object id="13" name="PlayerSpawn" type="PlayerSpawn" x="240" y="320" width="16" height="16"/>
  </objectgroup>
 </map>
