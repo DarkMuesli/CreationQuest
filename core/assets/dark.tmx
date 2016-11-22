@@ -32,12 +32,12 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="2" name="back" type="Trigger" x="160" y="864" width="64" height="96">
+  <object id="2" name="back" type="LoadingZone" x="160" y="864" width="64" height="96">
    <properties>
     <property name="nextMap" value="bright.tmx"/>
    </properties>
   </object>
-  <object id="3" name="back" type="Trigger" x="64" y="928" width="32" height="32">
+  <object id="3" name="back" type="LoadingZone" x="64" y="928" width="32" height="32">
    <properties>
     <property name="nextMap" value="bright.tmx"/>
    </properties>

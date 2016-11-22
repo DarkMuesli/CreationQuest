@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="14">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="15">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" width="352" height="288"/>
   <tile id="141">
@@ -40,17 +40,22 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="6" name="Entry_Merchant" type="Trigger" x="176" y="192" width="32" height="32">
+  <object id="6" name="Entry_Merchant" type="LoadingZone" x="176" y="192" width="32" height="32">
    <properties>
     <property name="nextMap" value="dark.tmx"/>
    </properties>
   </object>
   <object id="11" name="Chest1" type="Object" x="512" y="256" width="16" height="16"/>
-  <object id="12" name="Entry_Merchant" type="Trigger" x="32" y="768" width="32" height="32">
+  <object id="12" name="Entry_Merchant" type="LoadingZone" x="32" y="768" width="32" height="32">
    <properties>
     <property name="nextMap" value="dark.tmx"/>
    </properties>
   </object>
   <object id="13" name="PlayerSpawn" type="PlayerSpawn" x="240" y="320" width="16" height="16"/>
+  <object id="14" name="Entry_Merchant" type="LoadingZone" x="480" y="224" width="32" height="32">
+   <properties>
+    <property name="nextMap" value="dark.tmx"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

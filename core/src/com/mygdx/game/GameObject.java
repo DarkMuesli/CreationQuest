@@ -1,10 +1,10 @@
 package com.mygdx.game;
 
-import java.awt.Point;
 import java.util.Observable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
 public abstract class GameObject extends Observable implements Disposable {
@@ -75,8 +75,8 @@ public abstract class GameObject extends Observable implements Disposable {
 		this.sprt = sprt;
 	}
 
-	public Point getCellPosition() {
-		return new Point(this.x, this.y);
+	public Vector2 getCellPosition() {
+		return new Vector2(this.x, this.y);
 	}
 
 	public void setCellPosition(int x, int y) {
@@ -84,11 +84,18 @@ public abstract class GameObject extends Observable implements Disposable {
 		this.y = y;
 	}
 
-	public Point getPixelPosition() {
-		Point pt = new Point();
+	public Vector2 getPixelPosition() {
+		Vector2 pt = new Vector2();
 		pt.x = Math.round(map.getTileWidth() * this.x);
 		pt.y = Math.round(map.getTileHeight() * this.y);
 		return pt;
+	}
+	
+	public Vector2 getPixelCenter(){
+		Vector2 ct = getPixelPosition();
+		ct.x += map.getTileWidth() / 2;
+		ct.y += map.getTileHeight() / 2;
+		return ct;
 	}
 	
 	@Override

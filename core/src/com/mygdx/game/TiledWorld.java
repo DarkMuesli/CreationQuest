@@ -10,10 +10,12 @@ import java.util.Observer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -41,7 +43,7 @@ public class TiledWorld implements Disposable, Observer {
 	private int[] triggerTileLayersIndices;
 	private int triggerTileLayersIndicesCount;
 
-	private List<MapObject> triggerObjects;
+	private List<MapObject> loadingZoneObjects;
 
 	private MapLayer objectTileLayer;
 
@@ -51,8 +53,8 @@ public class TiledWorld implements Disposable, Observer {
 		setMap(map);
 	}
 
-	public List<MapObject> getTriggerObjects() {
-		return triggerObjects;
+	public List<MapObject> getLoadingZoneObjects() {
+		return loadingZoneObjects;
 	}
 
 	public int[] getBgTileLayersIndices() {
@@ -189,7 +191,7 @@ public class TiledWorld implements Disposable, Observer {
 
 		objectTileLayer = map.getLayers().get("objects");
 
-		triggerObjects = new ArrayList<MapObject>();
+		loadingZoneObjects = new ArrayList<MapObject>();
 
 		if (objectTileLayer != null) {
 			Iterator<MapObject> objIt = objectTileLayer.getObjects().iterator();
@@ -197,8 +199,8 @@ public class TiledWorld implements Disposable, Observer {
 			while (objIt.hasNext()) {
 				MapObject mapObject = (MapObject) objIt.next();
 
-				if (mapObject.getProperties().get("type").toString().equals("Trigger")) {
-					triggerObjects.add(mapObject);
+				if (mapObject.getProperties().get("type").toString().equals("LoadingZone")) {
+					loadingZoneObjects.add(mapObject);
 				}
 			}
 		}
@@ -307,17 +309,16 @@ public class TiledWorld implements Disposable, Observer {
 
 			case PLAYER_MOVED:
 				System.out.println("Spieler hat sich bewegt!");
-				for (MapObject obj : getTriggerObjects()) {
-					Rectangle objPixelPos = new Rectangle(obj.getProperties().get("x", float.class),
-							obj.getProperties().get("y", float.class), obj.getProperties().get("width", float.class),
-							obj.getProperties().get("height", float.class));
+				for (MapObject obj : getLoadingZoneObjects()) {
+					MapProperties objProp = obj.getProperties();
 
-					Point playerPixelPos = player.getPixelPosition();
+					Rectangle objPixelPos = new Rectangle(objProp.get("x", float.class), objProp.get("y", float.class),
+							objProp.get("width", float.class), objProp.get("height", float.class));
 
-					if (playerPixelPos.x >= objPixelPos.x && playerPixelPos.x < objPixelPos.x + objPixelPos.width
-							&& playerPixelPos.y >= objPixelPos.y
-							&& playerPixelPos.y < objPixelPos.y + objPixelPos.height) {
-						setMap(new TmxMapLoader().load(obj.getProperties().get("nextMap", String.class)));
+					Vector2 playerPixelPos = player.getPixelCenter();
+
+					if (objPixelPos.contains(playerPixelPos)) {
+						setMap(new TmxMapLoader().load(objProp.get("nextMap", String.class)));
 
 						System.out.println("Neue Karte geladen!");
 
