@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Disposable;
 public class TiledWorld implements Disposable, Observer {
 
 	private TiledMap map;
+	private String mapName;
 
 	private MapRenderer mapRenderer;
 
@@ -46,15 +47,20 @@ public class TiledWorld implements Disposable, Observer {
 	private List<MapObject> loadingZoneObjects;
 
 	private MapLayer objectTileLayer;
+	private List<MapObject> playerSpawnObjects;
 
 	// Array<TiledMapObjectLayer> objectLayers;
 
-	public TiledWorld(TiledMap map) {
-		setMap(map);
+	public TiledWorld(String mapName) {
+		setMap(mapName);
 	}
 
 	public List<MapObject> getLoadingZoneObjects() {
 		return loadingZoneObjects;
+	}
+
+	public List<MapObject> getPlayerSpawnObjects() {
+		return playerSpawnObjects;
 	}
 
 	public int[] getBgTileLayersIndices() {
@@ -129,18 +135,18 @@ public class TiledWorld implements Disposable, Observer {
 		return new Point(newX, newY);
 	}
 
-	public Point getCellFromPixel(Point p) {
+	public Vector2 getCellFromPixel(Point p) {
 		return getCellFromPixel(p.x, p.y);
 	}
 
-	public Point getCellFromPixel(int x, int y) {
+	public Vector2 getCellFromPixel(int x, int y) {
 		int newX = Math.round(x / getTileWidth());
 		int newY = Math.round(y / getTileHeight());
 
-		return new Point(newX, newY);
+		return new Vector2(newX, newY);
 	}
 
-	public Point getCellFromPixel(float x, float y) {
+	public Vector2 getCellFromPixel(float x, float y) {
 		return getCellFromPixel(Math.round(x), Math.round(y));
 	}
 
@@ -178,12 +184,13 @@ public class TiledWorld implements Disposable, Observer {
 		return (map.getProperties().get("width", int.class));
 	}
 
-	public void setMap(TiledMap map) {
+	public void setMap(String mapName) {
 
 		if (this.map != null)
 			this.map.dispose();
 
-		this.map = map;
+		this.map = new TmxMapLoader().load(mapName);
+		this.mapName = mapName;
 
 		mapRenderer = new OrthogonalTiledMapRenderer(this.map);
 
@@ -192,6 +199,7 @@ public class TiledWorld implements Disposable, Observer {
 		objectTileLayer = map.getLayers().get("objects");
 
 		loadingZoneObjects = new ArrayList<MapObject>();
+		playerSpawnObjects = new ArrayList<MapObject>();
 
 		if (objectTileLayer != null) {
 			Iterator<MapObject> objIt = objectTileLayer.getObjects().iterator();
@@ -199,8 +207,16 @@ public class TiledWorld implements Disposable, Observer {
 			while (objIt.hasNext()) {
 				MapObject mapObject = (MapObject) objIt.next();
 
-				if (mapObject.getProperties().get("type").toString().equals("LoadingZone")) {
+				switch (mapObject.getProperties().get("type", String.class)) {
+				case "LoadingZone":
 					loadingZoneObjects.add(mapObject);
+					break;
+				case "PlayerSpawn":
+					playerSpawnObjects.add(mapObject);
+					System.out.println("PlayerSpawn hinzugefügt");
+					break;
+				default:
+					break;
 				}
 			}
 		}
@@ -318,17 +334,44 @@ public class TiledWorld implements Disposable, Observer {
 					Vector2 playerPixelPos = player.getPixelCenter();
 
 					if (objPixelPos.contains(playerPixelPos)) {
-						setMap(new TmxMapLoader().load(objProp.get("nextMap", String.class)));
+
+						String oldMap = mapName;
+						setMap(objProp.get("nextMap", String.class));
 
 						System.out.println("Neue Karte geladen!");
 
-						player.setCellPosition(0, 0);
+						spawnPlayer(player, oldMap);
+
 					}
 				}
 				break;
 			}
 		}
 
+	}
+
+	public void spawnPlayer(Player player, String oldMap) {
+
+		MapObject defaultSpawn = null;
+
+		for (MapObject spwnObject : playerSpawnObjects) {
+			MapProperties spwnObjProp = spwnObject.getProperties();
+
+			if (spwnObjProp.get("From", String.class).equals(oldMap)) {
+				player.setCellPosition(this.getCellFromPixel(Math.round(spwnObjProp.get("x", float.class)),
+						Math.round(spwnObjProp.get("y", float.class))));
+				return;
+			}
+
+			if (spwnObjProp.get("From", String.class).equals("Default"))
+				defaultSpawn = spwnObject;
+		}
+
+		if (defaultSpawn != null)
+			player.setCellPosition(this.getCellFromPixel(Math.round(defaultSpawn.getProperties().get("x", float.class)),
+					Math.round(defaultSpawn.getProperties().get("y", float.class))));
+		else
+			player.setCellPosition(0, 0);
 	}
 
 }

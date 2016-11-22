@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="15">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="16">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" width="352" height="288"/>
   <tile id="141">
@@ -51,10 +51,19 @@
     <property name="nextMap" value="dark.tmx"/>
    </properties>
   </object>
-  <object id="13" name="PlayerSpawn" type="PlayerSpawn" x="240" y="320" width="16" height="16"/>
+  <object id="13" name="DefaultSpawn" type="PlayerSpawn" x="240" y="320" width="16" height="16">
+   <properties>
+    <property name="From" value="Default"/>
+   </properties>
+  </object>
   <object id="14" name="Entry_Merchant" type="LoadingZone" x="480" y="224" width="32" height="32">
    <properties>
     <property name="nextMap" value="dark.tmx"/>
+   </properties>
+  </object>
+  <object id="15" name="FromDarkSpawn" type="PlayerSpawn" x="176" y="240" width="16" height="16">
+   <properties>
+    <property name="From" value="dark.tmx"/>
    </properties>
   </object>
  </objectgroup>

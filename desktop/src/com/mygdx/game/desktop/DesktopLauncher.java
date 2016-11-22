@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.title = "TestIdee";
 		config.height = 480;
 		config.width = 800;
-		config.fullscreen = true;
+//		config.fullscreen = true;
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }

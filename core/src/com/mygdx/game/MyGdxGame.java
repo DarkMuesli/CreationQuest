@@ -22,9 +22,10 @@ public class MyGdxGame extends ApplicationAdapter {
 		spriteBatch = new SpriteBatch();
 
 		// Karte Laden
-		world = new TiledWorld(new TmxMapLoader().load("bright.tmx"));
+		world = new TiledWorld("bright.tmx");
 
 		player = new Player(new Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/anims/walk-loop.gif"), world);
+		world.spawnPlayer(player, "");
 
 		// Constructs a new OrthographicCamera, using the given viewport width
 		// and height

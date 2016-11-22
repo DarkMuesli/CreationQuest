@@ -1,7 +1,10 @@
 package com.mygdx.game;
 
+import java.awt.Point;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
 
@@ -50,6 +53,10 @@ public class Player extends Entity {
 	@Override
 	public boolean isPlayer() {
 		return true;
+	}
+
+	public void setCellPosition(Vector2 pos) {
+		setCellPosition(Math.round(pos.x), Math.round(pos.y));
 	}
 
 }
