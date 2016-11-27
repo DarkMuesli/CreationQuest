@@ -50,6 +50,7 @@ public abstract class GameObject extends Observable implements Disposable {
 		this.map = map;
 
 		this.addObserver(map);
+		this.addObserver(EventManager.instance());
 	}
 
 	/**

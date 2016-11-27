@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import java.awt.Point;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

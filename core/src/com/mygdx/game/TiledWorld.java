@@ -45,6 +45,7 @@ public class TiledWorld implements Disposable, Observer {
 	private int triggerTileLayersIndicesCount;
 
 	private List<MapObject> loadingZoneObjects;
+	private List<MapObject> triggerObjects;
 
 	private MapLayer objectTileLayer;
 	private List<MapObject> playerSpawnObjects;
@@ -57,6 +58,10 @@ public class TiledWorld implements Disposable, Observer {
 
 	public List<MapObject> getLoadingZoneObjects() {
 		return loadingZoneObjects;
+	}
+
+	public List<MapObject> getTriggerObjects() {
+		return triggerObjects;
 	}
 
 	public List<MapObject> getPlayerSpawnObjects() {
@@ -120,7 +125,6 @@ public class TiledWorld implements Disposable, Observer {
 	}
 
 	public float getTileHeight() {
-
 		return (map.getProperties().get("tileheight", int.class));
 	}
 
@@ -200,6 +204,7 @@ public class TiledWorld implements Disposable, Observer {
 
 		loadingZoneObjects = new ArrayList<MapObject>();
 		playerSpawnObjects = new ArrayList<MapObject>();
+		triggerObjects = new ArrayList<MapObject>();
 
 		if (objectTileLayer != null) {
 			Iterator<MapObject> objIt = objectTileLayer.getObjects().iterator();
@@ -213,8 +218,9 @@ public class TiledWorld implements Disposable, Observer {
 					break;
 				case "PlayerSpawn":
 					playerSpawnObjects.add(mapObject);
-					System.out.println("PlayerSpawn hinzugefügt");
 					break;
+				case "Trigger":
+					triggerObjects.add(mapObject);
 				default:
 					break;
 				}
@@ -315,41 +321,6 @@ public class TiledWorld implements Disposable, Observer {
 		this.map.dispose();
 	}
 
-	@Override
-	public void update(Observable subj, Object arg) {
-		if (subj instanceof Player) {
-			Player player = (Player) subj;
-			Events event = (Events) arg;
-
-			switch (event) {
-
-			case PLAYER_MOVED:
-				System.out.println("Spieler hat sich bewegt!");
-				for (MapObject obj : getLoadingZoneObjects()) {
-					MapProperties objProp = obj.getProperties();
-
-					Rectangle objPixelPos = new Rectangle(objProp.get("x", float.class), objProp.get("y", float.class),
-							objProp.get("width", float.class), objProp.get("height", float.class));
-
-					Vector2 playerPixelPos = player.getPixelCenter();
-
-					if (objPixelPos.contains(playerPixelPos)) {
-
-						String oldMap = mapName;
-						setMap(objProp.get("nextMap", String.class));
-
-						System.out.println("Neue Karte geladen!");
-
-						spawnPlayer(player, oldMap);
-
-					}
-				}
-				break;
-			}
-		}
-
-	}
-
 	public void spawnPlayer(Player player, String oldMap) {
 
 		MapObject defaultSpawn = null;
@@ -372,6 +343,43 @@ public class TiledWorld implements Disposable, Observer {
 					Math.round(defaultSpawn.getProperties().get("y", float.class))));
 		else
 			player.setCellPosition(0, 0);
+	}
+
+	@Override
+	public void update(Observable subj, Object arg) {
+		if (subj instanceof Player) {
+			Player player = (Player) subj;
+			Events event = (Events) arg;
+
+			switch (event) {
+
+			case PLAYER_MOVED:
+				System.out.println("Spieler hat sich bewegt!");
+				for (MapObject obj : getLoadingZoneObjects()) {
+					MapProperties objProp = obj.getProperties();
+
+					Rectangle objPixelPos = new Rectangle(objProp.get("x", float.class), objProp.get("y", float.class),
+							objProp.get("width", float.class), objProp.get("height", float.class));
+
+					if (objPixelPos.contains(player.getPixelCenter())) {
+
+						String oldMap = mapName;
+						setMap(objProp.get("nextMap", String.class));
+
+						System.out.println("Neue Karte geladen!");
+
+						spawnPlayer(player, oldMap);
+
+					}
+				}
+		
+				EventManager.instance().checkTrigger(triggerObjects, player);
+				
+				break;
+			}
+
+		}
+
 	}
 
 }
