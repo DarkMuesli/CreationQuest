@@ -19,6 +19,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
+/**
+ * Class, representing the whole world, the game takes place in. Contains a
+ * reference to the current {@link TiledMap} and a lot of additional
+ * information.
+ * 
+ * @author mgadm
+ *
+ */
+/**
+ * @author mgadm
+ *
+ */
 public class TiledWorld implements Disposable, Observer {
 
 	private TiledMap map;
@@ -50,8 +62,12 @@ public class TiledWorld implements Disposable, Observer {
 	private MapLayer objectTileLayer;
 	private List<MapObject> playerSpawnObjects;
 
-	// Array<TiledMapObjectLayer> objectLayers;
-
+	/**
+	 * Instantiates a new game world, using the {@link TiledMap} in the
+	 * specified location. Only necessary once per application run.
+	 * 
+	 * @param mapName
+	 */
 	public TiledWorld(String mapName) {
 		setMap(mapName);
 	}
@@ -120,40 +136,103 @@ public class TiledWorld implements Disposable, Observer {
 		return collisionTileLayers;
 	}
 
+	/**
+	 * @return the width of a single tile of the current {@link TiledMap} in
+	 *         pixels.
+	 */
 	public float getTileWidth() {
 		return (map.getProperties().get("tilewidth", int.class));
 	}
 
+	/**
+	 * @return the height of a single tile of the current {@link TiledMap} in
+	 *         pixels.
+	 */
 	public float getTileHeight() {
 		return (map.getProperties().get("tileheight", int.class));
 	}
 
-	public Point getPixelFromCell(Point p) {
+	/**
+	 * Calculates a corresponding pixel based position to a cell based position.
+	 * 
+	 * @param p
+	 *            cell based position to transform as a {@link Point}
+	 * @return the pixel in the lower, left corner of the given cell in world
+	 *         coordinates as a {@link Vector2}
+	 */
+	public Vector2 getPixelFromCell(Point p) {
 		return getPixelFromCell(p.x, p.y);
 	}
 
-	public Point getPixelFromCell(int x, int y) {
-		int newX = Math.round(x * getTileWidth());
-		int newY = Math.round(y * getTileHeight());
-
-		return new Point(newX, newY);
-	}
-
-	public Vector2 getCellFromPixel(Point p) {
-		return getCellFromPixel(p.x, p.y);
-	}
-
-	public Vector2 getCellFromPixel(int x, int y) {
-		int newX = Math.round(x / getTileWidth());
-		int newY = Math.round(y / getTileHeight());
+	/**
+	 * Calculates a corresponding pixel based position to a cell based position.
+	 * 
+	 * @param x
+	 *            cell based x coordinate
+	 * @param y
+	 *            cell based y coordinate
+	 * @return the pixel in the lower, left corner of the given cell in world
+	 *         coordinates as a {@link Vector2}
+	 *
+	 * @return
+	 */
+	public Vector2 getPixelFromCell(int x, int y) {
+		float newX = x * getTileWidth();
+		float newY = y * getTileHeight();
 
 		return new Vector2(newX, newY);
 	}
 
-	public Vector2 getCellFromPixel(float x, float y) {
-		return getCellFromPixel(Math.round(x), Math.round(y));
+	/**
+	 * Calculates a corresponding cell based position to a pixel based position.
+	 * 
+	 * @param p
+	 *            pixel based position to transform as a {@link Vector2}
+	 * @return corresponding cell based position as a {@link Point}
+	 */
+	public Point getCellFromPixel(Vector2 p) {
+		return getCellFromPixel(p.x, p.y);
 	}
 
+	/**
+	 * Calculates a corresponding cell based position to a pixel based position.
+	 * 
+	 * @param x
+	 *            pixel based x coordinate as float
+	 * @param y
+	 *            pixel based y coordinate as float
+	 * @return corresponding cell based position as a {@link Point}
+	 */
+	public Point getCellFromPixel(float x, float y) {
+
+		float newX = x / getTileWidth();
+		float newY = y / getTileHeight();
+
+		return new Point(Math.round(newX), Math.round(newY));
+	}
+
+	/**
+	 * Calculates a corresponding cell based position to a pixel based position.
+	 * 
+	 * @param x
+	 *            pixel based x coordinate as integer
+	 * @param y
+	 *            pixel based y coordinate as integer
+	 * @return corresponding cell based position as a {@link Point}
+	 */
+	public Point getCellFromPixel(int x, int y) {
+		return getCellFromPixel((float) x, (float) y);
+	}
+
+	/**
+	 * Checks, if there is anything to collide with at a given cell based
+	 * position.
+	 * 
+	 * @param p
+	 *            cell based position to check as a {@link Point}
+	 * @return <code>true</code> if there is something to collide with at the
+	 *         given point, <code>false</code> otherwise
+	 */
 	public boolean checkCollision(Point p) {
 
 		if (p.x < 0 || p.x >= this.getMapWidth() || p.y < 0 || p.y >= this.getMapHeight()) {
@@ -168,26 +247,56 @@ public class TiledWorld implements Disposable, Observer {
 		return false;
 	}
 
+	/**
+	 * Checks, if there is anything to collide with at a given cell based
+	 * position.
+	 * 
+	 * @param x
+	 *            cell based x coordinate
+	 * @param y
+	 *            cell based y coordinate
+	 * @return <code>true</code> if there is something to collide with at the
+	 *         given point, <code>false</code> otherwise
+	 */
 	public boolean checkCollision(int x, int y) {
 		return checkCollision(new Point(x, y));
 	}
 
+	/**
+	 * @return the total width of the current map in pixels
+	 */
 	public float getMapPixelWidth() {
 		return getTileWidth() * (map.getProperties().get("width", int.class));
 	}
 
+	/**
+	 * @return the total height of the current map in pixels
+	 */
 	public float getMapPixelHeight() {
 		return getTileHeight() * (map.getProperties().get("height", int.class));
 	}
 
-	public float getMapHeight() {
-		return (map.getProperties().get("height", int.class));
-	}
-
+	/**
+	 * @return the total width of the current map in cells
+	 */
 	public float getMapWidth() {
 		return (map.getProperties().get("width", int.class));
 	}
 
+	/**
+	 * @return the total height of the current map in cells
+	 */
+	public float getMapHeight() {
+		return (map.getProperties().get("height", int.class));
+	}
+
+	/**
+	 * Loads a new map into the {@link TiledWorld}. Plenty of stuff happening
+	 * here.
+	 * 
+	 * @param mapName
+	 *            path of the map to load, relative to the assets directory.
+	 */
 	public void setMap(String mapName) {
 
 		if (this.map != null)
@@ -296,22 +405,46 @@ public class TiledWorld implements Disposable, Observer {
 		}
 	}
 
+	/**
+	 * Puts the current map in the view of the given {@link OrthographicCamera}.
+	 * 
+	 * @param cam
+	 *            {@link OrthographicCamera} to place the map in
+	 */
 	public void setMapRendererView(OrthographicCamera cam) {
 		mapRenderer.setView(cam);
 	}
 
+	/**
+	 * Render the whole map at once.
+	 */
 	public void render() {
 		mapRenderer.render();
 	}
 
+	/**
+	 * Render only the background {@link TiledMapTileLayer}s, specified in the
+	 * Tiled-software by the prefix "bgr". Render order of Tiled-software will
+	 * be maintained (bottom-up).
+	 */
 	public void renderBackgroundLayers() {
 		mapRenderer.render(bgTileLayersIndices);
 	}
 
+	/**
+	 * Render only the collision {@link TiledMapTileLayer}s, specified in the
+	 * Tiled-software by the prefix "col". Render order of Tiled-software will
+	 * be maintained (bottom-up).
+	 */
 	public void renderCollisionLayers() {
 		mapRenderer.render(collisionTileLayersIndices);
 	}
 
+	/**
+	 * Render only the foreground {@link TiledMapTileLayer}s, specified in the
+	 * Tiled-software by the prefix "fgr". Render order of Tiled-software will
+	 * be maintained (bottom-up).
+	 */
 	public void renderForegroundLayers() {
 		mapRenderer.render(fgTileLayersIndices);
 	}
@@ -321,6 +454,17 @@ public class TiledWorld implements Disposable, Observer {
 		this.map.dispose();
 	}
 
+	/**
+	 * Spawn the given Player on the map. If there's no spawn point for the
+	 * given old map, the default spawn point will be used. If there's no
+	 * default spawn, the cell 0,0 will be used instead.
+	 * 
+	 * @param player
+	 *            {@link Player} to spawn
+	 * @param oldMap
+	 *            the map, the player is coming from. Empty string or
+	 *            <code>null</code> causes default spawn.
+	 */
 	public void spawnPlayer(Player player, String oldMap) {
 
 		MapObject defaultSpawn = null;
@@ -349,7 +493,7 @@ public class TiledWorld implements Disposable, Observer {
 	public void update(Observable subj, Object arg) {
 		if (subj instanceof Player) {
 			Player player = (Player) subj;
-			Events event = (Events) arg;
+			PlayerEvents event = (PlayerEvents) arg;
 
 			switch (event) {
 
@@ -372,9 +516,9 @@ public class TiledWorld implements Disposable, Observer {
 
 					}
 				}
-		
+
 				EventManager.instance().checkTrigger(triggerObjects, player);
-				
+
 				break;
 			}
 

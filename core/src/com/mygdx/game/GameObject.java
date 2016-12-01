@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import java.awt.Point;
 import java.util.Observable;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -7,98 +8,171 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
+/**
+ * Abstract type for any Object inside the game with basic structures like
+ * position and representation.
+ * 
+ * @author mgadm
+ *
+ */
 public abstract class GameObject extends Observable implements Disposable {
 
 	protected int x;
 	protected int y;
 	protected Sprite sprt;
-	protected TiledWorld map;
+	protected TiledWorld world;
 
 	/**
-	 * Generate a new GameObject by using the given sprite at the coordinate
-	 * origin.
+	 * Generate a new GameObject using the given {@link Sprite} at the
+	 * coordinate origin.
 	 * 
 	 * @param sprt
+	 *            {@link Sprite} the {@link GameObject} will be represented by
+	 * @param world
+	 *            {@link TiledWorld} the {@link GameObject} will be present in
 	 */
-	public GameObject(Sprite sprt, TiledWorld map) {
-		this(0, 0, sprt, map);
+	public GameObject(Sprite sprt, TiledWorld world) {
+		this(0, 0, sprt, world);
 	}
 
 	/**
-	 * Generate a new GameObject by using the given sprite at the coordinate
-	 * origin.
+	 * Generate a new GameObject using the given {@link Texture} as a
+	 * {@link Sprite} at the coordinate origin.
 	 * 
-	 * @param sprt
+	 * @param tex
+	 *            {@link Texture} used as {@link Sprite} the {@link GameObject}
+	 *            will be represented by
+	 * @param world
+	 *            {@link TiledWorld} the {@link GameObject} will be present in
 	 */
-	public GameObject(Texture tex, TiledWorld map) {
-		this(0, 0, tex, map);
+	public GameObject(Texture tex, TiledWorld world) {
+		this(0, 0, tex, world);
 	}
 
 	/**
-	 * Generate a new GameObject by using the given coordinates, sprite and
-	 * movement speed.
+	 * Generate a new GameObject by using the given coordinates and
+	 * {@link Sprite}.
 	 * 
 	 * @param x
+	 *            Cell-based x coordinate
 	 * @param y
+	 *            Cell-based y coordinate
 	 * @param sprt
-	 * @param moveSpeed
+	 *            {@link Sprite} the {@link GameObject} will be represented by
+	 * @param world
+	 *            {@link TiledWorld} the {@link GameObject} will be present in
 	 */
-	public GameObject(int x, int y, Sprite sprt, TiledWorld map) {
+	public GameObject(int x, int y, Sprite sprt, TiledWorld world) {
 		this.x = x;
 		this.y = y;
 		this.sprt = sprt;
-		this.map = map;
+		this.world = world;
 
-		this.addObserver(map);
+		this.addObserver(world);
 		this.addObserver(EventManager.instance());
 	}
 
 	/**
-	 * Generate a new GameObject by using the given coordinates and texture.
+	 * Generate a new GameObject by using the given {@link Texture} as a
+	 * {@link Sprite} at the given coordinates.
 	 * 
 	 * @param x
+	 *            Cell-based x coordinate
 	 * @param y
+	 *            Cell-based y coordinate
 	 * @param tex
+	 *            {@link Texture} used as {@link Sprite} the {@link GameObject}
+	 *            will be represented by
+	 * @param world
+	 *            {@link TiledWorld} the {@link GameObject} will be present in
 	 */
-	public GameObject(int x, int y, Texture tex, TiledWorld map) {
-		this(x, y, new Sprite(tex), map);
+	public GameObject(int x, int y, Texture tex, TiledWorld world) {
+		this(x, y, new Sprite(tex), world);
 	}
 
-	public TiledWorld getMap() {
-		return map;
+	/**
+	 * @return the {@link TiledWorld}, the {@link GameObject} is present in
+	 */
+	public TiledWorld getWorld() {
+		return world;
 	}
 
+	/**
+	 * @return the {@link Sprite}, the GameObject is represented by
+	 */
 	public Sprite getSprt() {
 		return sprt;
 	}
 
+	/**
+	 * @param sprt
+	 *            the new {@link Sprite}, the {@link GameObject} will be
+	 *            represented by
+	 */
 	public void setSprt(Sprite sprt) {
 		this.sprt = sprt;
 	}
 
+	/**
+	 * @return the cell-based position of this {@link GameObject} as a
+	 *         {@link Vector2}
+	 */
 	public Vector2 getCellPosition() {
 		return new Vector2(this.x, this.y);
 	}
 
+	/**
+	 * Sets the cell-based position of this {@link GameObject} to the given
+	 * coordinates
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void setCellPosition(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * Sets the cell-based position of this {@link GameObject} to the
+	 * coordinates, specified by the x and y values of a {@link Vector2}
+	 * 
+	 * @param pos
+	 *            new position as {@link Vector2}
+	 */
+	public void setCellPosition(Point pos) {
+		setCellPosition(pos.x, pos.y);
+	}
+
+	/**
+	 * @return current pixel-based position of this {@link GameObject} as a
+	 *         {@link Vector2}. Calculated by cell-based position and its
+	 *         {@link TiledWorld}'s tile height / width in pixels.
+	 */
 	public Vector2 getPixelPosition() {
 		Vector2 pt = new Vector2();
-		pt.x = Math.round(map.getTileWidth() * this.x);
-		pt.y = Math.round(map.getTileHeight() * this.y);
+		pt.x = world.getTileWidth() * this.x;
+		pt.y = world.getTileHeight() * this.y;
 		return pt;
 	}
-	
-	public Vector2 getPixelCenter(){
+
+	/**
+	 * @return the pixel-based center of this {@link GameObject} as a
+	 *         {@link Vector2}. Calculated by its {@link TiledWorld}'s tile
+	 *         height / width in pixels.
+	 */
+	public Vector2 getPixelCenter() {
 		Vector2 ct = getPixelPosition();
-		ct.x += map.getTileWidth() / 2;
-		ct.y += map.getTileHeight() / 2;
+		ct.x += world.getTileWidth() / 2;
+		ct.y += world.getTileHeight() / 2;
 		return ct;
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.utils.Disposable#dispose()
+	 */
 	@Override
 	public void dispose() {
 		sprt.getTexture().dispose();

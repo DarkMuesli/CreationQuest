@@ -6,7 +6,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -23,7 +25,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		// Karte Laden
 		world = new TiledWorld("bright.tmx");
 
-		player = new Player(new Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/anims/walk-loop.gif"), world);
+		player = new Player(new Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/anims/walk-loop.png"), world);
 		world.spawnPlayer(player, "");
 
 		// Constructs a new OrthographicCamera, using the given viewport width
@@ -31,7 +33,6 @@ public class MyGdxGame extends ApplicationAdapter {
 		// Height is multiplied by aspect ratio.
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, 800, 480);
-
 
 	}
 
@@ -50,7 +51,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		spriteBatch.begin();
 
 		spriteBatch.draw(player.getSprt(), player.getPixelPosition().x, player.getPixelPosition().y,
-				player.getMap().getTileWidth(), player.getMap().getTileHeight());
+				player.getWorld().getTileWidth(), player.getWorld().getTileHeight());
 
 		spriteBatch.end();
 
@@ -72,12 +73,22 @@ public class MyGdxGame extends ApplicationAdapter {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
 			Gdx.app.exit();
 
-		cam.position.set(
-				Math.min(Math.max(cam.viewportWidth / 2, player.getPixelPosition().x + (world.getTileWidth() / 2)),
-						world.getMapPixelWidth() - cam.viewportWidth / 2),
-				Math.min(Math.max(cam.viewportHeight / 2, player.getPixelPosition().y + (world.getTileHeight() / 2)),
-						world.getMapPixelHeight() - cam.viewportHeight / 2),
-				0);
+		float camx, camy, camz = 0;
+
+		if (world.getMapPixelWidth() >= cam.viewportWidth)
+			camx = Math.min(Math.max(cam.viewportWidth / 2, player.getPixelCenter().x),
+					world.getMapPixelWidth() - cam.viewportWidth / 2);
+		else
+			camx = world.getMapPixelWidth() / 2;
+
+		if (world.getMapPixelHeight() >= cam.viewportHeight)
+			camy = Math.min(Math.max(cam.viewportHeight / 2, player.getPixelCenter().y),
+					world.getMapPixelHeight() - cam.viewportHeight / 2);
+		else
+			camy = world.getMapPixelHeight() / 2;
+
+		cam.position.set(camx, camy, camz);
+
 		cam.update();
 
 	}

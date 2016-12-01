@@ -40,9 +40,9 @@
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="6" name="Entry_Merchant" type="LoadingZone" x="176" y="192" width="32" height="32">
+  <object id="6" name="Entry_Blacksmith" type="LoadingZone" x="176" y="192" width="32" height="32">
    <properties>
-    <property name="nextMap" value="dark.tmx"/>
+    <property name="nextMap" value="blacksmith.tmx"/>
    </properties>
   </object>
   <object id="11" name="Chest1" type="Object" x="512" y="256" width="16" height="16"/>
@@ -51,7 +51,7 @@
     <property name="nextMap" value="dark.tmx"/>
    </properties>
   </object>
-  <object id="13" name="DefaultSpawn" type="PlayerSpawn" x="240" y="320" width="16" height="16">
+  <object id="13" name="DefaultSpawn" type="PlayerSpawn" x="224" y="400" width="16" height="16">
    <properties>
     <property name="From" value="Default"/>
    </properties>
@@ -61,9 +61,9 @@
     <property name="nextMap" value="dark.tmx"/>
    </properties>
   </object>
-  <object id="15" name="FromDarkSpawn" type="PlayerSpawn" x="176" y="240" width="16" height="16">
+  <object id="15" name="FromBlacksmithSpawn" type="PlayerSpawn" x="176" y="240" width="16" height="16">
    <properties>
-    <property name="From" value="dark.tmx"/>
+    <property name="From" value="blacksmith.tmx"/>
    </properties>
   </object>
   <object id="16" name="SoundTrigger" type="Trigger" x="512" y="432" width="16" height="16">

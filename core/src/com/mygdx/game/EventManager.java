@@ -3,7 +3,6 @@ package com.mygdx.game;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -11,14 +10,23 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Rectangle;
 
-public class EventManager implements Observer{
+/**
+ * Singleton Manager Class to handle trigger-events.
+ * 
+ * @author mgadm
+ *
+ */
+public class EventManager implements Observer {
 
 	private static EventManager instance;
-	
+
 	private EventManager() {
 	}
-	
-	public static EventManager instance(){
+
+	/**
+	 * @return the single instance of this class.
+	 */
+	public static EventManager instance() {
 		if (instance == null)
 			instance = new EventManager();
 		return instance;
@@ -27,10 +35,19 @@ public class EventManager implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof Player && arg instanceof MapObject)
-			if (((MapObject)arg).getProperties().get("type").equals("Trigger"))
+			if (((MapObject) arg).getProperties().get("type").equals("Trigger"))
 				System.out.println("Triggered");
 	}
 
+	/**
+	 * Checks all available trigger-objects on the map. If the player is inside
+	 * one, the corresponding event is fired.
+	 * 
+	 * @param triggerObjects
+	 *            {@link List} of available trigger objects
+	 * @param player
+	 *            reference to the {@link Player} instance
+	 */
 	public void checkTrigger(List<MapObject> triggerObjects, Player player) {
 		for (MapObject obj : triggerObjects) {
 			MapProperties objProp = obj.getProperties();
@@ -46,13 +63,19 @@ public class EventManager implements Observer{
 		}
 	}
 
-	public void triggerEvent(String triggerName) {
-		switch (triggerName) {
+	/**
+	 * Fires the event with the given name.
+	 * 
+	 * @param eventName
+	 *            Name of the Event to fire
+	 */
+	public void triggerEvent(String eventName) {
+		switch (eventName) {
 		case "PlayMusic":
 			System.out.println("Triggered! Jetzt wird Musik gespielt!");
 			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tng_chime_clean.mp3"));
 			long id = sound.play();
-			sound.setPitch(id,1f + ((float)Math.random() * 0.1f) - 0.05f);
+			sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
 			break;
 
 		default:
@@ -60,7 +83,5 @@ public class EventManager implements Observer{
 			break;
 		}
 	}
-	
-	
 
 }
