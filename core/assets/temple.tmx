@@ -8,46 +8,46 @@
  </tileset>
  <layer name="bgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgUB7Fo3gUE4UBsOwb5Q==
+   eJyVklEKwDAIQ0W/0vsfeAwqhFQ79/GQ0kRjqZtZbLwhLhq9iyHYuHizrgGd96sHfvRIbchZ/eqdwO+wirkTlp0ZNWvOUz33YIKqallfZUDj5RwKRHPrAfHAzt2qnFW2bpfur7w8z4IFCg==
   </data>
  </layer>
  <layer name="bgr_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAPCAPicCCOoMCMWCCOA+J4CsxIAeJUIE6jwAxqAgUgVgRiJQrMUAdiDSDWpIaD6AhkgVgOiOUpMEMFiFWBWI0qLiIMAPZPBPM=
+   eJxjYKAPCAPicCCOoNCcOCCOJ1EPCxCzAjEbFLMDcRqJZnADMQ8Q80IxH4n6QUAIiIWBWASKRckwQxKIpYBYGoplyDBjFJAPALkJA2s=
   </data>
  </layer>
  <layer name="col_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJyzZGBg8KAAWzMMLmA8wPbnDrD9gwkgx4UtEjuBCL2mWMRckNjpZLjHnQF3OmbAIwfDnkAMAEwDC30=
+   eJyzZGBg8KAAWzMMXsBPofxwAyM9PNwZ8KdlBgLynkAMAFxhCWk=
   </data>
  </layer>
  <layer name="col_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAGyD2h9JuSPxQILYDYj8GVOCPxHaA0s446BggdmXADZyQzMAFQGb4EGGGPh41yQTsgJlhBsTmONRkAXE2FOcAcS4SO5uBOL8QAsPFjBAKzYgC4mgKzTCCYicy9aMDAONVD7Y=
+   eJxjYKAcOFCo32nUjFEz6GAGNQAAIzAFFQ==
   </data>
  </layer>
  <layer name="col_2" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJzzYmBg8GYgHrhhEQsE4iASzBgOwIYAnxjgTIA/GAAsbkdiHGMDAKWZA8M=
+   eJxjYBgFo2AUEAsAAzAAAQ==
   </data>
  </layer>
  <layer name="fgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBg8QIdK5hhQyZyBBBYU6tcCYi8g9kaiSQG44iKSCL16QBxMon0DDRyJVAcAACwDMA==
+   eJxjYKA+YKRQHgQ4KJQfTGA0PIYGcCRCDQBVZABm
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="1" name="DefaultSpawn" type="PlayerSpawn" x="112" y="160" width="16" height="16">
+  <object id="1" name="DefaultSpawn" type="PlayerSpawn" x="128" y="160" width="16" height="16">
    <properties>
     <property name="From" value="Default"/>
    </properties>
   </object>
-  <object id="2" name="FromBrightSpawn" type="PlayerSpawn" x="112" y="160" width="16" height="16">
+  <object id="2" name="FromBrightSpawn" type="PlayerSpawn" x="128" y="160" width="16" height="16">
    <properties>
     <property name="From" value="bright.tmx"/>
    </properties>
   </object>
-  <object id="3" name="ToBright" type="LoadingZone" x="112" y="176" width="16" height="16">
+  <object id="3" name="ToBright" type="LoadingZone" x="128" y="176" width="16" height="16">
    <properties>
     <property name="nextMap" value="bright.tmx"/>
    </properties>

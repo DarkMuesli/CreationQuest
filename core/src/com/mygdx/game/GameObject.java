@@ -12,11 +12,14 @@ import com.badlogic.gdx.utils.Disposable;
  * Abstract type for any Object inside the game with basic structures like
  * position and representation.
  * 
- * @author mgadm
+ * @author Matthias Gross
  *
  */
 public abstract class GameObject extends Observable implements Disposable {
 
+	@SuppressWarnings("unused")
+	private static final String TAG = GameObject.class.getName();
+	
 	protected int x;
 	protected int y;
 	protected Sprite sprt;

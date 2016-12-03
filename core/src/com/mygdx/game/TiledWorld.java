@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -28,11 +29,13 @@ import com.badlogic.gdx.utils.Disposable;
  *
  */
 /**
- * @author mgadm
+ * @author Matthias Gross
  *
  */
 public class TiledWorld implements Disposable, Observer {
 
+	private static final String TAG = TiledWorld.class.getName();
+	
 	private TiledMap map;
 	private String mapName;
 
@@ -498,7 +501,7 @@ public class TiledWorld implements Disposable, Observer {
 			switch (event) {
 
 			case PLAYER_MOVED:
-				System.out.println("Spieler hat sich bewegt!");
+				
 				for (MapObject obj : getLoadingZoneObjects()) {
 					MapProperties objProp = obj.getProperties();
 
@@ -510,7 +513,7 @@ public class TiledWorld implements Disposable, Observer {
 						String oldMap = mapName;
 						setMap(objProp.get("nextMap", String.class));
 
-						System.out.println("Neue Karte geladen!");
+						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
 
 						spawnPlayer(player, oldMap);
 

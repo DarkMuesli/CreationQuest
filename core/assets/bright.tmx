@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="22">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="23">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" width="352" height="288"/>
   <tile id="141">
@@ -26,12 +26,12 @@
  </layer>
  <layer name="bgr_2" width="63" height="52">
   <data encoding="base64" compression="zlib">
-   eJzt2cENQFAQRdEfC5qgCTqhCVSgDDo2C2uJ1ZfMOcndz1tPKQAAAMCbM7pqH1HBHC1P2azR9rRXvgXgq6OpfQEAAAAAAMD/tU0pXdK/Sh+7h6Tbx9g9Jd2e0Q0bcATv
+   eJzt2TENhFAQBNAfCjBxmAAnhwkOBcgADRi9LTBAtST7XjL9TD2tAQAAUN2VXeDljsiZXSLBN7LcqWaN/O5syV0Antq77AYAAAAAAADv13etDUV/lU/sHotun2L3XHR7RX+4hQWS
   </data>
  </layer>
  <layer name="col_1" width="63" height="52">
   <data encoding="base64" compression="zlib">
-   eJztlstKw0AUhjPdaZfVZxB1K9bLzqV4fQWvr+D1EbSgj6AudeNKcCfSBle611AQ7F6LO/EPTPAwpiaNaabJOR98zATOSeYn4RDHEQRBEARB4MUkrMIpOA1n4KzVE2XHAlyES3AZrsBVqyfKjjW4DjfgJtyC21ZPlB07cJdcH8BDS2fJmmNYI9cn8PSP+qOI+/nzI5gdRZkbt3o9i6i7hHtwH1719ETxqMMGWV1j/xBS62qDviejj9Y9kv47sr9PP0rXPMMXsnrGvhlS62mDvpbRR+veOjz3JuUcSXiHH2RtG/vPkNq2Nuj7Mvpo3WvMc0TNil4woBxnUP2sZWM/oX7XlrX+vgKH4LAKv9e86vxsStSs6EdGkW0MjsfMWDRGUsg9V/r/PWyQRnYhf3B+75KdJ16CGZ3XuW6SJLtPEfIH2Sv6/y4ORcjt4yJHo8Tz/y7pN18Erhln5/zeOWev5zj7uereC2bznFKT7CyR7DyR7DyR7Dzhmp37f50gCILQ33wDwRlqVg==
+   eJztlrtKxEAUhjPb6ZarzyBqK147S/H6Cl5fwesj6II+glpqYyXYiewGK+01CIL2utiJf2CChzHrzsZczJzzwcdM4JxkfhIO8TxBEARBEARejMIxOA4n4CScKvRE+TEL5+A8XICLcKnQE+XHMlyBq3ANrsONQk+UH5twi1zvwr2CzpI3B7BOrg/h0S/1+x3uF86PaHa4MjeuLOvO4DbcgefZHceaBmyS1Tf2tzG1vjbquzf6aN0d6b8m+5v0o3TNA3wka2Dsn2JqA23U92r00bqXNs+9TDlHEt7gO1lbxv4jpraljfo+jT5a92x5jk6zIgt6lOf1qu+1auxH1M/aqjbc12Af7Ffx95pR7Z9NOc4mXqYMItsQHLbM6BoDKeServz9HkWQRnahfHB+75KdJ0GCGV3WuW6SJHuIC/mj7DX9f2eDC7lDfORoVnj+3yX95l3ggnF2zu+dc/ZGibOfqO49ZTbPKXXJzhLJzhPJzhPJzhOu2bn/1wmCIAj/my8kBGmz
   </data>
  </layer>
  <layer name="fgr_1" width="63" height="52">
@@ -56,12 +56,12 @@
     <property name="From" value="Default"/>
    </properties>
   </object>
-  <object id="14" name="Entry_Merchant" type="LoadingZone" x="480" y="224" width="32" height="32">
+  <object id="14" name="Entry_Temple" type="LoadingZone" x="480" y="224" width="32" height="32">
    <properties>
-    <property name="nextMap" value="dark.tmx"/>
+    <property name="nextMap" value="temple.tmx"/>
    </properties>
   </object>
-  <object id="15" name="FromBlacksmithSpawn" type="PlayerSpawn" x="176" y="240" width="16" height="16">
+  <object id="15" name="FromBlacksmithSpawn" type="PlayerSpawn" x="176" y="224" width="16" height="16">
    <properties>
     <property name="From" value="blacksmith.tmx"/>
    </properties>
@@ -74,6 +74,11 @@
   <object id="19" name="DefaultTrigger" type="Trigger" x="320" y="288" width="32" height="64">
    <properties>
     <property name="Trigger" value="Default"/>
+   </properties>
+  </object>
+  <object id="22" name="FromTempleSpawn" type="PlayerSpawn" x="480" y="256" width="16" height="16">
+   <properties>
+    <property name="From" value="temple.tmx"/>
    </properties>
   </object>
  </objectgroup>

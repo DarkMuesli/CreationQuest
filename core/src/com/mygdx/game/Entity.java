@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Abstract type for all entities, as in "living things". Characterized by being
  * able to move and/or interact with.
  * 
- * @author mgadm
+ * @author Matthias Gross
  *
  */
 public abstract class Entity extends GameObject {
+
+	@SuppressWarnings("unused")
+	private static final String TAG = Entity.class.getName();
 
 	/**
 	 * The movement speed of the {@link Entity}, 1 meaning 100% or "normal"
@@ -138,6 +141,8 @@ public abstract class Entity extends GameObject {
 	 *         <code>false</code> otherwise (e.g. when collision happened).
 	 */
 	public boolean move(Direction dir) {
+		facing = dir;
+
 		switch (dir) {
 		case UP:
 			if (!world.checkCollision(x, y + 1)) {
@@ -186,5 +191,17 @@ public abstract class Entity extends GameObject {
 	 * @return <code>true</code>, if this {@link Entity} is the player character
 	 */
 	public abstract boolean isPlayer();
+
+	/**
+	 * Starts an interaction with the {@link GameObject}, this {@link Entity} is
+	 * currently facing.
+	 * 
+	 * @return <code>true</code>, if the interaction did happen,
+	 *         <code>false</code> otherwise.
+	 */
+	public boolean interactWithFacing() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

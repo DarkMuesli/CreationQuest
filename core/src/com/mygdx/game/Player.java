@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Main character class, instantiated and managed by {@link TiledWorld}.
  * 
  * 
- * @author Matthias Groﬂ
+ * @author Matthias Gross
  *
  */
 public class Player extends Entity {
 
+	@SuppressWarnings("unused")
+	private static final String TAG = Player.class.getName();
+	
 	/**
 	 * Instantiates a {@link Player} with the given coordinates, movement speed,
 	 * {@link Direction} to face, {@link Sprite} to be represented by and
@@ -104,6 +107,8 @@ public class Player extends Entity {
 	 */
 	@Override
 	public boolean move(Direction dir) {
+//		if (facing != dir)
+			
 		boolean hasMoved = super.move(dir);
 		if (hasMoved) {
 			this.setChanged();

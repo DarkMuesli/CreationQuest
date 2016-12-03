@@ -1,14 +1,13 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.commands.Command;
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -19,6 +18,8 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 		spriteBatch = new SpriteBatch();
 
@@ -58,20 +59,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		world.renderCollisionLayers();
 		world.renderForegroundLayers();
 
-		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)
-				|| (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.SPACE)))
-			player.move(Direction.LEFT);
-		if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)
-				|| (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SPACE)))
-			player.move(Direction.RIGHT);
-		if (Gdx.input.isKeyJustPressed(Input.Keys.UP)
-				|| (Gdx.input.isKeyPressed(Input.Keys.UP) && Gdx.input.isKeyPressed(Input.Keys.SPACE)))
-			player.move(Direction.UP);
-		if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)
-				|| (Gdx.input.isKeyPressed(Input.Keys.DOWN) && Gdx.input.isKeyPressed(Input.Keys.SPACE)))
-			player.move(Direction.DOWN);
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
-			Gdx.app.exit();
+		for (Command c : InputHandler.instance().handleInput()) {
+			if (c != null) {
+				c.execute(player);
+			}
+		}
 
 		float camx, camy, camz = 0;
 

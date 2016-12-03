@@ -13,12 +13,14 @@ import com.badlogic.gdx.math.Rectangle;
 /**
  * Singleton Manager Class to handle trigger-events.
  * 
- * @author mgadm
+ * @author Matthias Gross
  *
  */
 public class EventManager implements Observer {
 
-	private static EventManager instance;
+	private static final String TAG = EventManager.class.getName();
+	
+	private static final EventManager instance = new EventManager();
 
 	private EventManager() {
 	}
@@ -27,8 +29,6 @@ public class EventManager implements Observer {
 	 * @return the single instance of this class.
 	 */
 	public static EventManager instance() {
-		if (instance == null)
-			instance = new EventManager();
 		return instance;
 	}
 
@@ -36,7 +36,7 @@ public class EventManager implements Observer {
 	public void update(Observable o, Object arg) {
 		if (o instanceof Player && arg instanceof MapObject)
 			if (((MapObject) arg).getProperties().get("type").equals("Trigger"))
-				System.out.println("Triggered");
+				Gdx.app.log(TAG, "Triggered: " + ((MapObject) arg).getProperties().get("Trigger"));
 	}
 
 	/**
@@ -72,14 +72,14 @@ public class EventManager implements Observer {
 	public void triggerEvent(String eventName) {
 		switch (eventName) {
 		case "PlayMusic":
-			System.out.println("Triggered! Jetzt wird Musik gespielt!");
+			Gdx.app.log(TAG, "Triggered! Jetzt wird Musik gespielt! Event: " + eventName);
 			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tng_chime_clean.mp3"));
 			long id = sound.play();
 			sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
 			break;
 
 		default:
-			System.out.println("Keine Musik...");
+			Gdx.app.log(TAG,"Keine Musik... Event: " + eventName);
 			break;
 		}
 	}
