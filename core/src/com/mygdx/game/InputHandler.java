@@ -11,7 +11,6 @@ import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.mygdx.game.commands.Command;
 
 /**
  * @author Matthias Gross
@@ -39,33 +38,17 @@ public class InputHandler {
 
 		// Adding Continuous commands
 
-		
-		
 		// Adding one-time commands
-		mapOnceCommand(CommandsEnum.MOVE_DOWN, (e) -> {
-			e.move(Direction.DOWN);
-		});
-		mapOnceCommand(CommandsEnum.MOVE_UP, (e) -> {
-			e.move(Direction.UP);
-		});
-		mapOnceCommand(CommandsEnum.MOVE_LEFT, (e) -> {
-			e.move(Direction.LEFT);
-		});
-		mapOnceCommand(CommandsEnum.MOVE_RIGHT, (e) -> {
-			e.move(Direction.RIGHT);
-		});
-		
-		
+		mapOnceCommand(CommandsEnum.MOVE_DOWN, e -> e.move(Direction.DOWN));
+		mapOnceCommand(CommandsEnum.MOVE_UP, e -> e.move(Direction.UP));
+		mapOnceCommand(CommandsEnum.MOVE_LEFT, e -> e.move(Direction.LEFT));
+		mapOnceCommand(CommandsEnum.MOVE_RIGHT, e -> e.move(Direction.RIGHT));
 
-		mapOnceCommand(CommandsEnum.DO_NOTHING, (e) -> {
-		});
-		mapOnceCommand(CommandsEnum.TESTOUTPUT, (e) -> {
-			Gdx.app.log(TAG, "Testing Lambdas");
-		});
-		mapOnceCommand(CommandsEnum.INTERACT, (e) -> {
-			e.interactWithFacing();
-		});
+		mapOnceCommand(CommandsEnum.DO_NOTHING, e -> {} );
+		mapOnceCommand(CommandsEnum.TESTOUTPUT, e -> Gdx.app.log(TAG, "Testing Lambdas"));
+		mapOnceCommand(CommandsEnum.INTERACT, e -> e.interactWithFacing());
 		mapOnceCommand(CommandsEnum.EXIT, (e) -> {
+			Gdx.app.log(TAG, "Spiel wurde durch ESC beendet.");
 			Gdx.app.exit();
 		});
 
@@ -100,11 +83,17 @@ public class InputHandler {
 		List<Command> list = new ArrayList<Command>();
 
 		for (Map.Entry<Integer, CommandsEnum> entry : keyMap.entrySet()) {
-			if (Gdx.input.isKeyJustPressed(entry.getKey()))
-				list.add(commandOnceMap.get(entry.getValue()));
+			if (Gdx.input.isKeyJustPressed(entry.getKey())) {
+				Command c = commandOnceMap.get(entry.getValue());
+				if (c != null)
+					list.add(commandOnceMap.get(entry.getValue()));
+			}
+			if (Gdx.input.isKeyPressed(entry.getKey())) {
+				Command c = commandContMap.get(entry.getValue());
+				if (c != null)
+					list.add(commandContMap.get(entry.getValue()));
 
-			if (Gdx.input.isKeyPressed(entry.getKey()))
-				list.add(commandContMap.get(entry.getValue()));
+			}
 		}
 
 		// Debugging Controls

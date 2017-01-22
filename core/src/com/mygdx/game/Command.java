@@ -1,9 +1,7 @@
 /**
  * 
  */
-package com.mygdx.game.commands;
-
-import com.mygdx.game.Entity;
+package com.mygdx.game;
 
 /**
  * This interface provides the single method {@link Command#execute()}, needed

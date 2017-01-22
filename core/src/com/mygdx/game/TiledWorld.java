@@ -2,13 +2,20 @@ package com.mygdx.game;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -25,19 +32,27 @@ import com.badlogic.gdx.utils.Disposable;
  * reference to the current {@link TiledMap} and a lot of additional
  * information.
  * 
- * @author mgadm
- *
- */
-/**
  * @author Matthias Gross
  *
  */
-public class TiledWorld implements Disposable, Observer {
+
+public class TiledWorld implements Disposable, Observer, Screen {
 
 	private static final String TAG = TiledWorld.class.getName();
-	
+
+	private Game game;
+
+	private float lag;
 	private TiledMap map;
 	private String mapName;
+
+	private Player player;
+
+	private SpriteBatch spriteBatch;
+	private OrthographicCamera cam;
+
+	private List<Entity> entityList;
+	private List<Entity> newEntityList;
 
 	private MapRenderer mapRenderer;
 
@@ -71,8 +86,20 @@ public class TiledWorld implements Disposable, Observer {
 	 * 
 	 * @param mapName
 	 */
-	public TiledWorld(String mapName) {
+	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, Game game) {
+		entityList = new ArrayList<Entity>();
+		newEntityList = new ArrayList<Entity>();
+		this.cam = cam;
+		this.spriteBatch = spriteBatch;
+		this.game = game;
+		// player = new Player(new
+		// Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/anims/walk-loop.png"),
+		// this);
+		// entityList.add(player);
+
 		setMap(mapName);
+
+		// spawnPlayer(player, "");
 	}
 
 	public List<MapObject> getLoadingZoneObjects() {
@@ -247,6 +274,10 @@ public class TiledWorld implements Disposable, Observer {
 				return true;
 			}
 		}
+		for (Entity entity : entityList) {
+			if (entity.getCellPosition().equals(p))
+				return true;
+		}
 		return false;
 	}
 
@@ -330,6 +361,15 @@ public class TiledWorld implements Disposable, Observer {
 					break;
 				case "PlayerSpawn":
 					playerSpawnObjects.add(mapObject);
+					break;
+				case "PlayerCreate":
+					if (player == null) {
+						player = Player.createPlayer(mapObject, this);
+						entityList.add(player);
+					}
+					break;
+				case "NPCCreate":
+					newEntityList.add(NPC.createNPC(mapObject, this));
 					break;
 				case "Trigger":
 					triggerObjects.add(mapObject);
@@ -421,7 +461,7 @@ public class TiledWorld implements Disposable, Observer {
 	/**
 	 * Render the whole map at once.
 	 */
-	public void render() {
+	public void renderMap() {
 		mapRenderer.render();
 	}
 
@@ -450,11 +490,6 @@ public class TiledWorld implements Disposable, Observer {
 	 */
 	public void renderForegroundLayers() {
 		mapRenderer.render(fgTileLayersIndices);
-	}
-
-	@Override
-	public void dispose() {
-		this.map.dispose();
 	}
 
 	/**
@@ -501,7 +536,7 @@ public class TiledWorld implements Disposable, Observer {
 			switch (event) {
 
 			case PLAYER_MOVED:
-				
+
 				for (MapObject obj : getLoadingZoneObjects()) {
 					MapProperties objProp = obj.getProperties();
 
@@ -510,7 +545,14 @@ public class TiledWorld implements Disposable, Observer {
 
 					if (objPixelPos.contains(player.getPixelCenter())) {
 
+						Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/door.wav"));
+						long id = sound.play();
+						sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
+
 						String oldMap = mapName;
+
+						newEntityList.clear();
+						newEntityList.add(player);
 						setMap(objProp.get("nextMap", String.class));
 
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
@@ -527,6 +569,120 @@ public class TiledWorld implements Disposable, Observer {
 
 		}
 
+	}
+
+	public void drawEntities(SpriteBatch spriteBatch) {
+		entityList.forEach(e -> e.draw(spriteBatch));
+	}
+
+	public void draw(SpriteBatch spriteBatch, OrthographicCamera cam) {
+
+		updateCam(cam);
+
+		spriteBatch.setProjectionMatrix(cam.combined);
+
+		renderBackgroundLayers();
+		renderCollisionLayers();
+
+		spriteBatch.begin();
+		drawEntities(spriteBatch);
+		spriteBatch.end();
+
+		renderForegroundLayers();
+
+		setMapRendererView(cam);
+
+	}
+
+	public void updateCam(OrthographicCamera cam) {
+		float camx, camy, camz = 0;
+
+		if (getMapPixelWidth() >= cam.viewportWidth)
+			camx = Math.min(Math.max(cam.viewportWidth / 2, player.getPixelCenter().x),
+					getMapPixelWidth() - cam.viewportWidth / 2);
+		else
+			camx = getMapPixelWidth() / 2;
+
+		if (getMapPixelHeight() >= cam.viewportHeight)
+			camy = Math.min(Math.max(cam.viewportHeight / 2, player.getPixelCenter().y),
+					getMapPixelHeight() - cam.viewportHeight / 2);
+		else
+			camy = getMapPixelHeight() / 2;
+
+		cam.position.set(camx, camy, camz);
+
+		cam.update();
+	}
+
+	public void update() {
+		newEntityList.addAll(entityList);
+
+		entityList.forEach(e -> e.update());
+
+		entityList.clear();
+		entityList.addAll(newEntityList);
+		newEntityList.clear();
+
+		entityList.sort((e1, e2) -> {
+			if (e1.getCellPosition().y == e2.getCellPosition().y)
+				return 0;
+			else if (e1.getCellPosition().y < e2.getCellPosition().y)
+				return 1;
+			else
+				return -1;
+		});
+	}
+
+	@Override
+	public void dispose() {
+		map.dispose();
+		entityList.forEach(e -> e.dispose());
+	}
+
+	@Override
+	public void show() {
+		spriteBatch.setColor(Color.WHITE);
+		((OrthogonalTiledMapRenderer) mapRenderer).getBatch().setColor(Color.WHITE);
+	}
+
+	@Override
+	public void render(float delta) {
+
+		lag += Gdx.graphics.getDeltaTime();
+
+		while (lag >= Constants.MS_PER_UPDATE) {
+			update();
+			lag -= Constants.MS_PER_UPDATE;
+		}
+
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		draw(spriteBatch, cam);
+
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void hide() {
+		spriteBatch.setColor(Color.GRAY);
+		((OrthogonalTiledMapRenderer) mapRenderer).getBatch().setColor(Color.GRAY);
 	}
 
 }

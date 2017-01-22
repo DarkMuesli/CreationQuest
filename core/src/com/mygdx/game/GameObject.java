@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -120,8 +121,8 @@ public abstract class GameObject extends Observable implements Disposable {
 	 * @return the cell-based position of this {@link GameObject} as a
 	 *         {@link Vector2}
 	 */
-	public Vector2 getCellPosition() {
-		return new Vector2(this.x, this.y);
+	public Point getCellPosition() {
+		return new Point(this.x, this.y);
 	}
 
 	/**
@@ -179,5 +180,14 @@ public abstract class GameObject extends Observable implements Disposable {
 	@Override
 	public void dispose() {
 		sprt.getTexture().dispose();
+	}
+
+	public void update() {
+
+	}
+
+	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.draw(getSprt(), getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
+				getSprt().getHeight() * getWorld().getTileWidth() / getSprt().getWidth());
 	}
 }

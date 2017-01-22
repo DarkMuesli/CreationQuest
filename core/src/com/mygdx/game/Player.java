@@ -1,7 +1,11 @@
 package com.mygdx.game;
 
+import java.awt.Point;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * Main character class, instantiated and managed by {@link TiledWorld}.
@@ -14,7 +18,7 @@ public class Player extends Entity {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = Player.class.getName();
-	
+
 	/**
 	 * Instantiates a {@link Player} with the given coordinates, movement speed,
 	 * {@link Direction} to face, {@link Sprite} to be represented by and
@@ -107,8 +111,8 @@ public class Player extends Entity {
 	 */
 	@Override
 	public boolean move(Direction dir) {
-//		if (facing != dir)
-			
+		// if (facing != dir)
+
 		boolean hasMoved = super.move(dir);
 		if (hasMoved) {
 			this.setChanged();
@@ -138,6 +142,22 @@ public class Player extends Entity {
 	@Override
 	public boolean isPlayer() {
 		return true;
+	}
+
+	@Override
+	public void update() {
+		List<Command> coml = InputHandler.instance().handleInput();
+		for (Command c : coml) {
+			c.execute(this);
+		}
+	}
+
+	public static Player createPlayer(MapObject mapObject, TiledWorld world) {
+		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
+		float pixx = mapObject.getProperties().get("x", float.class);
+		float pixy = mapObject.getProperties().get("y", float.class);
+		Point pos = world.getCellFromPixel(pixx, pixy);
+		return new Player(pos.x, pos.y, tex, world);
 	}
 
 }

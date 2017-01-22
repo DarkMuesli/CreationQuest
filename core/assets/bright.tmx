@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="23">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="63" height="52" tilewidth="16" tileheight="16" nextobjectid="25">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" width="352" height="288"/>
   <tile id="141">
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="16" height="16"/>
    </objectgroup>
-  </tile>
-  <tile id="193">
-   <animation>
-    <frame tileid="253" duration="100"/>
-    <frame tileid="231" duration="100"/>
-    <frame tileid="230" duration="100"/>
-    <frame tileid="229" duration="100"/>
-   </animation>
   </tile>
  </tileset>
  <tileset firstgid="397" name="transparent-bg-tiles" tilewidth="16" tileheight="16" tilecount="396" columns="22">
@@ -79,6 +71,16 @@
   <object id="22" name="FromTempleSpawn" type="PlayerSpawn" x="480" y="256" width="16" height="16">
    <properties>
     <property name="From" value="temple.tmx"/>
+   </properties>
+  </object>
+  <object id="23" name="SpawnWarrior" type="PlayerCreate" x="240" y="320" width="16" height="16">
+   <properties>
+    <property name="atlasHeight" type="int" value="4"/>
+    <property name="atlasWidth" type="int" value="3"/>
+    <property name="idle" type="int" value="2"/>
+    <property name="path" value="tilesets\characters\rpgsprites1\warrior.png"/>
+    <property name="upEnd" type="int" value="3"/>
+    <property name="upStart" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>

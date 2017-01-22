@@ -21,6 +21,7 @@ public class EventManager implements Observer {
 	private static final String TAG = EventManager.class.getName();
 	
 	private static final EventManager instance = new EventManager();
+	private MyGdxGame game;
 
 	private EventManager() {
 	}
@@ -30,6 +31,10 @@ public class EventManager implements Observer {
 	 */
 	public static EventManager instance() {
 		return instance;
+	}
+	
+	public static void setGame(MyGdxGame game){
+		instance().game = game;
 	}
 
 	@Override
@@ -76,6 +81,8 @@ public class EventManager implements Observer {
 			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tng_chime_clean.mp3"));
 			long id = sound.play();
 			sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
+			if(game.getScreen() != game.getWorld())  game.setToWorld(); else game.setToDialog();
+				
 			break;
 
 		default:

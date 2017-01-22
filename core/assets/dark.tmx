@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="45" height="32" tilewidth="32" tileheight="32" nextobjectid="6">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="45" height="32" tilewidth="32" tileheight="32" nextobjectid="7">
  <tileset firstgid="1" name="town_forest_tiles" tilewidth="32" tileheight="32" tilecount="110" columns="10">
   <image source="tilesets/town_forest_tiles.png" width="320" height="352"/>
   <terraintypes>
@@ -8,7 +8,7 @@
  </tileset>
  <layer name="bgr_1" width="45" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzjEKACAMBLDDTfr//7r0C6LQDNlTSQoAoK32+gGT7Q8OE84AANx3AKYNPcs=
+   eJztwzENAAAMBKHb37/fmugICaumqqqqqqrPD9MIPeE=
   </data>
  </layer>
  <layer name="bgr_2" width="45" height="32">
@@ -18,17 +18,17 @@
  </layer>
  <layer name="bgr_3" width="45" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt0aERAAAIAzE2Y/+tmABbEIl62btWAQAAkNLXAyCglybHB8AXA4O9ATw=
+   eJzt0cEJADAIBEFJY/bfVSoQ8tIIM697LlwEAADAuzMdsFxOB0CDLDZ9fAD84gKYNQE+
   </data>
  </layer>
  <layer name="col_1" width="45" height="32">
   <data encoding="base64" compression="zlib">
-   eJztkz0LwjAUReM3Doo6+TGpozqqk4KTiqN1s///b3gLDYT4YhJ5xYDvwCFNmr7ctolSgiAIgiAIwr8zhhNYs+zAttGfwtmPMtrYWX1WzQEePXPMPC31nrEYa8KuojPP4QIuPesMAzOf4SUis7YOG457mkHZruAabjzrjAIzc9KHPWJ8C3dwH1kvC9Sc+4xOHcaJsdbV6t8ZalLn5cZQ1wVHZuq8PBjquviU2f4nqZArep/r66r2Oweub1q8U8q5XeRlS/2PjHxC+IZUz6IgpMYL4YwRAw==
+   eJztk8sOgjAQRcf4iguN0Y2PT1CX6ieoa3En//8bTBNImnGgpRqYxHuSk9JS4NJpiQAAAAAAwL+zYbfsQDhlJ15/x+57yiiRWUNawM8zps+MbmzEzqibzDf2HphTt5bDhnuOZdke2CN7CnxnFZ36dyzYuTJ+Zi/steX7skj9ue/WqbvnIfrPXlJ8R0rmtehr5+WVFieKpsyyJlbISd/n1bXl/V63pu6ftNxWa1CRl61Wj0x9AqRgfR8AYIUCKYwPZA==
   </data>
  </layer>
  <layer name="fgr_2" width="45" height="32">
   <data encoding="base64" compression="zlib">
-   eJztkkEKgzAQRce90IUotcXeROmuuk1d1vtfwylYkJAGjckkpf/BQxdxeOoQAQCAHLnFVEGzDGiWQe8s2Ypt2FvELht665mt2Qt7pTTb9dZM81v7XbQS+KZlu0CzT4HmPtg+0Ox/ZNzo+uxLPvMwz9gBDrg0F94r9vGL33ki855/7rfsuwrQdYT3O5m6B8szamUspuVq+h+j4XwKzQD4ADucJjOYWBKQ
+   eJztk0sKgzAURdMVFActtWJBXYdix87UYd3/NryCgkj8lL6nKd4DhzgIjxNMjCGEEELIWbnBOwzh6+CWNYbWB/ThEwbGzfZp62XiXHu+ayWRJoWZ0uxrv0YwhsnKfk+pgyxTb3S896PU8laa21EJzLC9l0Jg7hwSzXvzj82Nsd/z4XvLfS8Vun6hO9O377QceRRNv9r+R23Z70IzIRLwDrtJC8sOETc=
   </data>
  </layer>
  <objectgroup name="objects">
@@ -50,6 +50,11 @@
   <object id="5" name="FromBrightSpawn" type="PlayerSpawn" x="352" y="928" width="32" height="32">
    <properties>
     <property name="From" value="bright.tmx"/>
+   </properties>
+  </object>
+  <object id="6" name="ToTemple" type="LoadingZone" x="640" y="544" width="32" height="32">
+   <properties>
+    <property name="nextMap" value="temple.tmx"/>
    </properties>
   </object>
  </objectgroup>

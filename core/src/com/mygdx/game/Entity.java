@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Abstract type for all entities, as in "living things". Characterized by being
@@ -11,6 +12,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  *
  */
 public abstract class Entity extends GameObject {
+
+	enum State {
+		IDLE, MOVING
+	}
+
+	private State state;
+
+	Texture sheet;
+	TextureRegion[] frames;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = Entity.class.getName();
@@ -85,6 +95,17 @@ public abstract class Entity extends GameObject {
 	 */
 	public Entity(int x, int y, Texture tex, TiledWorld world) {
 		this(x, y, new Sprite(tex), world);
+
+		//TODO: FIX THIS
+		
+		sheet = tex;
+		TextureRegion[][] tmp = TextureRegion.split(sheet, 28, 36);
+		frames = new TextureRegion[4];
+		int index = 0;
+		for (int i = 0; i < 4; i++) {
+				frames[index++] = tmp[i][0];
+		}
+
 	}
 
 	/**
@@ -113,6 +134,21 @@ public abstract class Entity extends GameObject {
 	 */
 	public Entity(Texture tex, TiledWorld world) {
 		this(0, 0, new Sprite(tex), world);
+	}
+
+	/**
+	 * @return the state
+	 */
+	public State getState() {
+		return state;
+	}
+
+	/**
+	 * @param state
+	 *            the state to set
+	 */
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	/**
@@ -202,6 +238,22 @@ public abstract class Entity extends GameObject {
 	public boolean interactWithFacing() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Sprite getSprt() {
+		switch (facing) {
+		case DOWN:
+			return new Sprite(frames[2]);
+		case LEFT:
+			return new Sprite(frames[3]);
+		case UP:
+			return new Sprite(frames[0]);
+		case RIGHT:
+			return new Sprite(frames[1]);
+		default:
+			return new Sprite(frames[2]);
+		}
 	}
 
 }
