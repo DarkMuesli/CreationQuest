@@ -85,12 +85,14 @@ public class InputHandler {
 		for (Map.Entry<Integer, CommandsEnum> entry : keyMap.entrySet()) {
 			if (Gdx.input.isKeyJustPressed(entry.getKey())) {
 				Command c = commandOnceMap.get(entry.getValue());
-				if (c != null)
+				//TODO: GENAUERE ABFRAGE FÜR MEHRFACHSCHRITTE
+				if ((c != null) && (!list.contains(c)))
 					list.add(commandOnceMap.get(entry.getValue()));
 			}
 			if (Gdx.input.isKeyPressed(entry.getKey())) {
 				Command c = commandContMap.get(entry.getValue());
-				if (c != null)
+				//TODO: GENAUERE ABFRAGE FÜR MEHRFACHSCHRITTE
+				if ((c != null) && (!list.contains(c)))
 					list.add(commandContMap.get(entry.getValue()));
 
 			}
