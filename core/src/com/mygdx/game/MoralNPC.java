@@ -50,7 +50,7 @@ public class MoralNPC extends NPC {
 				String[] word = parts[i].split("\\r?\\n");
 				wordLists.add(new ArrayList<String>());
 				for (int j = 0; j < word.length; j++) {
-					wordLists.get(i).add(word[j].trim());
+					if (!word[j].isEmpty()) wordLists.get(i).add(word[j].trim());
 				}
 			}
 
