@@ -123,16 +123,7 @@ public class Player extends Entity {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.mygdx.game.Entity#interact(com.mygdx.game.GameObject)
-	 */
-	@Override
-	public boolean interactWith(GameObject obj) {
-		// TODO: implement interaction
-		return false;
-	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -158,6 +149,12 @@ public class Player extends Entity {
 		float pixy = mapObject.getProperties().get("y", float.class);
 		Point pos = world.getCellFromPixel(pixx, pixy);
 		return new Player(pos.x, pos.y, tex, world);
+	}
+
+	@Override
+	public boolean onInteract(GameObject obj) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

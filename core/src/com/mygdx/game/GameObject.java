@@ -187,7 +187,11 @@ public abstract class GameObject extends Observable implements Disposable {
 	}
 
 	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.begin();
 		spriteBatch.draw(getSprt(), getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
 				getSprt().getHeight() * getWorld().getTileWidth() / getSprt().getWidth());
+		spriteBatch.end();
 	}
+		
+	public abstract boolean onInteract(GameObject obj);
 }

@@ -64,13 +64,6 @@ public class NPC extends Entity {
 		super(tex, world);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mygdx.game.Entity#interactWith(com.mygdx.game.GameObject)
-	 */
-	@Override
-	public boolean interactWith(GameObject obj) {
-		return false;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.mygdx.game.Entity#isPlayer()
@@ -86,6 +79,20 @@ public class NPC extends Entity {
 		float pixy = mapObject.getProperties().get("y", float.class);
 		Point pos = tiledWorld.getCellFromPixel(pixx, pixy);
 		return new NPC(pos.x, pos.y, tex, tiledWorld);
+	}
+	
+	public static Entity createMoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
+		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
+		float pixx = mapObject.getProperties().get("x", float.class);
+		float pixy = mapObject.getProperties().get("y", float.class);
+		Point pos = tiledWorld.getCellFromPixel(pixx, pixy);
+		return new MoralNPC(pos.x, pos.y, tex, tiledWorld);
+	}
+
+	@Override
+	public boolean onInteract(GameObject obj) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.awt.Point;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -221,7 +223,9 @@ public abstract class Entity extends GameObject {
 	 * @return <code>true</code>, if the interaction did happen,
 	 *         <code>false</code> otherwise.
 	 */
-	public abstract boolean interactWith(GameObject obj);
+	public boolean interact(GameObject obj){
+		return obj.onInteract(this);
+	}
 
 	/**
 	 * @return <code>true</code>, if this {@link Entity} is the player character
@@ -236,7 +240,27 @@ public abstract class Entity extends GameObject {
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean interactWithFacing() {
-		// TODO Auto-generated method stub
+		Point facingCell = getCellPosition();
+		switch (facing) {
+		case UP:
+			facingCell.y += 1;
+			break;
+		case DOWN:
+			facingCell.y -= 1;
+			break;
+		case RIGHT:
+			facingCell.x += 1;
+			break;
+		case LEFT:
+			facingCell.x -= 1;
+			break;
+		}
+		
+		for(Entity e : world.getEntityList())
+		{
+			if(e.getCellPosition().equals(facingCell))
+				return interact(e);
+		}
 		return false;
 	}
 

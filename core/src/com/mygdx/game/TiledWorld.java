@@ -102,6 +102,10 @@ public class TiledWorld implements Disposable, Observer, Screen {
 		// spawnPlayer(player, "");
 	}
 
+	public List<Entity> getEntityList() {
+		return entityList;
+	}
+
 	public List<MapObject> getLoadingZoneObjects() {
 		return loadingZoneObjects;
 	}
@@ -148,6 +152,10 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 	public void setMapRenderer(MapRenderer mapRenderer) {
 		this.mapRenderer = mapRenderer;
+	}
+	
+	public OrthographicCamera getCam() {
+		return cam;
 	}
 
 	public List<TiledMapTileLayer> getTileLayers() {
@@ -371,6 +379,9 @@ public class TiledWorld implements Disposable, Observer, Screen {
 				case "NPCCreate":
 					newEntityList.add(NPC.createNPC(mapObject, this));
 					break;
+				case "MoralNPCCreate":
+					newEntityList.add(NPC.createMoralNPC(mapObject, this));
+					break;
 				case "Trigger":
 					triggerObjects.add(mapObject);
 				default:
@@ -584,9 +595,11 @@ public class TiledWorld implements Disposable, Observer, Screen {
 		renderBackgroundLayers();
 		renderCollisionLayers();
 
-		spriteBatch.begin();
+		
+		//TODO: NIX GUT SO
+//		spriteBatch.begin();
 		drawEntities(spriteBatch);
-		spriteBatch.end();
+//		spriteBatch.end();
 
 		renderForegroundLayers();
 
