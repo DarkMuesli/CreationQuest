@@ -16,7 +16,7 @@ public class Constants {
 
 	public static final int VIEWPORT_HEIGHT = 480;
 	public static final int VIEWPORT_WIDTH = 800;
-	public static final boolean FULLSCREEN = false;
+	public static final boolean FULLSCREEN = true;
 	
 	public static final String APPLICATION_NAME = "CreationQuest";
 

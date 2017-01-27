@@ -42,14 +42,9 @@
     <property name="From" value="Default"/>
    </properties>
   </object>
-  <object id="2" name="FromBrightSpawn" type="PlayerSpawn" x="112" y="160" width="16" height="16">
+  <object id="3" name="ToOverworld" type="LoadingZone" x="112" y="176" width="16" height="16">
    <properties>
-    <property name="From" value="bright.tmx"/>
-   </properties>
-  </object>
-  <object id="3" name="ToBright" type="LoadingZone" x="112" y="176" width="16" height="16">
-   <properties>
-    <property name="nextMap" value="bright.tmx"/>
+    <property name="nextMap" value="overworld.tmx"/>
    </properties>
   </object>
   <object id="4" name="Blacksmith" type="NPCCreate" x="192" y="48" width="16" height="16">

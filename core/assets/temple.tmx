@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="17" height="12" tilewidth="16" tileheight="16" nextobjectid="5">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="17" height="12" tilewidth="16" tileheight="16" nextobjectid="7">
  <tileset firstgid="1" name="16x16extratiles" tilewidth="16" tileheight="16" tilecount="28" columns="7">
   <image source="tilesets/indoor_baseline/16x16extratiles.PNG" width="112" height="64"/>
  </tileset>
@@ -42,19 +42,14 @@
     <property name="From" value="Default"/>
    </properties>
   </object>
-  <object id="2" name="FromBrightSpawn" type="PlayerSpawn" x="128" y="160" width="16" height="16">
-   <properties>
-    <property name="From" value="bright.tmx"/>
-   </properties>
-  </object>
-  <object id="3" name="ToBright" type="LoadingZone" x="128" y="176" width="16" height="16">
-   <properties>
-    <property name="nextMap" value="bright.tmx"/>
-   </properties>
-  </object>
   <object id="4" name="Priest" type="MoralNPCCreate" x="128" y="64" width="16" height="16">
    <properties>
     <property name="path" value="tilesets\characters\rpgsprites1\healer.png"/>
+   </properties>
+  </object>
+  <object id="5" name="ToOverworld" type="LoadingZone" x="128" y="176" width="16" height="16">
+   <properties>
+    <property name="nextMap" value="overworld.tmx"/>
    </properties>
   </object>
  </objectgroup>

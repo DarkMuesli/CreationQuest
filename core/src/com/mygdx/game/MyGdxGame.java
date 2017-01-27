@@ -34,7 +34,7 @@ public class MyGdxGame extends Game {
 		cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 
 		// Karte Laden
-		world = new TiledWorld("bright.tmx", spriteBatch, cam, this);
+		world = new TiledWorld("overworld.tmx", spriteBatch, cam, this);
 		
 		// TODO: TEST-SCREEN
 		dialog = new Screen() {
