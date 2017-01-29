@@ -20,7 +20,7 @@ public abstract class GameObject extends Observable implements Disposable {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = GameObject.class.getName();
-	
+
 	protected int x;
 	protected int y;
 	protected Sprite sprt;
@@ -74,6 +74,9 @@ public abstract class GameObject extends Observable implements Disposable {
 
 		this.addObserver(world);
 		this.addObserver(EventManager.instance());
+
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
+				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
 	}
 
 	/**
@@ -188,10 +191,9 @@ public abstract class GameObject extends Observable implements Disposable {
 
 	public void draw(SpriteBatch spriteBatch) {
 		spriteBatch.begin();
-		spriteBatch.draw(getSprt(), getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
-				getSprt().getHeight() * getWorld().getTileWidth() / getSprt().getWidth());
+		sprt.draw(spriteBatch);
 		spriteBatch.end();
 	}
-		
+
 	public abstract boolean onInteract(GameObject obj);
 }

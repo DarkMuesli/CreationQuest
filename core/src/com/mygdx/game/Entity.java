@@ -3,7 +3,10 @@ package com.mygdx.game;
 import java.awt.Point;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -22,7 +25,8 @@ public abstract class Entity extends GameObject {
 	private State state;
 
 	Texture sheet;
-	TextureRegion[] frames;
+	TextureRegion[] idleFrames;
+	Animation[] moveAnimations;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = Entity.class.getName();
@@ -98,15 +102,18 @@ public abstract class Entity extends GameObject {
 	public Entity(int x, int y, Texture tex, TiledWorld world) {
 		this(x, y, new Sprite(tex), world);
 
-		//TODO: FIX THIS
-		
+		// TODO: FIX THIS
+
 		sheet = tex;
 		TextureRegion[][] tmp = TextureRegion.split(sheet, 28, 36);
-		frames = new TextureRegion[4];
+		idleFrames = new TextureRegion[4];
 		int index = 0;
 		for (int i = 0; i < 4; i++) {
-				frames[index++] = tmp[i][0];
+			idleFrames[index++] = tmp[i][0];
 		}
+		updateSpriteRegion();
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
+				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
 
 	}
 
@@ -223,7 +230,7 @@ public abstract class Entity extends GameObject {
 	 * @return <code>true</code>, if the interaction did happen,
 	 *         <code>false</code> otherwise.
 	 */
-	public boolean interact(GameObject obj){
+	public boolean interact(GameObject obj) {
 		return obj.onInteract(this);
 	}
 
@@ -255,29 +262,42 @@ public abstract class Entity extends GameObject {
 			facingCell.x -= 1;
 			break;
 		}
-		
-		for(Entity e : world.getEntityList())
-		{
-			if(e.getCellPosition().equals(facingCell))
+
+		for (Entity e : world.getEntityList()) {
+			if (e.getCellPosition().equals(facingCell))
 				return interact(e);
 		}
 		return false;
 	}
 
-	@Override
-	public Sprite getSprt() {
+	public void updateSpriteRegion() {
 		switch (facing) {
 		case DOWN:
-			return new Sprite(frames[2]);
+			sprt.setRegion((idleFrames[2]));
+			break;
 		case LEFT:
-			return new Sprite(frames[3]);
+			sprt.setRegion((idleFrames[3]));
+			break;
 		case UP:
-			return new Sprite(frames[0]);
+			sprt.setRegion((idleFrames[0]));
+			break;
 		case RIGHT:
-			return new Sprite(frames[1]);
+			sprt.setRegion((idleFrames[1]));
+			break;
 		default:
-			return new Sprite(frames[2]);
+			sprt.setRegion((idleFrames[2]));
 		}
+	}
+
+	public void update() {
+		updateSpriteRegion();
+		sprt.setPosition(getPixelPosition().x, getPixelPosition().y);
+	}
+
+	public void draw(SpriteBatch spriteBatch) {
+		spriteBatch.begin();
+		sprt.draw(spriteBatch);
+		spriteBatch.end();
 	}
 
 }

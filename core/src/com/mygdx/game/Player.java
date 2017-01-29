@@ -141,6 +141,7 @@ public class Player extends Entity {
 		for (Command c : coml) {
 			c.execute(this);
 		}
+		super.update();
 	}
 
 	public static Player createPlayer(MapObject mapObject, TiledWorld world) {

@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MoralNPC extends NPC {
-	
+
 	SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
 	private boolean isLoaded = false;
 	List<List<String>> wordLists = new ArrayList<List<String>>(3);
@@ -37,7 +37,7 @@ public class MoralNPC extends NPC {
 	public MoralNPC(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
-	
+
 	@Override
 	public boolean onInteract(GameObject obj) {
 		if (!isLoaded) {
@@ -50,7 +50,8 @@ public class MoralNPC extends NPC {
 				String[] word = parts[i].split("\\r?\\n");
 				wordLists.add(new ArrayList<String>());
 				for (int j = 0; j < word.length; j++) {
-					if (!word[j].isEmpty()) wordLists.get(i).add(word[j].trim());
+					if (!word[j].isEmpty())
+						wordLists.get(i).add(word[j].trim());
 				}
 			}
 
@@ -66,7 +67,7 @@ public class MoralNPC extends NPC {
 		Gdx.app.log("Interaction", "Hat funktioniert");
 		return true;
 	}
-	
+
 	public String getWord() {
 		StringBuilder result = new StringBuilder(32);
 		for (List<String> list : wordLists) {
@@ -74,7 +75,7 @@ public class MoralNPC extends NPC {
 		}
 		return result.toString().trim();
 	}
-	
+
 	@Override
 	public void draw(SpriteBatch spriteBatch) {
 		super.draw(spriteBatch);
@@ -82,7 +83,7 @@ public class MoralNPC extends NPC {
 			textDrawer.drawText(spriteBatch);
 		}
 	}
-	
+
 	@Override
 	public void update() {
 		if (drawText) {
@@ -91,6 +92,7 @@ public class MoralNPC extends NPC {
 				drawText = false;
 			}
 		}
+		super.update();
 	}
 
 }
