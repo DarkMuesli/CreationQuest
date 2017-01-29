@@ -38,7 +38,7 @@ public class Player extends Entity {
 	 * @param world
 	 *            {@link TiledWorld} the {@link Player} will be present in
 	 */
-	public Player(int x, int y, Sprite sprt, double moveSpeed, Direction facing, TiledWorld world) {
+	public Player(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
@@ -123,8 +123,6 @@ public class Player extends Entity {
 
 	}
 
-
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -136,12 +134,16 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void update() {
-		List<Command> coml = InputHandler.instance().handleInput();
-		for (Command c : coml) {
-			c.execute(this);
+	public void update(float deltaTime) {
+		if (state == State.IDLE) {
+			List<Command> coml = InputHandler.instance().handleInput();
+			if (!coml.isEmpty()) {
+				coml.remove(0).execute(this);
+			}
 		}
-		super.update();
+
+		super.update(deltaTime);
+
 	}
 
 	public static Player createPlayer(MapObject mapObject, TiledWorld world) {

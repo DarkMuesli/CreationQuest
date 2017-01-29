@@ -18,7 +18,7 @@ public class MoralNPC extends NPC {
 	public boolean drawText = false;
 	public float counter = 0;
 
-	public MoralNPC(int x, int y, Sprite sprt, double moveSpeed, Direction facing, TiledWorld world) {
+	public MoralNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
@@ -85,13 +85,10 @@ public class MoralNPC extends NPC {
 	}
 
 	@Override
-	public void update() {
-		if (drawText) {
-			counter += Gdx.graphics.getDeltaTime();
-			if (counter >= 3) {
-				drawText = false;
-			}
-		}
+	public void update(float deltaTime) {
+		if (drawText && (counter += deltaTime) >= 3)
+			drawText = false;
+
 		super.update();
 	}
 

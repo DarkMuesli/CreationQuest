@@ -44,7 +44,7 @@
   </object>
   <object id="4" name="Priest" type="MoralNPCCreate" x="128" y="64" width="16" height="16">
    <properties>
-    <property name="path" value="tilesets\characters\rpgsprites1\healer.png"/>
+    <property name="path" value="tilesets\characters\rpgsprites1\healer_m.png"/>
    </properties>
   </object>
   <object id="5" name="ToOverworld" type="LoadingZone" x="128" y="176" width="16" height="16">

@@ -39,10 +39,10 @@ public class InputHandler {
 		// Adding Continuous commands
 
 		// Adding one-time commands
-		mapOnceCommand(CommandsEnum.MOVE_DOWN, e -> e.move(Direction.DOWN));
-		mapOnceCommand(CommandsEnum.MOVE_UP, e -> e.move(Direction.UP));
-		mapOnceCommand(CommandsEnum.MOVE_LEFT, e -> e.move(Direction.LEFT));
-		mapOnceCommand(CommandsEnum.MOVE_RIGHT, e -> e.move(Direction.RIGHT));
+		mapContCommand(CommandsEnum.MOVE_DOWN, e -> e.move(Direction.DOWN));
+		mapContCommand(CommandsEnum.MOVE_UP, e -> e.move(Direction.UP));
+		mapContCommand(CommandsEnum.MOVE_LEFT, e -> e.move(Direction.LEFT));
+		mapContCommand(CommandsEnum.MOVE_RIGHT, e -> e.move(Direction.RIGHT));
 
 		mapOnceCommand(CommandsEnum.DO_NOTHING, e -> {} );
 		mapOnceCommand(CommandsEnum.TESTOUTPUT, e -> Gdx.app.log(TAG, "Testing Lambdas"));
@@ -99,18 +99,18 @@ public class InputHandler {
 		}
 
 		// Debugging Controls
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
-			commandContMap.put(CommandsEnum.MOVE_DOWN, commandOnceMap.get(CommandsEnum.MOVE_DOWN));
-			commandContMap.put(CommandsEnum.MOVE_LEFT, commandOnceMap.get(CommandsEnum.MOVE_LEFT));
-			commandContMap.put(CommandsEnum.MOVE_RIGHT, commandOnceMap.get(CommandsEnum.MOVE_RIGHT));
-			commandContMap.put(CommandsEnum.MOVE_UP, commandOnceMap.get(CommandsEnum.MOVE_UP));
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
-			commandContMap.remove(CommandsEnum.MOVE_DOWN);
-			commandContMap.remove(CommandsEnum.MOVE_LEFT);
-			commandContMap.remove(CommandsEnum.MOVE_RIGHT);
-			commandContMap.remove(CommandsEnum.MOVE_UP);
-		}
+//		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
+//			commandContMap.put(CommandsEnum.MOVE_DOWN, commandOnceMap.get(CommandsEnum.MOVE_DOWN));
+//			commandContMap.put(CommandsEnum.MOVE_LEFT, commandOnceMap.get(CommandsEnum.MOVE_LEFT));
+//			commandContMap.put(CommandsEnum.MOVE_RIGHT, commandOnceMap.get(CommandsEnum.MOVE_RIGHT));
+//			commandContMap.put(CommandsEnum.MOVE_UP, commandOnceMap.get(CommandsEnum.MOVE_UP));
+//		}
+//		if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
+//			commandContMap.remove(CommandsEnum.MOVE_DOWN);
+//			commandContMap.remove(CommandsEnum.MOVE_LEFT);
+//			commandContMap.remove(CommandsEnum.MOVE_RIGHT);
+//			commandContMap.remove(CommandsEnum.MOVE_UP);
+//		}
 
 		return list;
 

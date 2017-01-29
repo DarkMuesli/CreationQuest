@@ -23,7 +23,7 @@ public class NPC extends Entity {
 	 * @param facing
 	 * @param world
 	 */
-	public NPC(int x, int y, Sprite sprt, double moveSpeed, Direction facing, TiledWorld world) {
+	public NPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 		// TODO Auto-generated constructor stub
 	}
@@ -64,8 +64,9 @@ public class NPC extends Entity {
 		super(tex, world);
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.mygdx.game.Entity#isPlayer()
 	 */
 	@Override
@@ -80,7 +81,7 @@ public class NPC extends Entity {
 		Point pos = tiledWorld.getCellFromPixel(pixx, pixy);
 		return new NPC(pos.x, pos.y, tex, tiledWorld);
 	}
-	
+
 	public static Entity createMoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
 		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
 		float pixx = mapObject.getProperties().get("x", float.class);

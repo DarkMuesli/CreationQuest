@@ -152,7 +152,7 @@ public class TiledWorld implements Disposable, Observer, Screen {
 	public void setMapRenderer(MapRenderer mapRenderer) {
 		this.mapRenderer = mapRenderer;
 	}
-	
+
 	public OrthographicCamera getCam() {
 		return cam;
 	}
@@ -564,6 +564,7 @@ public class TiledWorld implements Disposable, Observer, Screen {
 						newEntityList.clear();
 						newEntityList.add(player);
 						setMap(objProp.get("nextMap", String.class));
+						player.reset();
 
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
 
@@ -594,11 +595,10 @@ public class TiledWorld implements Disposable, Observer, Screen {
 		renderBackgroundLayers();
 		renderCollisionLayers();
 
-		
-		//TODO: NIX GUT SO
-//		spriteBatch.begin();
+		// TODO: NIX GUT SO
+		// spriteBatch.begin();
 		drawEntities(spriteBatch);
-//		spriteBatch.end();
+		// spriteBatch.end();
 
 		renderForegroundLayers();
 
@@ -610,13 +610,14 @@ public class TiledWorld implements Disposable, Observer, Screen {
 		float camx, camy, camz = 0;
 
 		if (getMapPixelWidth() >= cam.viewportWidth)
-			camx = Math.min(Math.max(cam.viewportWidth / 2, player.getPixelCenter().x),
+			camx = Math.min(Math.max(cam.viewportWidth / 2, player.getSprt().getX() - player.getSprt().getWidth() / 2),
 					getMapPixelWidth() - cam.viewportWidth / 2);
 		else
 			camx = getMapPixelWidth() / 2;
 
 		if (getMapPixelHeight() >= cam.viewportHeight)
-			camy = Math.min(Math.max(cam.viewportHeight / 2, player.getPixelCenter().y),
+			camy = Math.min(
+					Math.max(cam.viewportHeight / 2, player.getSprt().getY() - player.getSprt().getHeight() / 2),
 					getMapPixelHeight() - cam.viewportHeight / 2);
 		else
 			camy = getMapPixelHeight() / 2;
@@ -626,10 +627,10 @@ public class TiledWorld implements Disposable, Observer, Screen {
 		cam.update();
 	}
 
-	public void update() {
+	public void update(float deltaTime) {
 		newEntityList.addAll(entityList);
 
-		entityList.forEach(e -> e.update());
+		entityList.forEach(e -> e.update(deltaTime));
 
 		entityList.clear();
 		entityList.addAll(newEntityList);
@@ -663,7 +664,7 @@ public class TiledWorld implements Disposable, Observer, Screen {
 		lag += Gdx.graphics.getDeltaTime();
 
 		while (lag >= Constants.MS_PER_UPDATE) {
-			update();
+			update(Constants.MS_PER_UPDATE);
 			lag -= Constants.MS_PER_UPDATE;
 		}
 

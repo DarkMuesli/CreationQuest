@@ -22,11 +22,15 @@ public abstract class Entity extends GameObject {
 		IDLE, MOVING
 	}
 
-	private State state;
+	protected State state = State.IDLE;
 
-	Texture sheet;
-	TextureRegion[] idleFrames;
-	Animation[] moveAnimations;
+	private Texture sheet;
+	private TextureRegion[] idleFrames;
+	private Animation[] moveAnimations;
+	private float animationTimer = 0;
+
+	protected Point movement = new Point(0, -1);
+	protected float moveTimer = 0;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = Entity.class.getName();
@@ -35,7 +39,7 @@ public abstract class Entity extends GameObject {
 	 * The movement speed of the {@link Entity}, 1 meaning 100% or "normal"
 	 * movement speed.
 	 */
-	protected double moveSpeed;
+	protected float moveSpeed;
 
 	/**
 	 * {@link Direction}, the {@link Entity} is facing.
@@ -61,7 +65,7 @@ public abstract class Entity extends GameObject {
 	 * @param world
 	 *            {@link TiledWorld} the {@link Entity} will be present in
 	 */
-	public Entity(int x, int y, Sprite sprt, double moveSpeed, Direction facing, TiledWorld world) {
+	public Entity(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, world);
 		this.moveSpeed = moveSpeed;
 		this.facing = facing;
@@ -105,13 +109,18 @@ public abstract class Entity extends GameObject {
 		// TODO: FIX THIS
 
 		sheet = tex;
-		TextureRegion[][] tmp = TextureRegion.split(sheet, 28, 36);
+
+		TextureRegion[][] tmp = TextureRegion.split(sheet, 32, 36);
+
+		moveAnimations = new Animation[4];
 		idleFrames = new TextureRegion[4];
-		int index = 0;
 		for (int i = 0; i < 4; i++) {
-			idleFrames[index++] = tmp[i][0];
+			idleFrames[i] = tmp[i][1];
+			moveAnimations[i] = new Animation(0.2f, tmp[i]);
+			moveAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
 		}
-		updateSpriteRegion();
+
+		updateSpriteRegion(0);
 		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
 				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
 
@@ -172,7 +181,7 @@ public abstract class Entity extends GameObject {
 	 * 
 	 * @param moveSpeed
 	 */
-	public void setMoveSpeed(double moveSpeed) {
+	public void setMoveSpeed(float moveSpeed) {
 		this.moveSpeed = moveSpeed;
 	}
 
@@ -186,40 +195,36 @@ public abstract class Entity extends GameObject {
 	 *         <code>false</code> otherwise (e.g. when collision happened).
 	 */
 	public boolean move(Direction dir) {
-		facing = dir;
+		if (dir != facing) {
+			animationTimer = 0;
+			facing = dir;
+		}
 
 		switch (dir) {
 		case UP:
-			if (!world.checkCollision(x, y + 1)) {
-				y++;
-				return true;
-			}
+			movement = new Point(0, 1);
 			break;
-
 		case RIGHT:
-			if (!world.checkCollision(x + 1, y)) {
-				x++;
-				return true;
-			}
+			movement = new Point(1, 0);
 			break;
-
 		case DOWN:
-			if (!world.checkCollision(x, y - 1)) {
-				y--;
-				return true;
-			}
+			movement = new Point(0, -1);
 			break;
-
 		case LEFT:
-			if (!world.checkCollision(x - 1, y)) {
-				x--;
-				return true;
-			}
+			movement = new Point(-1, 0);
 			break;
 		}
 
-		return false;
+		if (!world.checkCollision(x + movement.x, y + movement.y)) {
+			x += movement.x;
+			y += movement.y;
 
+			state = State.MOVING;
+			moveTimer = 0;
+
+			return true;
+		} else
+			return false;
 	}
 
 	/**
@@ -270,28 +275,63 @@ public abstract class Entity extends GameObject {
 		return false;
 	}
 
-	public void updateSpriteRegion() {
+	public void updateSpriteRegion(float deltaTime) {
+
+		int dirMap;
+
 		switch (facing) {
 		case DOWN:
-			sprt.setRegion((idleFrames[2]));
+			dirMap = 2;
 			break;
 		case LEFT:
-			sprt.setRegion((idleFrames[3]));
+			dirMap = 3;
 			break;
 		case UP:
-			sprt.setRegion((idleFrames[0]));
+			dirMap = 0;
 			break;
 		case RIGHT:
-			sprt.setRegion((idleFrames[1]));
+			dirMap = 1;
 			break;
 		default:
-			sprt.setRegion((idleFrames[2]));
+			dirMap = 2;
+		}
+
+		switch (state) {
+		case IDLE:
+			sprt.setRegion(idleFrames[dirMap]);
+			break;
+		case MOVING:
+			animationTimer += deltaTime;
+			sprt.setRegion(moveAnimations[dirMap].getKeyFrame(animationTimer));
+			break;
 		}
 	}
 
-	public void update() {
-		updateSpriteRegion();
-		sprt.setPosition(getPixelPosition().x, getPixelPosition().y);
+	public void reset() {
+		state = State.IDLE;
+		movement = new Point(0, -1);
+		facing = Direction.DOWN;
+		animationTimer = 0;
+		moveTimer = 0;
+	}
+
+	public void update(float deltaTime) {
+		updateSpriteRegion(deltaTime);
+		switch (state) {
+		case MOVING:
+			sprt.translate(movement.x * getWorld().getTileWidth() * deltaTime * Constants.MOVESPEEDMOD * moveSpeed,
+					movement.y * getWorld().getTileHeight() * deltaTime * Constants.MOVESPEEDMOD * moveSpeed);
+			if ((moveTimer += deltaTime * Constants.MOVESPEEDMOD * moveSpeed) >= 1) {
+				moveTimer = 0;
+				state = State.IDLE;
+				sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+			}
+			break;
+		case IDLE:
+			// sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+			break;
+		}
+
 	}
 
 	public void draw(SpriteBatch spriteBatch) {

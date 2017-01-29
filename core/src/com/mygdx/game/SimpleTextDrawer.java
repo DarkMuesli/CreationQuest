@@ -15,7 +15,7 @@ public class SimpleTextDrawer {
 	ShapeRenderer shapeRenderer;
 	String text;
 	GameObject obj;
-	
+
 	public SimpleTextDrawer(GameObject obj) {
 		font = new BitmapFont();
 		shapeRenderer = new ShapeRenderer();
@@ -23,12 +23,12 @@ public class SimpleTextDrawer {
 		this.obj = obj;
 		text = "";
 	}
-	
-	public void setText(String text){
+
+	public void setText(String text) {
 		this.text = text;
 		layout.setText(font, text);
 	}
-	
+
 	public void drawText(SpriteBatch batch) {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -36,7 +36,7 @@ public class SimpleTextDrawer {
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(0f, 0f, 0f, 0.5f);
 		shapeRenderer.rect(obj.getPixelPosition().x + obj.getWorld().getTileWidth() / 2 - layout.width / 2 - 2,
-				obj.getPixelPosition().y + obj.getWorld().getTileHeight() +  2, layout.width + 4, layout.height + 4 );
+				obj.getPixelPosition().y + obj.getWorld().getTileHeight() + 2, layout.width + 4, layout.height + 4);
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
