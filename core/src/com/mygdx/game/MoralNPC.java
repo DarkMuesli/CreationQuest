@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MoralNPC extends NPC {
 
+	private static final String TAG = MoralNPC.class.getName();
+
 	SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
 	private boolean isLoaded = false;
 	List<List<String>> wordLists = new ArrayList<List<String>>(3);
@@ -64,7 +66,7 @@ public class MoralNPC extends NPC {
 		word = getWord();
 		textDrawer.setText(word);
 
-		Gdx.app.log("Interaction", "Hat funktioniert");
+		Gdx.app.log(TAG, "Interaction hat funktioniert");
 		return true;
 	}
 

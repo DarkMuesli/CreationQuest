@@ -35,7 +35,7 @@ public class MyGdxGame extends Game {
 
 		// Karte Laden
 		world = new TiledWorld("overworld.tmx", spriteBatch, cam, this);
-		
+
 		// TODO: TEST-SCREEN
 		dialog = new Screen() {
 
@@ -107,6 +107,7 @@ public class MyGdxGame extends Game {
 		super.dispose();
 		spriteBatch.dispose();
 		world.dispose();
+		dialog.dispose();
 
 	}
 

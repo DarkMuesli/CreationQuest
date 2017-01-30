@@ -135,14 +135,15 @@ public class Player extends Entity {
 
 	@Override
 	public void update(float deltaTime) {
+
+		super.update(deltaTime);
+
 		if (state == State.IDLE) {
 			List<Command> coml = InputHandler.instance().handleInput();
 			if (!coml.isEmpty()) {
 				coml.remove(0).execute(this);
 			}
 		}
-
-		super.update(deltaTime);
 
 	}
 

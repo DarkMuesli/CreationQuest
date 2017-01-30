@@ -555,6 +555,9 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 					if (objPixelPos.contains(player.getPixelCenter())) {
 
+						player.reset();
+						player.waitFor(0.2f);
+
 						Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/door.wav"));
 						long id = sound.play();
 						sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
@@ -564,7 +567,6 @@ public class TiledWorld implements Disposable, Observer, Screen {
 						newEntityList.clear();
 						newEntityList.add(player);
 						setMap(objProp.get("nextMap", String.class));
-						player.reset();
 
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
 
@@ -654,14 +656,13 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 	@Override
 	public void show() {
-		spriteBatch.setColor(Color.WHITE);
-		((OrthogonalTiledMapRenderer) mapRenderer).getBatch().setColor(Color.WHITE);
+
 	}
 
 	@Override
 	public void render(float delta) {
 
-		lag += Gdx.graphics.getDeltaTime();
+		lag += delta;
 
 		while (lag >= Constants.MS_PER_UPDATE) {
 			update(Constants.MS_PER_UPDATE);

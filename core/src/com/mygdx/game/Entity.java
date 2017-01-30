@@ -19,7 +19,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public abstract class Entity extends GameObject {
 
 	enum State {
-		IDLE, MOVING
+		IDLE, MOVING, WAITING
 	}
 
 	protected State state = State.IDLE;
@@ -31,6 +31,8 @@ public abstract class Entity extends GameObject {
 
 	protected Point movement = new Point(0, -1);
 	protected float moveTimer = 0;
+
+	private float waitTime = 0;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = Entity.class.getName();
@@ -120,7 +122,7 @@ public abstract class Entity extends GameObject {
 			moveAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
 		}
 
-		updateSpriteRegion(0);
+		updateSpriteRegion();
 		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
 				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
 
@@ -172,7 +174,7 @@ public abstract class Entity extends GameObject {
 	/**
 	 * @return current movement sped of this {@link Entity}
 	 */
-	public double getMoveSpeed() {
+	public float getMoveSpeed() {
 		return moveSpeed;
 	}
 
@@ -182,7 +184,8 @@ public abstract class Entity extends GameObject {
 	 * @param moveSpeed
 	 */
 	public void setMoveSpeed(float moveSpeed) {
-		this.moveSpeed = moveSpeed;
+		if (moveSpeed > 0)
+			this.moveSpeed = moveSpeed;
 	}
 
 	/**
@@ -275,7 +278,7 @@ public abstract class Entity extends GameObject {
 		return false;
 	}
 
-	public void updateSpriteRegion(float deltaTime) {
+	public void updateSpriteRegion() {
 
 		int dirMap;
 
@@ -298,10 +301,10 @@ public abstract class Entity extends GameObject {
 
 		switch (state) {
 		case IDLE:
+		case WAITING:
 			sprt.setRegion(idleFrames[dirMap]);
 			break;
 		case MOVING:
-			animationTimer += deltaTime;
 			sprt.setRegion(moveAnimations[dirMap].getKeyFrame(animationTimer));
 			break;
 		}
@@ -315,26 +318,47 @@ public abstract class Entity extends GameObject {
 		moveTimer = 0;
 	}
 
+	public void waitFor(float seconds) {
+		movement = new Point(0, 0);
+		state = State.WAITING;
+		waitTime = seconds;
+	}
+
 	public void update(float deltaTime) {
-		updateSpriteRegion(deltaTime);
+
 		switch (state) {
+
 		case MOVING:
-			sprt.translate(movement.x * getWorld().getTileWidth() * deltaTime * Constants.MOVESPEEDMOD * moveSpeed,
-					movement.y * getWorld().getTileHeight() * deltaTime * Constants.MOVESPEEDMOD * moveSpeed);
-			if ((moveTimer += deltaTime * Constants.MOVESPEEDMOD * moveSpeed) >= 1) {
+			animationTimer += deltaTime;
+
+			float movedDistance = deltaTime * Constants.MOVESPEEDMOD * moveSpeed;
+			sprt.translate(movement.x * getWorld().getTileWidth() * movedDistance,
+					movement.y * getWorld().getTileHeight() * movedDistance);
+			if ((moveTimer += movedDistance) >= 1) {
 				moveTimer = 0;
 				state = State.IDLE;
 				sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
 			}
 			break;
+
 		case IDLE:
-			// sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+			sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
 			break;
+
+		case WAITING:
+			sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+			if ((moveTimer += deltaTime) >= waitTime) {
+				state = State.IDLE;
+			}
+			break;
+
 		}
 
 	}
 
 	public void draw(SpriteBatch spriteBatch) {
+		updateSpriteRegion();
+
 		spriteBatch.begin();
 		sprt.draw(spriteBatch);
 		spriteBatch.end();

@@ -19,7 +19,7 @@ import com.badlogic.gdx.Input.Keys;
 public class InputHandler {
 
 	public enum CommandsEnum {
-		MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT, TESTOUTPUT, DO_NOTHING, INTERACT, EXIT
+		MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT, TESTOUTPUT, DO_NOTHING, INTERACT, EXIT, SPEED_UP, SPEED_DOWN
 	}
 
 	private static final String TAG = InputHandler.class.getName();
@@ -44,13 +44,16 @@ public class InputHandler {
 		mapContCommand(CommandsEnum.MOVE_LEFT, e -> e.move(Direction.LEFT));
 		mapContCommand(CommandsEnum.MOVE_RIGHT, e -> e.move(Direction.RIGHT));
 
-		mapOnceCommand(CommandsEnum.DO_NOTHING, e -> {} );
+		mapOnceCommand(CommandsEnum.DO_NOTHING, e -> {
+		});
 		mapOnceCommand(CommandsEnum.TESTOUTPUT, e -> Gdx.app.log(TAG, "Testing Lambdas"));
 		mapOnceCommand(CommandsEnum.INTERACT, e -> e.interactWithFacing());
 		mapOnceCommand(CommandsEnum.EXIT, (e) -> {
 			Gdx.app.log(TAG, "Spiel wurde durch ESC beendet.");
 			Gdx.app.exit();
 		});
+		mapOnceCommand(CommandsEnum.SPEED_UP, e -> e.setMoveSpeed(e.getMoveSpeed() + 1));
+		mapOnceCommand(CommandsEnum.SPEED_DOWN, e -> e.setMoveSpeed(e.getMoveSpeed() - 1));
 
 		mapKey(Keys.UP, CommandsEnum.MOVE_UP);
 		mapKey(Keys.DOWN, CommandsEnum.MOVE_DOWN);
@@ -59,6 +62,8 @@ public class InputHandler {
 		mapKey(Keys.SPACE, CommandsEnum.INTERACT);
 		mapKey(Keys.ENTER, CommandsEnum.TESTOUTPUT);
 		mapKey(Keys.ESCAPE, CommandsEnum.EXIT);
+		mapKey(Keys.PLUS, CommandsEnum.SPEED_UP);
+		mapKey(Keys.MINUS, CommandsEnum.SPEED_DOWN);
 
 	}
 
@@ -85,13 +90,13 @@ public class InputHandler {
 		for (Map.Entry<Integer, CommandsEnum> entry : keyMap.entrySet()) {
 			if (Gdx.input.isKeyJustPressed(entry.getKey())) {
 				Command c = commandOnceMap.get(entry.getValue());
-				//TODO: GENAUERE ABFRAGE FÜR MEHRFACHSCHRITTE
+				// TODO: GENAUERE ABFRAGE FUER MEHRFACHSCHRITTE
 				if ((c != null) && (!list.contains(c)))
 					list.add(commandOnceMap.get(entry.getValue()));
 			}
 			if (Gdx.input.isKeyPressed(entry.getKey())) {
 				Command c = commandContMap.get(entry.getValue());
-				//TODO: GENAUERE ABFRAGE FÜR MEHRFACHSCHRITTE
+				// TODO: GENAUERE ABFRAGE FUER MEHRFACHSCHRITTE
 				if ((c != null) && (!list.contains(c)))
 					list.add(commandContMap.get(entry.getValue()));
 
@@ -99,18 +104,6 @@ public class InputHandler {
 		}
 
 		// Debugging Controls
-//		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
-//			commandContMap.put(CommandsEnum.MOVE_DOWN, commandOnceMap.get(CommandsEnum.MOVE_DOWN));
-//			commandContMap.put(CommandsEnum.MOVE_LEFT, commandOnceMap.get(CommandsEnum.MOVE_LEFT));
-//			commandContMap.put(CommandsEnum.MOVE_RIGHT, commandOnceMap.get(CommandsEnum.MOVE_RIGHT));
-//			commandContMap.put(CommandsEnum.MOVE_UP, commandOnceMap.get(CommandsEnum.MOVE_UP));
-//		}
-//		if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
-//			commandContMap.remove(CommandsEnum.MOVE_DOWN);
-//			commandContMap.remove(CommandsEnum.MOVE_LEFT);
-//			commandContMap.remove(CommandsEnum.MOVE_RIGHT);
-//			commandContMap.remove(CommandsEnum.MOVE_UP);
-//		}
 
 		return list;
 
