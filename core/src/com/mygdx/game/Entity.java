@@ -24,6 +24,10 @@ public abstract class Entity extends GameObject {
 
 	protected State state = State.IDLE;
 
+	protected CommandGenerator comGen;
+	private Command onceCommand;
+	private Command contCommand;
+
 	private Texture sheet;
 	private TextureRegion[] idleFrames;
 	private Animation[] moveAnimations;
@@ -108,7 +112,7 @@ public abstract class Entity extends GameObject {
 	public Entity(int x, int y, Texture tex, TiledWorld world) {
 		this(x, y, new Sprite(tex), world);
 
-		// TODO: FIX THIS
+		// TODO: FIX THIS not to be the only functioning constructor
 
 		sheet = tex;
 
@@ -312,7 +316,7 @@ public abstract class Entity extends GameObject {
 
 	public void reset() {
 		state = State.IDLE;
-		movement = new Point(0, -1);
+		movement = new Point(0, 0);
 		facing = Direction.DOWN;
 		animationTimer = 0;
 		moveTimer = 0;
@@ -326,14 +330,31 @@ public abstract class Entity extends GameObject {
 
 	public void update(float deltaTime) {
 
-		switch (state) {
+		if (comGen != null) {
+			onceCommand = comGen.updateOnceCommand(deltaTime);
+			contCommand = comGen.updateContCommand(deltaTime);
+		}
 
+		if (state == State.IDLE) {
+			if (onceCommand != null)
+				onceCommand.execute(this);
+			if (contCommand != null)
+				contCommand.execute(this);
+		}
+
+		updateSpriteRegion();
+
+		switch (state) {
 		case MOVING:
 			animationTimer += deltaTime;
 
 			float movedDistance = deltaTime * Constants.MOVESPEEDMOD * moveSpeed;
-			sprt.translate(movement.x * getWorld().getTileWidth() * movedDistance,
-					movement.y * getWorld().getTileHeight() * movedDistance);
+
+			float stepx = getWorld().getTileWidth() % movedDistance;
+			float stepy = getWorld().getTileHeight() % movedDistance;
+
+			sprt.translate(movement.x * getWorld().getTileWidth() * movedDistance - (movement.x * stepx),
+					movement.y * getWorld().getTileHeight() * movedDistance - (movement.y * stepy));
 			if ((moveTimer += movedDistance) >= 1) {
 				moveTimer = 0;
 				state = State.IDLE;
@@ -357,7 +378,6 @@ public abstract class Entity extends GameObject {
 	}
 
 	public void draw(SpriteBatch spriteBatch) {
-		updateSpriteRegion();
 
 		spriteBatch.begin();
 		sprt.draw(spriteBatch);

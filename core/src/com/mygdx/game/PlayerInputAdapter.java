@@ -1,49 +1,53 @@
-/**
- * 
- */
 package com.mygdx.game;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Keys;
 
-/**
- * @author Matthias Gross
- *
- */
-public class InputHandler {
+public class PlayerInputAdapter extends InputAdapter implements CommandGenerator {
+
+	private Player player;
 
 	public enum CommandsEnum {
 		MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT, TESTOUTPUT, DO_NOTHING, INTERACT, EXIT, SPEED_UP, SPEED_DOWN
 	}
 
-	private static final String TAG = InputHandler.class.getName();
-
-	private static final InputHandler instance = new InputHandler();
+	private static final String TAG = PlayerInputAdapter.class.getName();
 
 	private Map<CommandsEnum, Command> commandContMap;
 	private Map<CommandsEnum, Command> commandOnceMap;
 	private Map<Integer, CommandsEnum> keyMap;
 
-	private InputHandler() {
+	private boolean[] buttonsPressed;
+
+	private Command currentOnceCommand;
+
+	private LinkedList<Command> contCommandList;
+
+	public PlayerInputAdapter(Player player) {
+
+		this.player = player;
 
 		commandContMap = new EnumMap<CommandsEnum, Command>(CommandsEnum.class);
 		commandOnceMap = new EnumMap<CommandsEnum, Command>(CommandsEnum.class);
 		keyMap = new HashMap<Integer, CommandsEnum>();
 
-		// Adding Continuous commands
+		buttonsPressed = new boolean[256];
 
-		// Adding one-time commands
+		contCommandList = new LinkedList<Command>();
+
+		// Adding Continuous commands
 		mapContCommand(CommandsEnum.MOVE_DOWN, e -> e.move(Direction.DOWN));
 		mapContCommand(CommandsEnum.MOVE_UP, e -> e.move(Direction.UP));
 		mapContCommand(CommandsEnum.MOVE_LEFT, e -> e.move(Direction.LEFT));
 		mapContCommand(CommandsEnum.MOVE_RIGHT, e -> e.move(Direction.RIGHT));
 
+		// Adding one-time commands
 		mapOnceCommand(CommandsEnum.DO_NOTHING, e -> {
 		});
 		mapOnceCommand(CommandsEnum.TESTOUTPUT, e -> Gdx.app.log(TAG, "Testing Lambdas"));
@@ -74,32 +78,56 @@ public class InputHandler {
 		keyMap.put(key, command);
 	}
 
-	public static InputHandler instance() {
-		return instance;
+	public void unmapKey(int key) {
+		keyMap.remove(key);
 	}
 
-	public List<Command> handleInput() {
+	@Override
+	public boolean keyDown(int keycode) {
+		buttonsPressed[keycode] = true;
 
-		List<Command> list = new ArrayList<Command>();
+		Command c;
 
-		for (Map.Entry<Integer, CommandsEnum> entry : keyMap.entrySet()) {
-			if (Gdx.input.isKeyJustPressed(entry.getKey())) {
-				Command c = commandOnceMap.get(entry.getValue());
-				// TODO: GENAUERE ABFRAGE FUER MEHRFACHSCHRITTE
-				if ((c != null) && (!list.contains(c)))
-					list.add(commandOnceMap.get(entry.getValue()));
-			}
-			if (Gdx.input.isKeyPressed(entry.getKey())) {
-				Command c = commandContMap.get(entry.getValue());
-				// TODO: GENAUERE ABFRAGE FUER MEHRFACHSCHRITTE
-				if ((c != null) && (!list.contains(c)))
-					list.add(commandContMap.get(entry.getValue()));
+		if ((c = commandOnceMap.get(keyMap.get(keycode))) != null) {
+			currentOnceCommand = c;
+			return true;
+		} else if ((c = commandContMap.get(keyMap.get(keycode))) != null) {
 
-			}
-		}
+			if (contCommandList.contains(c))
+				contCommandList.remove(c);
 
-		return list;
+			contCommandList.addFirst(c);
 
+			return true;
+		} else
+			return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		buttonsPressed[keycode] = false;
+
+		Command c;
+		if ((c = commandContMap.get(keyMap.get(keycode))) != null && contCommandList.contains(c))
+			contCommandList.remove(c);
+
+		return true;
+	}
+
+	public boolean isButtonPressed(int keycode) {
+		return buttonsPressed[keycode];
+	}
+
+	@Override
+	public Command updateOnceCommand(float deltaTime) {
+		Command tmp = currentOnceCommand;
+		currentOnceCommand = null;
+		return tmp;
+	}
+
+	@Override
+	public Command updateContCommand(float deltaTime) {
+		return contCommandList.peek();
 	}
 
 }

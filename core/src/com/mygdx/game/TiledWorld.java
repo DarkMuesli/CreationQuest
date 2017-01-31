@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
@@ -39,7 +38,7 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 	private static final String TAG = TiledWorld.class.getName();
 
-	private Game game;
+	private MyGdxGame game;
 
 	private float lag;
 	private TiledMap map;
@@ -85,20 +84,23 @@ public class TiledWorld implements Disposable, Observer, Screen {
 	 * 
 	 * @param mapName
 	 */
-	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, Game game) {
+	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame game) {
 		entityList = new ArrayList<Entity>();
 		newEntityList = new ArrayList<Entity>();
 		this.cam = cam;
 		this.spriteBatch = spriteBatch;
 		this.game = game;
-		// player = new Player(new
-		// Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/anims/walk-loop.png"),
-		// this);
-		// entityList.add(player);
 
 		setMap(mapName);
 
-		// spawnPlayer(player, "");
+	}
+
+	public MyGdxGame getGame() {
+		return game;
+	}
+
+	public void setGame(MyGdxGame game) {
+		this.game = game;
 	}
 
 	public List<Entity> getEntityList() {
@@ -459,16 +461,6 @@ public class TiledWorld implements Disposable, Observer, Screen {
 	}
 
 	/**
-	 * Puts the current map in the view of the given {@link OrthographicCamera}.
-	 * 
-	 * @param cam
-	 *            {@link OrthographicCamera} to place the map in
-	 */
-	public void setMapRendererView(OrthographicCamera cam) {
-		mapRenderer.setView(cam);
-	}
-
-	/**
 	 * Render the whole map at once.
 	 */
 	public void renderMap() {
@@ -584,27 +576,22 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 	}
 
-	public void drawEntities(SpriteBatch spriteBatch) {
-		entityList.forEach(e -> e.draw(spriteBatch));
-	}
-
 	public void draw(SpriteBatch spriteBatch, OrthographicCamera cam) {
 
 		updateCam(cam);
 
 		spriteBatch.setProjectionMatrix(cam.combined);
+		mapRenderer.setView(cam);
 
 		renderBackgroundLayers();
 		renderCollisionLayers();
 
 		// TODO: NIX GUT SO
 		// spriteBatch.begin();
-		drawEntities(spriteBatch);
+		entityList.forEach(e -> e.draw(spriteBatch));
 		// spriteBatch.end();
 
 		renderForegroundLayers();
-
-		setMapRendererView(cam);
 
 	}
 
@@ -646,6 +633,7 @@ public class TiledWorld implements Disposable, Observer, Screen {
 			else
 				return -1;
 		});
+
 	}
 
 	@Override
@@ -677,20 +665,15 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		// TODO: implementation denkbar
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

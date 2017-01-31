@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +13,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MyGdxGame extends Game {
 
+	private static final String TAG = MyGdxGame.class.getName();
+
+	InputMultiplexer inputMultiplexer;
 	SpriteBatch spriteBatch;
 	OrthographicCamera cam;
 	Screen world;
@@ -22,6 +27,20 @@ public class MyGdxGame extends Game {
 	public void create() {
 
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
+		inputMultiplexer = new InputMultiplexer(new InputAdapter() {
+			@Override
+			public boolean keyDown(int keycode) {
+				if (keycode == Keys.ESCAPE) {
+					Gdx.app.log(TAG, "Spiel wurde durch ESC beendet.");
+					Gdx.app.exit();
+					return true;
+				} else
+					return false;
+			}
+		});
+
+		Gdx.input.setInputProcessor(inputMultiplexer);
 
 		EventManager.setGame(this);
 
@@ -41,20 +60,14 @@ public class MyGdxGame extends Game {
 
 			@Override
 			public void show() {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void resume() {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void resize(int width, int height) {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -68,20 +81,14 @@ public class MyGdxGame extends Game {
 
 			@Override
 			public void pause() {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void hide() {
-				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void dispose() {
-				// TODO Auto-generated method stub
-
 			}
 		};
 		setScreen(world);
@@ -100,6 +107,10 @@ public class MyGdxGame extends Game {
 
 	public Screen getWorld() {
 		return world;
+	}
+
+	public InputMultiplexer getInputMultiplexer() {
+		return inputMultiplexer;
 	}
 
 	@Override

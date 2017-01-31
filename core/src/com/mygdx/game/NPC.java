@@ -25,7 +25,6 @@ public class NPC extends Entity {
 	 */
 	public NPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -92,7 +91,6 @@ public class NPC extends Entity {
 
 	@Override
 	public boolean onInteract(GameObject obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

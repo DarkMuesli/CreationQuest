@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import java.awt.Point;
-import java.util.List;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -102,6 +101,10 @@ public class Player extends Entity {
 	 */
 	public Player(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
+		// TODO FIX THIS not to be the only functioning constructor
+		PlayerInputAdapter tmp = new PlayerInputAdapter(this);
+		world.getGame().getInputMultiplexer().addProcessor(tmp);
+		comGen = tmp;
 	}
 
 	/*
@@ -133,20 +136,6 @@ public class Player extends Entity {
 		return true;
 	}
 
-	@Override
-	public void update(float deltaTime) {
-
-		super.update(deltaTime);
-
-		if (state == State.IDLE) {
-			List<Command> coml = InputHandler.instance().handleInput();
-			if (!coml.isEmpty()) {
-				coml.remove(0).execute(this);
-			}
-		}
-
-	}
-
 	public static Player createPlayer(MapObject mapObject, TiledWorld world) {
 		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
 		float pixx = mapObject.getProperties().get("x", float.class);
@@ -157,7 +146,6 @@ public class Player extends Entity {
 
 	@Override
 	public boolean onInteract(GameObject obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
