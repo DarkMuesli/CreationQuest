@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.mygdx.game.PlayerInputHandler.Commands;
+
 /**
  * Interface to be implemented by Structures which can determine an entity's
  * next operation like InputHandlers or AI.
@@ -32,4 +34,20 @@ public interface CommandGenerator {
 	 * @return
 	 */
 	Command updateContCommand(float deltaTime);
+
+	/**
+	 * Posts a {@link Command} to this {@link CommandGenerator} to be returned
+	 * next by the update Methods.
+	 * 
+	 * @param commandEnum
+	 */
+	public void postCommand(Commands commandEnum);
+
+	/**
+	 * Tells this {@link CommandGenerator} to stop the continuous execution of
+	 * the specified command.
+	 * 
+	 * @param commandEnum
+	 */
+	public void stopCommand(Commands commandEnum);
 }

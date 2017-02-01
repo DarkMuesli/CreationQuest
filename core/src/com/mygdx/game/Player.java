@@ -102,9 +102,7 @@ public class Player extends Entity {
 	public Player(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 		// TODO FIX THIS not to be the only functioning constructor
-		PlayerInputAdapter tmp = new PlayerInputAdapter(this);
-		world.getGame().getInputMultiplexer().addProcessor(tmp);
-		comGen = tmp;
+		comGen = new PlayerInputHandler(this);
 	}
 
 	/*

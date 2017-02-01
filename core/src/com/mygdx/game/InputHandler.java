@@ -16,6 +16,7 @@ import com.badlogic.gdx.Input.Keys;
  * @author Matthias Gross
  *
  */
+@Deprecated
 public class InputHandler {
 
 	public enum CommandsEnum {

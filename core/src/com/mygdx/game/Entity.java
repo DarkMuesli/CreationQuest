@@ -175,6 +175,14 @@ public abstract class Entity extends GameObject {
 		this.state = state;
 	}
 
+	public CommandGenerator getComGen() {
+		return comGen;
+	}
+
+	public void setComGen(CommandGenerator comGen) {
+		this.comGen = comGen;
+	}
+
 	/**
 	 * @return current movement sped of this {@link Entity}
 	 */
