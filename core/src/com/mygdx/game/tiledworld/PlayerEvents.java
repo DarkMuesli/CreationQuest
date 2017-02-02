@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 /**
  * Events, the {@link Player} can send via notifications.

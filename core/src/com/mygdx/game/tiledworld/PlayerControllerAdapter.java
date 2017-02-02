@@ -1,13 +1,14 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerAdapter;
-import com.mygdx.game.PlayerInputHandler.Commands;
 
 public class PlayerControllerAdapter extends ControllerAdapter {
+
+	private static final String TAG = PlayerControllerAdapter.class.getName();
 
 	private Player player;
 

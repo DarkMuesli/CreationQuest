@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 /**
  * This interface provides the single method {@link Command#execute()}, needed

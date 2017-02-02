@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.tiledworld.Player;
 
 /**
  * Singleton Manager Class to handle trigger-events.
@@ -19,7 +20,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class EventManager implements Observer {
 
 	private static final String TAG = EventManager.class.getName();
-	
+
 	private static final EventManager instance = new EventManager();
 	private MyGdxGame game;
 
@@ -32,8 +33,8 @@ public class EventManager implements Observer {
 	public static EventManager instance() {
 		return instance;
 	}
-	
-	public static void setGame(MyGdxGame game){
+
+	public static void setGame(MyGdxGame game) {
 		instance().game = game;
 	}
 
@@ -81,12 +82,15 @@ public class EventManager implements Observer {
 			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tng_chime_clean.mp3"));
 			long id = sound.play();
 			sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
-			if(game.getScreen() != game.getWorld())  game.setToWorld(); else game.setToDialog();
-				
+			if (game.getScreen() != game.getWorld())
+				game.setToWorld();
+			else
+				game.setToSlotMachine();
+
 			break;
 
 		default:
-			Gdx.app.log(TAG,"Keine Musik... Event: " + eventName);
+			Gdx.app.log(TAG, "Event nicht gefunden: " + eventName);
 			break;
 		}
 	}

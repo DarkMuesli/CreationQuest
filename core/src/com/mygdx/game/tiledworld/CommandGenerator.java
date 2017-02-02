@@ -1,6 +1,4 @@
-package com.mygdx.game;
-
-import com.mygdx.game.PlayerInputHandler.Commands;
+package com.mygdx.game.tiledworld;
 
 /**
  * Interface to be implemented by Structures which can determine an entity's

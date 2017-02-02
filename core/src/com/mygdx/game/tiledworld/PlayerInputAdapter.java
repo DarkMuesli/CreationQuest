@@ -1,10 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.InputAdapter;
-import com.mygdx.game.PlayerInputHandler.Commands;
 import com.badlogic.gdx.Input.Keys;
 
 public class PlayerInputAdapter extends InputAdapter {

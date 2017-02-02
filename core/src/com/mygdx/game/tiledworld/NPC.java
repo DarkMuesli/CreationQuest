@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 import java.awt.Point;
 

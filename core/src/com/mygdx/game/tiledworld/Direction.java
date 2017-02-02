@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 /**
  * Enumeration of possible Directions in this game. <code>UP</code> meaning

@@ -1,19 +1,14 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.controllers.Controllers;
 
 public class PlayerInputHandler implements CommandGenerator {
 
 	private static final String TAG = PlayerInputHandler.class.getName();
-
-	public enum Commands {
-		MOVE_DOWN, MOVE_UP, MOVE_LEFT, MOVE_RIGHT, TESTOUTPUT, DO_NOTHING, INTERACT, EXIT, SPEED_UP, SPEED_DOWN
-	}
 
 	private Player player;
 
@@ -32,9 +27,7 @@ public class PlayerInputHandler implements CommandGenerator {
 		this.player = player;
 
 		playerContAd = new PlayerControllerAdapter(player, this);
-		Controllers.addListener(playerContAd);
 		playerInpAd = new PlayerInputAdapter(player, this);
-		player.getWorld().getGame().inputMultiplexer.addProcessor(playerInpAd);
 
 		commandContMap = new EnumMap<Commands, Command>(Commands.class);
 		commandOnceMap = new EnumMap<Commands, Command>(Commands.class);
@@ -55,6 +48,22 @@ public class PlayerInputHandler implements CommandGenerator {
 		mapOnceCommand(Commands.SPEED_UP, e -> e.setMoveSpeed(e.getMoveSpeed() + 1));
 		mapOnceCommand(Commands.SPEED_DOWN, e -> e.setMoveSpeed(e.getMoveSpeed() - 1));
 
+	}
+
+	public PlayerControllerAdapter getPlayerContAd() {
+		return playerContAd;
+	}
+
+	public void setPlayerContAd(PlayerControllerAdapter playerContAd) {
+		this.playerContAd = playerContAd;
+	}
+
+	public PlayerInputAdapter getPlayerInpAd() {
+		return playerInpAd;
+	}
+
+	public void setPlayerInpAd(PlayerInputAdapter playerInpAd) {
+		this.playerInpAd = playerInpAd;
 	}
 
 	public void mapContCommand(Commands commandEnum, Command commandLambda) {

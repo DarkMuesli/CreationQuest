@@ -1,7 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 import java.awt.Point;
 
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
@@ -104,6 +106,14 @@ public class Player extends Entity {
 		// TODO FIX THIS not to be the only functioning constructor
 		comGen = new PlayerInputHandler(this);
 	}
+	
+	public InputProcessor getInputProcessor(){
+		return ((PlayerInputHandler)comGen).getPlayerInpAd();
+	}
+	
+	public ControllerListener getControllerListener(){
+		return ((PlayerInputHandler)comGen).getPlayerContAd();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -145,6 +155,12 @@ public class Player extends Entity {
 	@Override
 	public boolean onInteract(GameObject obj) {
 		return false;
+	}
+	
+	@Override
+	public void reset() {
+		comGen = new PlayerInputHandler(this);
+		super.reset();
 	}
 
 }

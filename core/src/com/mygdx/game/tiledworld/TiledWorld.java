@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.tiledworld;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,9 +8,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,7 +24,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.game.Constants;
+import com.mygdx.game.EventManager;
+import com.mygdx.game.MyGdxGame;
 
 /**
  * Class, representing the whole world, the game takes place in. Contains a
@@ -34,7 +37,7 @@ import com.badlogic.gdx.utils.Disposable;
  *
  */
 
-public class TiledWorld implements Disposable, Observer, Screen {
+public class TiledWorld implements Observer, Screen {
 
 	private static final String TAG = TiledWorld.class.getName();
 
@@ -645,6 +648,14 @@ public class TiledWorld implements Disposable, Observer, Screen {
 	@Override
 	public void show() {
 
+		player.reset();
+
+		if (Gdx.input.getInputProcessor() instanceof InputMultiplexer)
+			((InputMultiplexer) Gdx.input.getInputProcessor()).addProcessor(player.getInputProcessor());
+		else
+			Gdx.input.setInputProcessor(player.getInputProcessor());
+
+		Controllers.addListener(player.getControllerListener());
 	}
 
 	@Override
@@ -678,8 +689,10 @@ public class TiledWorld implements Disposable, Observer, Screen {
 
 	@Override
 	public void hide() {
-		spriteBatch.setColor(Color.GRAY);
-		((OrthogonalTiledMapRenderer) mapRenderer).getBatch().setColor(Color.GRAY);
+		if (Gdx.input.getInputProcessor() instanceof InputMultiplexer)
+			((InputMultiplexer) Gdx.input.getInputProcessor()).removeProcessor(player.getInputProcessor());
+
+		Controllers.removeListener(player.getControllerListener());
 	}
 
 }

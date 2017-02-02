@@ -7,19 +7,19 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.slotmachine.SlotMachine;
+import com.mygdx.game.tiledworld.TiledWorld;
 
 public class MyGdxGame extends Game {
 
 	private static final String TAG = MyGdxGame.class.getName();
 
-	InputMultiplexer inputMultiplexer;
 	SpriteBatch spriteBatch;
 	OrthographicCamera cam;
 	Screen world;
-	Screen dialog;
+	Screen slots;
 
 	float lag = 0;
 
@@ -28,7 +28,7 @@ public class MyGdxGame extends Game {
 
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-		inputMultiplexer = new InputMultiplexer(new InputAdapter() {
+		Gdx.input.setInputProcessor(new InputMultiplexer(new InputAdapter() {
 			@Override
 			public boolean keyDown(int keycode) {
 				if (keycode == Keys.ESCAPE) {
@@ -38,9 +38,8 @@ public class MyGdxGame extends Game {
 				} else
 					return false;
 			}
-		});
-
-		Gdx.input.setInputProcessor(inputMultiplexer);
+		}));
+		Gdx.input.setCursorCatched(true);
 
 		EventManager.setGame(this);
 
@@ -54,43 +53,7 @@ public class MyGdxGame extends Game {
 
 		// Karte Laden
 		world = new TiledWorld("overworld.tmx", spriteBatch, cam, this);
-
-		// TODO: TEST-SCREEN
-		dialog = new Screen() {
-
-			@Override
-			public void show() {
-			}
-
-			@Override
-			public void resume() {
-			}
-
-			@Override
-			public void resize(int width, int height) {
-			}
-
-			@Override
-			public void render(float delta) {
-				Gdx.gl20.glClearColor(1f, 0f, 0f, 0.5f);
-				Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-				if (Gdx.input.isKeyJustPressed(Keys.ANY_KEY))
-					setToWorld();
-			}
-
-			@Override
-			public void pause() {
-			}
-
-			@Override
-			public void hide() {
-			}
-
-			@Override
-			public void dispose() {
-			}
-		};
+		slots = new SlotMachine(spriteBatch, cam, this);
 		setScreen(world);
 
 	}
@@ -100,8 +63,8 @@ public class MyGdxGame extends Game {
 
 	}
 
-	public void setToDialog() {
-		setScreen(dialog);
+	public void setToSlotMachine() {
+		setScreen(slots);
 
 	}
 
@@ -109,16 +72,12 @@ public class MyGdxGame extends Game {
 		return world;
 	}
 
-	public InputMultiplexer getInputMultiplexer() {
-		return inputMultiplexer;
-	}
-
 	@Override
 	public void dispose() {
 		super.dispose();
 		spriteBatch.dispose();
 		world.dispose();
-		dialog.dispose();
+		slots.dispose();
 
 	}
 
