@@ -16,8 +16,24 @@ public class SlotMachineInputAdapter extends InputAdapter {
 		if (keycode == Keys.TAB) {
 			slotMachine.getGame().setToWorld();
 			return true;
-		} else
-			return false;
+		} else if (keycode == Keys.SPACE) {
+			slotMachine.startSlots();
+		} else if (keycode == Keys.ENTER) {
+			slotMachine.stopSlots();
+		} else if (keycode == Keys.NUM_1) {
+			slotMachine.stopSlot(0);
+		} else if (keycode == Keys.NUM_2) {
+			slotMachine.stopSlot(1);
+		} else if (keycode == Keys.NUM_3) {
+			slotMachine.stopSlot(2);
+		}else if (keycode == Keys.Q) {
+			slotMachine.toggleSlotLock(0);
+		} else if (keycode == Keys.W) {
+			slotMachine.toggleSlotLock(1);
+		} else if (keycode == Keys.E) {
+			slotMachine.toggleSlotLock(2);
+		}
+		return false;
 	}
 
 }

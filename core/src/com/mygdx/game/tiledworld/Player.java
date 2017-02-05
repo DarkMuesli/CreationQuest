@@ -159,7 +159,7 @@ public class Player extends Entity {
 	
 	@Override
 	public void reset() {
-		comGen = new PlayerInputHandler(this);
+		((PlayerInputHandler)comGen).reset();
 		super.reset();
 	}
 

@@ -106,4 +106,9 @@ public class PlayerInputHandler implements CommandGenerator {
 		return contCommandList.peek();
 	}
 
+	public void reset() {
+		currentOnceCommand = null;
+		contCommandList.clear();
+	}
+
 }
