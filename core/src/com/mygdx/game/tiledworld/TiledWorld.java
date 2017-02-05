@@ -96,6 +96,7 @@ public class TiledWorld implements Observer, Screen {
 
 		setMap(mapName);
 
+		resetCam(cam);
 	}
 
 	public MyGdxGame getGame() {
@@ -530,6 +531,8 @@ public class TiledWorld implements Observer, Screen {
 					Math.round(defaultSpawn.getProperties().get("y", float.class))));
 		else
 			player.setCellPosition(0, 0);
+		
+		player.reset();
 	}
 
 	@Override
@@ -550,9 +553,6 @@ public class TiledWorld implements Observer, Screen {
 
 					if (objPixelPos.contains(player.getPixelCenter())) {
 
-						player.reset();
-						player.waitFor(0.2f);
-
 						Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/door.wav"));
 						long id = sound.play();
 						sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
@@ -566,6 +566,11 @@ public class TiledWorld implements Observer, Screen {
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
 
 						spawnPlayer(player, oldMap);
+
+						player.reset();
+						player.waitFor(0.2f);
+						
+						resetCam(cam);
 
 					}
 				}
@@ -599,6 +604,29 @@ public class TiledWorld implements Observer, Screen {
 	}
 
 	public void updateCam(OrthographicCamera cam) {
+		float camx, camy, camz = 0;
+
+		if (getMapPixelWidth() >= cam.viewportWidth)
+			camx = Math.min(Math.max(cam.viewportWidth / 2, player.getSprt().getX() - player.getSprt().getWidth() / 2),
+					getMapPixelWidth() - cam.viewportWidth / 2);
+		else
+			camx = getMapPixelWidth() / 2;
+
+		if (getMapPixelHeight() >= cam.viewportHeight)
+			camy = Math.min(
+					Math.max(cam.viewportHeight / 2, player.getSprt().getY() - player.getSprt().getHeight() / 2),
+					getMapPixelHeight() - cam.viewportHeight / 2);
+		else
+			camy = getMapPixelHeight() / 2;
+
+		cam.position.set(lerp(cam.position.x, camx, 0.1f), lerp(cam.position.y, camy, 0.1f), camz);
+
+		cam.update();
+	}
+	
+	
+	//TODO Codedopplung zu updateCam vermeiden
+	public void resetCam(OrthographicCamera cam){
 		float camx, camy, camz = 0;
 
 		if (getMapPixelWidth() >= cam.viewportWidth)
@@ -649,6 +677,7 @@ public class TiledWorld implements Observer, Screen {
 	public void show() {
 
 		player.reset();
+		resetCam(cam);
 
 		if (Gdx.input.getInputProcessor() instanceof InputMultiplexer)
 			((InputMultiplexer) Gdx.input.getInputProcessor()).addProcessor(player.getInputProcessor());
@@ -693,6 +722,10 @@ public class TiledWorld implements Observer, Screen {
 			((InputMultiplexer) Gdx.input.getInputProcessor()).removeProcessor(player.getInputProcessor());
 
 		Controllers.removeListener(player.getControllerListener());
+	}
+	
+	private float lerp(float a, float b, float f) {
+		return a + f * (b - a);
 	}
 
 }

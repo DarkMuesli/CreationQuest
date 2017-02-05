@@ -324,6 +324,7 @@ public abstract class Entity extends GameObject {
 	}
 
 	public void reset() {
+		sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
 		state = State.IDLE;
 		movement = new Point(0, 0);
 		facing = Direction.DOWN;

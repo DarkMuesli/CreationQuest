@@ -46,8 +46,8 @@ public class SlotMachine implements Screen {
 		this.spriteBatch = spriteBatch;
 		this.cam = cam;
 		this.game = myGdxGame;
-		inpAd = new SlotMachineInputAdapter(this);
-		contAd = new SlotMachineControllerAdapter(this);
+		this.inpAd = new SlotMachineInputAdapter(this);
+		this.contAd = new SlotMachineControllerAdapter(this);
 
 		FileHandle handle = Gdx.files.internal("text/Moral.txt");
 
@@ -57,17 +57,17 @@ public class SlotMachine implements Screen {
 		this.slots = new Slot[3];
 		for (int i = 0; i < slots.length; i++) {
 			String[] part = parts[i].split("\\r?\\n");
-			slots[i] = new Slot(part);
+			this.slots[i] = new Slot(part);
 		}
 
-		shapeRenderer = new ShapeRenderer();
-		font = new BitmapFont();
-		layout = new GlyphLayout(font, "test");
+		this.shapeRenderer = new ShapeRenderer();
+		this.font = new BitmapFont();
+		this.layout = new GlyphLayout(font, "DebugString");
 
-		state = State.STOPPED;
-		timer = 0;
-		lag = 0;
-		slotIndex = 0;
+		this.state = State.STOPPED;
+		this.timer = 0;
+		this.lag = 0;
+		this.slotIndex = 0;
 	}
 
 	public MyGdxGame getGame() {

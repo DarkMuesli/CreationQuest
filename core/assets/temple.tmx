@@ -5,6 +5,24 @@
  </tileset>
  <tileset firstgid="29" name="tilesetformattedupdate1" tilewidth="16" tileheight="16" tilecount="84" columns="7">
   <image source="tilesets/indoor_baseline/tilesetformattedupdate1.png" trans="ffffff" width="112" height="192"/>
+  <tile id="13">
+   <animation>
+    <frame tileid="13" duration="200"/>
+    <frame tileid="20" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="27">
+   <animation>
+    <frame tileid="27" duration="200"/>
+    <frame tileid="34" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="41">
+   <animation>
+    <frame tileid="41" duration="200"/>
+    <frame tileid="48" duration="200"/>
+   </animation>
+  </tile>
  </tileset>
  <layer name="bgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
@@ -33,7 +51,7 @@
  </layer>
  <layer name="fgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKA+YKRQHgQ4KJQfTGA0PIYGcCRCDQBVZABm
+   eJxjYMAP3AjIYwOMFMqDAAeF8uQCCwr1a2ERG8rhMZKAIxFqAPGTAQ4=
   </data>
  </layer>
  <objectgroup name="objects">

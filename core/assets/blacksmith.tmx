@@ -5,6 +5,24 @@
  </tileset>
  <tileset firstgid="29" name="tilesetformattedupdate1" tilewidth="16" tileheight="16" tilecount="84" columns="7">
   <image source="tilesets/indoor_baseline/tilesetformattedupdate1.png" trans="ffffff" width="112" height="192"/>
+  <tile id="13">
+   <animation>
+    <frame tileid="13" duration="200"/>
+    <frame tileid="20" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="34">
+   <animation>
+    <frame tileid="27" duration="200"/>
+    <frame tileid="34" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="41">
+   <animation>
+    <frame tileid="48" duration="200"/>
+    <frame tileid="41" duration="200"/>
+   </animation>
+  </tile>
  </tileset>
  <layer name="bgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
@@ -18,22 +36,22 @@
  </layer>
  <layer name="col_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJyzZGBg8KAAWzMMLmA8wPbnDrD9gwkgx4UtEjuBCL2mWMRckNjpZLjHnQF3OmbAIwfDnkAMAEwDC30=
+   eJyzZGBg8KAAWzMMLmA8wPbnDrD9gwngiosEIvSaEpBPJ80pYODOgDsdM+CRg2FPIAYA+TwK/A==
   </data>
  </layer>
  <layer name="col_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAGyD2h9JuSPxQILYDYj8GVOCPxHaA0s446BggdmXADZyQzMAFQGb4EGGGPh41yQTsgJlhBsTmONRkAXE2FOcAcS4SO5uBOL8QAsPFjBAKzYgC4mgKzTCCYicy9aMDAONVD7Y=
+   eJxjYIAAGyD2h9JuSPxQILYDYj+oOjco7c+AAA5Q2hkHHQPErgy4gROSGbgAyAwfIszQx6MmmYAdMDPMgNgch5osIM6G4hwgzkViZzMQ5xdCYLiYEUKhGVFAHE2hGUZQ7ESmfnQAALVkD/w=
   </data>
  </layer>
  <layer name="col_2" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJzzYmBg8GYgHrhhEQsE4iASzBgOwIYAnxjgTIA/GAAsbkdiHGMDAKWZA8M=
+   eJzzYmBg8GagDAQCcRCFZgw1YEOATwxwJsAfDAAWtyMxjrEBANOKA30=
   </data>
  </layer>
  <layer name="fgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBg8QIdK5hhQyZyBBBYU6tcCYi8g9kaiSQG44iKSCL16QBxMon0DDRyJVAcAACwDMA==
+   eJxjYBg8QIdK5hhQyZyBBPYU6tcCYi8g9kaiSQG44iKSCL16QBxMon0DDRyJVAcAC1QDNw==
   </data>
  </layer>
  <objectgroup name="objects">
