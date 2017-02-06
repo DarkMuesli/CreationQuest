@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="53" height="42" tilewidth="16" tileheight="16" nextobjectid="18">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="53" height="42" tilewidth="16" tileheight="16" nextobjectid="20">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
   <terraintypes>
@@ -26,7 +26,7 @@
  </layer>
  <layer name="bgr_1" width="53" height="42">
   <data encoding="base64" compression="zlib">
-   eJztWM1SxCAM7nLQo7rqTe/+1hm9qy/gU/gQtlt8htWzu970BXxBwxTGmGlLWUq6dPhmvmkDNCEEQiHLEhKmhRtRcxvR1a9t7TPGtfhjjsY5F//rTP0l8KqlLgZ/ExJixMssy/aBB8A5IsberPnblaj5ifgBXOvytZZXqDxhuphDfA9beDRA7N/9VTjjDPp93sKLAXx6HmFNhPZpyeBTCTYWwEo/bT5J3Q5/U+lyxaLhvULPkpQVpL7QXOiyH2RP9hwPOm4ucdpkzL8Y4kRthPaJY+7RNRvaJ44cQeN0D/JDCx9J2036xzH3fOYC9WkH5F2LPt84mfNP3qHHZdyOLXE6AfnUom+MHNEFfE5U40S/vQX5zsGnUGdLn7mH95pC7z2Krx06OfIehw0FExMOe77z+7vlbBTKHoeNN0efxtifQiMGn1zjNMX11OTT0DmdO04x5Agcpz57bmz705OoyWWPw8ay4X9JAa+XGHIE1WXTx5HLS/2/Ru8WzJ2AuQeQRKb3COauoSRtJNItdX1CQkJCQn/8AgLtYFo=
+   eJztWEtSwzAMTbOAJVBgB3ugEGZgD1yAU3AIkiacoWVNyw4uwAWRJ/YgNHYc17FSd/xm3iT+RLIsW4qdZQkJu4XbvOU2omtc2zpmjJv8jwWa5yL/36baZ8BrQ1sM9iYkxIjXSZYdAo+AU0SMg4n+21Xe8hPxA7iW9WtZXqH6hN3FFPx7bODJAL5/9xfhjAsY96WBVwPY9DLCnght04LBpgp0zIG1fNpsamQ//E0t6wVLzXuNnhWpK0l7KTmXdT9IX9NzPui8ufhpkzn/YvAT1RHaJo61R/dsaJs4YgT10wOUHw18In03GR/H2vNZC9SmPSjvW+T5+kmdf4oOOS7zdmrx0xmUzy3yxogRXcDnRDFP9Ns7KN872BTqbOmz9nCuKWXuEXzrkMkR9zh0CCifcOjzXd/fhrNRKH0cOpaONo2Rn0IjBptc/RTbfuqTc3U2DR3Th/RTjDlXB+ynPjk3tvz0nLfk0sehY6H5XxLA+yWGGEFl2eRxxPJK/q/RuwV1J6DuARpSpvcI6q6hIn0aJLuR7QkJCQkJ/fEL9XdgqA==
   </data>
  </layer>
  <layer name="bgr_2" width="53" height="42">
@@ -36,7 +36,7 @@
  </layer>
  <layer name="col_0" width="53" height="42">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer name="col_1" width="53" height="42">
@@ -108,6 +108,16 @@
   <object id="16" name="SoundTrigger" type="Trigger" x="608" y="256" width="16" height="16">
    <properties>
     <property name="Trigger" value="PlayMusic"/>
+   </properties>
+  </object>
+  <object id="18" name="Entry_Farm" type="LoadingZone" x="448" y="464" width="32" height="32">
+   <properties>
+    <property name="nextMap" value="farm.tmx"/>
+   </properties>
+  </object>
+  <object id="19" name="FromFarmSpawn" type="PlayerSpawn" x="448" y="496" width="16" height="16">
+   <properties>
+    <property name="From" value="farm.tmx"/>
    </properties>
   </object>
  </objectgroup>

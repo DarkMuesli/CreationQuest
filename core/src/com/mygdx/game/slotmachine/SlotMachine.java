@@ -21,7 +21,7 @@ import com.mygdx.game.MyGdxGame;
 public class SlotMachine implements Screen {
 
 	private enum State {
-		STOPPED, MOVING, STARTING, STOPPING, STARTING_PENDING, STOPPING_PENDING
+		STOPPED, MOVING, STARTING, STOPPING, STARTING_PENDING, STOPPING_PENDING, TILTED_UP, UNTILTING
 	}
 
 	private float lag;
@@ -147,8 +147,7 @@ public class SlotMachine implements Screen {
 		switch (state) {
 
 		case STARTING:
-			timer += deltaTime;
-			if (timer >= 0.1f) {
+			if ((timer += deltaTime) >= 0.1f) {
 				startSlot(slotIndex++);
 				timer = 0;
 				if (slotIndex >= slots.length) {
@@ -159,8 +158,7 @@ public class SlotMachine implements Screen {
 			break;
 
 		case STOPPING:
-			timer += deltaTime;
-			if (timer >= 0.1f) {
+			if ((timer += deltaTime) >= 0.1f) {
 				stopSlot(slotIndex++);
 				timer = 0;
 				if (slotIndex >= slots.length) {
@@ -181,6 +179,12 @@ public class SlotMachine implements Screen {
 				state = State.STOPPED;
 			break;
 
+		case UNTILTING:
+			if ((timer += deltaTime) > 0.1f)
+				stopSlots();
+			break;
+
+		case TILTED_UP:
 		case STOPPED:
 		}
 
@@ -190,16 +194,31 @@ public class SlotMachine implements Screen {
 	}
 
 	public void startSlots() {
-		if (state == State.STOPPED) {
+		if (state == State.TILTED_UP || state == State.UNTILTING) {
 			timer = 0.1f;
 			state = State.STARTING;
 		}
 	}
 
+	public void tiltSlots() {
+		if (state == State.STOPPED) {
+			for (Slot slot : slots)
+				slot.tilt();
+			state = State.TILTED_UP;
+		}
+	}
+
 	public void stopSlots() {
-		if (state == State.MOVING) {
+		if (state == State.MOVING || state == State.UNTILTING) {
 			timer = 0.1f;
 			state = State.STOPPING;
+		}
+	}
+
+	public void untilt() {
+		if (state == State.TILTED_UP) {
+			timer = 0f;
+			state = State.UNTILTING;
 		}
 	}
 
@@ -258,6 +277,14 @@ public class SlotMachine implements Screen {
 	public void toggleSlotLock(int i) {
 		if (state == State.STOPPED)
 			slots[i].toggleLock();
+	}
+
+	public void pushSlotButton(int i) {
+		if (state == State.STOPPED)
+			slots[i].toggleLock();
+		else if (state == State.MOVING || state == State.STOPPING)
+			slots[i].stop();
+
 	}
 
 	private boolean areSlotsStopped() {

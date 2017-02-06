@@ -5,12 +5,13 @@ import java.util.LinkedList;
 public class Slot {
 
 	public enum State {
-		MOVING, STARTING, STOPPING, STOPPED, LOCKED, ALIGNING
+		MOVING, STARTING, STOPPING, STOPPED, LOCKED, ALIGNING, TILTED_UP
 	}
 
 	public final int ELEMENTS;
 	public final float MAX_SPEED;
 	public static final float LERP_FRACTION = 0.05f;
+	public static final float TILT_POS = 0.6f;
 
 	private String[] wordPool;
 	private LinkedList<String> words;
@@ -32,7 +33,7 @@ public class Slot {
 
 		for (int i = 0; i < ELEMENTS; i++) {
 			String newWord;
-			
+
 			do
 				newWord = wordPool[(int) (Math.random() * wordPool.length)].trim();
 			while (words.contains(newWord) || newWord.isEmpty());
@@ -65,7 +66,9 @@ public class Slot {
 	public void setVertPosition(float vertPosition) {
 		if (vertPosition >= 1f)
 			this.vertPosition = vertPosition - 1f;
-		else
+		else if (vertPosition < 0f) {
+			this.vertPosition = vertPosition + 1;
+		} else
 			this.vertPosition = vertPosition;
 	}
 
@@ -85,7 +88,7 @@ public class Slot {
 			break;
 
 		case STARTING:
-			speed = lerp(speed, MAX_SPEED);
+			speed = lerp(speed, MAX_SPEED, LERP_FRACTION);
 			updatePositionAndWords(deltaTime);
 			if (speed >= MAX_SPEED - 0.1f) {
 				speed = MAX_SPEED;
@@ -94,7 +97,7 @@ public class Slot {
 			break;
 
 		case STOPPING:
-			speed = lerp(speed, 0);
+			speed = lerp(speed, 0, LERP_FRACTION);
 			updatePositionAndWords(deltaTime);
 			if (speed <= 0.1f) {
 				speed = 0f;
@@ -104,13 +107,16 @@ public class Slot {
 			break;
 
 		case ALIGNING:
-			vertPosition = lerp(vertPosition, 0.5f);
+			vertPosition = lerp(vertPosition, 0.5f, LERP_FRACTION);
 			if (Math.abs(0.5f - vertPosition) <= 0.01f) {
 				vertPosition = 0.5f;
 				speed = 0;
 				state = State.STOPPED;
 			}
 			break;
+
+		case TILTED_UP:
+			vertPosition = lerp(vertPosition, TILT_POS, LERP_FRACTION * 5);
 
 		case LOCKED:
 		case STOPPED:
@@ -120,28 +126,33 @@ public class Slot {
 
 	private void updatePositionAndWords(float deltaTime) {
 		float oldPos = vertPosition;
-		setVertPosition(vertPosition + deltaTime * speed);
+		setVertPosition(vertPosition - deltaTime * speed);
 		float newPos = vertPosition;
-		if (newPos < oldPos) {
-			words.removeLast();
+		if (newPos > oldPos) {
+			words.removeFirst();
 
 			String newWord;
 			do
 				newWord = wordPool[(int) (Math.random() * wordPool.length)].trim();
 			while (words.contains(newWord) || newWord.isEmpty());
 
-			words.addFirst(newWord);
+			words.addLast(newWord);
 		}
-		
+
+	}
+
+	public void tilt() {
+		if (state == State.STOPPED)
+			state = State.TILTED_UP;
 	}
 
 	public void start() {
-		if (state == State.STOPPED)
+		if (state == State.TILTED_UP)
 			state = State.STARTING;
 	}
 
 	public void stop() {
-		if (state == State.MOVING)
+		if (state == State.MOVING || state == State.TILTED_UP)
 			state = State.STOPPING;
 	}
 
@@ -160,8 +171,8 @@ public class Slot {
 		return (state == State.STOPPED) || (state == State.LOCKED);
 	}
 
-	private float lerp(float a, float b) {
-		return a + LERP_FRACTION * (b - a);
+	private float lerp(float a, float b, float f) {
+		return a + f * (b - a);
 	}
 
 	public boolean isLocked() {

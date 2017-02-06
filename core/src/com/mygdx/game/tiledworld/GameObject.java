@@ -186,7 +186,7 @@ public abstract class GameObject extends Observable implements Disposable {
 		sprt.getTexture().dispose();
 	}
 
-	public void update() {
+	public void update(float deltaTime) {
 
 	}
 

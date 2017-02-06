@@ -32,7 +32,21 @@ public class SlotMachineInputAdapter extends InputAdapter {
 			slotMachine.toggleSlotLock(1);
 		} else if (keycode == Keys.E) {
 			slotMachine.toggleSlotLock(2);
+		}else if (keycode == Keys.UP) {
+			slotMachine.tiltSlots();
+		} else if (keycode == Keys.DOWN) {
+			slotMachine.startSlots();
+		} 
+		return false;
+	}
+	
+	@Override
+	public boolean keyUp(int keycode) {
+		if (keycode == Keys.UP) {
+			slotMachine.untilt();
+			return true;
 		}
+		
 		return false;
 	}
 

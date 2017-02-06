@@ -52,6 +52,8 @@ public class TiledWorld implements Observer, Screen {
 	private SpriteBatch spriteBatch;
 	private OrthographicCamera cam;
 
+	private List<GameObject> gameObjectList;
+
 	private List<Entity> entityList;
 	private List<Entity> newEntityList;
 
@@ -90,6 +92,7 @@ public class TiledWorld implements Observer, Screen {
 	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame game) {
 		entityList = new ArrayList<Entity>();
 		newEntityList = new ArrayList<Entity>();
+		gameObjectList = new ArrayList<GameObject>();
 		this.cam = cam;
 		this.spriteBatch = spriteBatch;
 		this.game = game;
@@ -109,6 +112,14 @@ public class TiledWorld implements Observer, Screen {
 
 	public List<Entity> getEntityList() {
 		return entityList;
+	}
+
+	public List<GameObject> getGameObjectList() {
+		return gameObjectList;
+	}
+
+	public void setGameObjectList(List<GameObject> gameObjectList) {
+		this.gameObjectList = gameObjectList;
 	}
 
 	public List<MapObject> getLoadingZoneObjects() {
@@ -291,6 +302,10 @@ public class TiledWorld implements Observer, Screen {
 			if (entity.getCellPosition().equals(p))
 				return true;
 		}
+		for (GameObject obj : gameObjectList) {
+			if (obj.getCellPosition().equals(p))
+				return true;
+		}
 		return false;
 	}
 
@@ -386,6 +401,9 @@ public class TiledWorld implements Observer, Screen {
 					break;
 				case "MoralNPCCreate":
 					newEntityList.add(NPC.createMoralNPC(mapObject, this));
+					break;
+				case "Fruit":
+					gameObjectList.add(Fruit.createFruit(mapObject, this));
 					break;
 				case "Trigger":
 					triggerObjects.add(mapObject);
@@ -531,7 +549,7 @@ public class TiledWorld implements Observer, Screen {
 					Math.round(defaultSpawn.getProperties().get("y", float.class))));
 		else
 			player.setCellPosition(0, 0);
-		
+
 		player.reset();
 	}
 
@@ -561,6 +579,7 @@ public class TiledWorld implements Observer, Screen {
 
 						newEntityList.clear();
 						newEntityList.add(player);
+						gameObjectList.clear();
 						setMap(objProp.get("nextMap", String.class));
 
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
@@ -569,7 +588,7 @@ public class TiledWorld implements Observer, Screen {
 
 						player.reset();
 						player.waitFor(0.2f);
-						
+
 						resetCam(cam);
 
 					}
@@ -597,6 +616,7 @@ public class TiledWorld implements Observer, Screen {
 		// TODO: NIX GUT SO
 		// spriteBatch.begin();
 		entityList.forEach(e -> e.draw(spriteBatch));
+		gameObjectList.forEach(obj -> obj.draw(spriteBatch));
 		// spriteBatch.end();
 
 		renderForegroundLayers();
@@ -623,10 +643,9 @@ public class TiledWorld implements Observer, Screen {
 
 		cam.update();
 	}
-	
-	
-	//TODO Codedopplung zu updateCam vermeiden
-	public void resetCam(OrthographicCamera cam){
+
+	// TODO Codedopplung zu updateCam vermeiden
+	public void resetCam(OrthographicCamera cam) {
 		float camx, camy, camz = 0;
 
 		if (getMapPixelWidth() >= cam.viewportWidth)
@@ -651,6 +670,8 @@ public class TiledWorld implements Observer, Screen {
 		newEntityList.addAll(entityList);
 
 		entityList.forEach(e -> e.update(deltaTime));
+
+		gameObjectList.forEach(obj -> obj.update(deltaTime));
 
 		entityList.clear();
 		entityList.addAll(newEntityList);
@@ -723,9 +744,13 @@ public class TiledWorld implements Observer, Screen {
 
 		Controllers.removeListener(player.getControllerListener());
 	}
-	
+
 	private float lerp(float a, float b, float f) {
 		return a + f * (b - a);
+	}
+
+	public void removeGameObject(GameObject obj) {
+		gameObjectList.remove(obj);
 	}
 
 }

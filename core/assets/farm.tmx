@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="157">
+ <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
+  <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
+ </tileset>
+ <tileset firstgid="397" name="transparent-bg-tiles" tilewidth="16" tileheight="16" tilecount="396" columns="22">
+  <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/transparent-bg-tiles.png" trans="ffffff" width="352" height="288"/>
+ </tileset>
+ <layer name="bgr_0" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxdlMmxgzAQRBUAxkRhn1gCgBNLDiw5QJGDoyAB4MaJm3EQiHj+qOqpUP1DF7bU090zAp1KqYfgLVgEm+AjKFivBZEgFXiCUdALdsHF0+wNzt4s8AWV4BB0ghe6oWASlNQOcAJ4seAUaDRifFLqZup+6J/8Hslv/n/pp3Wy1PBiuCn8TLDC0+T0gGY9hGfzfdg3mZ+CnHmleCVwFydjC3dAs3fWN3RjvEo4xrNhPjXZWjQ66jNqRvqryVEwh+zf2dqz0/Sx8j+nnxKPBUxoaLKYtQdZK/R88mRkitBqyLQzkwrtEU4OPyFHx9pO5oj6xpl9wJ6PzguNkNoanwe4mN8FNmc2B/UbZ+Mz2wSPA16F/sGzp9fLyTE6Hl80W1BSW9FnAa+lVzuLGv8PNQFeo7rfq4in8ffQfNLHC58MjYr5vdFe0dNOPwFztTPWZCmpjchYs3aSMXfOsacn+60aDft9Jfg0+JusM9lD1nfyWs7M2WmnN+34L3i2rH/JF8CN4DXUl+j/1P292m+8ABGeK2dXMY8Vv5neGub5pLcE/0bdd89ITx48e+cFZOjJMIFY3XeF+75YfV/dd1jveAzUd/jY9ZY52HfXw3dCx56PfedDanq0PPZ3ZhGo+45yz9TU/AGSb6PQ
+  </data>
+ </layer>
+ <layer name="bgr_1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgaQIiJgUGYTCzChGmeBlBMk0ysNWresDevAooHq/tGzRvc5tkBxezJxA5YzBusAABMYSv1
+  </data>
+ </layer>
+ <layer name="col_0" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJw7wcTAcIKKuJeRgWqgn3HUvFHzBs48EBjM7hs1b9Q8Us1bDMRLqISXAjEArL4wOQ==
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="106" name="DefaultSpawn" type="PlayerSpawn" x="272" y="144" width="16" height="16">
+   <properties>
+    <property name="From" value="Default"/>
+   </properties>
+  </object>
+  <object id="107" name="Fruit" type="Fruit" x="64" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="108" name="Fruit" type="Fruit" x="96" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="109" name="Fruit" type="Fruit" x="128" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="110" name="Fruit" type="Fruit" x="160" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="111" name="Fruit" type="Fruit" x="192" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="112" name="Fruit" type="Fruit" x="224" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="113" name="Fruit" type="Fruit" x="256" y="48" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="114" name="Fruit" type="Fruit" x="144" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="115" name="Fruit" type="Fruit" x="48" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="116" name="Fruit" type="Fruit" x="176" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="117" name="Fruit" type="Fruit" x="80" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="118" name="Fruit" type="Fruit" x="112" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="119" name="Fruit" type="Fruit" x="240" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="120" name="Fruit" type="Fruit" x="208" y="80" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="121" name="Fruit" type="Fruit" x="160" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="122" name="Fruit" type="Fruit" x="64" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="123" name="Fruit" type="Fruit" x="192" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="124" name="Fruit" type="Fruit" x="96" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="125" name="Fruit" type="Fruit" x="128" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="126" name="Fruit" type="Fruit" x="256" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="127" name="Fruit" type="Fruit" x="224" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="128" name="Fruit" type="Fruit" x="144" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="129" name="Fruit" type="Fruit" x="48" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="130" name="Fruit" type="Fruit" x="176" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="131" name="Fruit" type="Fruit" x="80" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="132" name="Fruit" type="Fruit" x="112" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="133" name="Fruit" type="Fruit" x="240" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="134" name="Fruit" type="Fruit" x="208" y="144" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="135" name="Fruit" type="Fruit" x="160" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="136" name="Fruit" type="Fruit" x="64" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="137" name="Fruit" type="Fruit" x="192" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="138" name="Fruit" type="Fruit" x="96" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="139" name="Fruit" type="Fruit" x="128" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="140" name="Fruit" type="Fruit" x="256" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="141" name="Fruit" type="Fruit" x="224" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="142" name="Fruit" type="Fruit" x="144" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="143" name="Fruit" type="Fruit" x="48" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="144" name="Fruit" type="Fruit" x="176" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="145" name="Fruit" type="Fruit" x="80" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="146" name="Fruit" type="Fruit" x="112" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="147" name="Fruit" type="Fruit" x="240" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="148" name="Fruit" type="Fruit" x="208" y="208" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="149" name="Fruit" type="Fruit" x="160" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="150" name="Fruit" type="Fruit" x="64" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="151" name="Fruit" type="Fruit" x="192" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="152" name="Fruit" type="Fruit" x="96" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="153" name="Fruit" type="Fruit" x="128" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="154" name="Fruit" type="Fruit" x="256" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="155" name="Fruit" type="Fruit" x="224" y="240" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
+   </properties>
+  </object>
+  <object id="156" name="ToOverworld" type="LoadingZone" x="304" y="144" width="16" height="16">
+   <properties>
+    <property name="nextMap" value="overworld.tmx"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

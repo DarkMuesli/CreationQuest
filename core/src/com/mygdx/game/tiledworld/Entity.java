@@ -288,6 +288,10 @@ public abstract class Entity extends GameObject {
 			if (e.getCellPosition().equals(facingCell))
 				return interact(e);
 		}
+		for (GameObject o : world.getGameObjectList()) {
+			if (o.getCellPosition().equals(facingCell))
+				return interact(o);
+		}
 		return false;
 	}
 

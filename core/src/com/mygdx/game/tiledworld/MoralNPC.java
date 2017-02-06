@@ -91,7 +91,7 @@ public class MoralNPC extends NPC {
 		if (drawText && (counter += deltaTime) >= 3)
 			drawText = false;
 
-		super.update();
+		super.update(deltaTime);
 	}
 
 }
