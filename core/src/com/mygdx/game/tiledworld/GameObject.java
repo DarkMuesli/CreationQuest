@@ -6,6 +6,7 @@ import java.util.Observable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.EventManager;
@@ -68,13 +69,27 @@ public abstract class GameObject extends Observable implements Disposable {
 	 *            {@link TiledWorld} the {@link GameObject} will be present in
 	 */
 	public GameObject(int x, int y, Sprite sprt, TiledWorld world) {
+		this(world);
+
 		this.x = x;
 		this.y = y;
 		this.sprt = sprt;
-		this.world = world;
 
-		this.addObserver(world);
-		this.addObserver(EventManager.instance());
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
+				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
+	}
+
+	public GameObject(MapObject mapObject, TiledWorld world) {
+		this(world);
+
+		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
+		float pixx = mapObject.getProperties().get("x", float.class);
+		float pixy = mapObject.getProperties().get("y", float.class);
+		Point pos = world.getCellFromPixel(pixx, pixy);
+
+		this.x = pos.x;
+		this.y = pos.y;
+		this.sprt = new Sprite(tex);
 
 		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
 				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
@@ -96,6 +111,13 @@ public abstract class GameObject extends Observable implements Disposable {
 	 */
 	public GameObject(int x, int y, Texture tex, TiledWorld world) {
 		this(x, y, new Sprite(tex), world);
+	}
+
+	private GameObject(TiledWorld world) {
+		this.world = world;
+
+		this.addObserver(world);
+		this.addObserver(EventManager.instance());
 	}
 
 	/**

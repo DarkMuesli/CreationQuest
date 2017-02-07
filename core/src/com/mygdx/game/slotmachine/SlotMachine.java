@@ -1,7 +1,5 @@
 package com.mygdx.game.slotmachine;
 
-import java.util.LinkedList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;

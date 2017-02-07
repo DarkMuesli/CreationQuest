@@ -3,8 +3,6 @@
  */
 package com.mygdx.game.tiledworld;
 
-import java.awt.Point;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
@@ -63,6 +61,10 @@ public class NPC extends Entity {
 		super(tex, world);
 	}
 
+	public NPC(MapObject mapObject, TiledWorld tiledWorld) {
+		super(mapObject, tiledWorld);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -71,22 +73,6 @@ public class NPC extends Entity {
 	@Override
 	public boolean isPlayer() {
 		return false;
-	}
-
-	public static Entity createNPC(MapObject mapObject, TiledWorld tiledWorld) {
-		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
-		float pixx = mapObject.getProperties().get("x", float.class);
-		float pixy = mapObject.getProperties().get("y", float.class);
-		Point pos = tiledWorld.getCellFromPixel(pixx, pixy);
-		return new NPC(pos.x, pos.y, tex, tiledWorld);
-	}
-
-	public static Entity createMoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
-		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
-		float pixx = mapObject.getProperties().get("x", float.class);
-		float pixy = mapObject.getProperties().get("y", float.class);
-		Point pos = tiledWorld.getCellFromPixel(pixx, pixy);
-		return new MoralNPC(pos.x, pos.y, tex, tiledWorld);
 	}
 
 	@Override

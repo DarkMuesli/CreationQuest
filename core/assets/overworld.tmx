@@ -52,12 +52,18 @@
  <objectgroup name="objects">
   <object id="1" name="SpawnWarrior" type="PlayerCreate" x="592" y="240" width="16" height="16">
    <properties>
-    <property name="atlasHeight" type="int" value="4"/>
-    <property name="atlasWidth" type="int" value="3"/>
-    <property name="idle" type="int" value="1"/>
-    <property name="path" value="tilesets\characters\rpgsprites1\warrior_m.png"/>
-    <property name="upEnd" type="int" value="3"/>
-    <property name="upStart" type="int" value="1"/>
+    <property name="facing" value="RIGHT"/>
+    <property name="path" value="tilesets\characters\rpgsprites1\warrior_enh_m.png"/>
+    <property name="rowDown" type="int" value="2"/>
+    <property name="rowLeft" type="int" value="3"/>
+    <property name="rowPullDown" type="int" value="6"/>
+    <property name="rowPullLeft" type="int" value="7"/>
+    <property name="rowPullRight" type="int" value="5"/>
+    <property name="rowPullUp" type="int" value="4"/>
+    <property name="rowRight" type="int" value="1"/>
+    <property name="rowUp" type="int" value="0"/>
+    <property name="tileHeight" type="int" value="36"/>
+    <property name="tileWidth" type="int" value="32"/>
    </properties>
   </object>
   <object id="3" name="Entry_Temple" type="LoadingZone" x="592" y="176" width="16" height="32">

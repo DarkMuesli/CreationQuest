@@ -1,15 +1,14 @@
 package com.mygdx.game.tiledworld;
 
-import java.awt.Point;
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 
 public class Fruit extends GameObject {
-	
+
 	private static final String TAG = Fruit.class.getName();
 
 	public Fruit(Sprite sprt, TiledWorld world) {
@@ -28,22 +27,29 @@ public class Fruit extends GameObject {
 		super(x, y, tex, world);
 	}
 
-	public static Fruit createFruit(MapObject mapObject, TiledWorld world) {
+	public Fruit(MapObject mapObject, TiledWorld world) {
+		super(mapObject, world);
 		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
 		TextureRegion[][] split = TextureRegion.split(tex, 16, 16);
-		Sprite sprt = new Sprite(split[5][2]);
-		float pixx = mapObject.getProperties().get("x", float.class);
-		float pixy = mapObject.getProperties().get("y", float.class);
-		sprt.setPosition(pixx, pixy);
-		Point pos = world.getCellFromPixel(pixx, pixy);
-		return new Fruit(pos.x, pos.y, sprt, world);
+		sprt = new Sprite(split[5][2]);
+		sprt.setPosition(world.getPixelFromCell(x, y).x, world.getPixelFromCell(x, y).y);
 	}
 
 	@Override
 	public boolean onInteract(GameObject obj) {
+		if (obj instanceof Entity) {
+			Entity e = (Entity) obj;
+			e.pull(this);
+		}
+		return true;
+	}
+
+	public void removeFruit() {
 		world.removeGameObject(this);
 		Gdx.app.log(TAG, "Frucht wird entfernt");
-		return true;
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/plop.wav"));
+		long id = sound.play();
+		sound.setPitch(id, 1f + ((float) Math.random() * 0.2f) - 0.1f);
 	}
 
 }

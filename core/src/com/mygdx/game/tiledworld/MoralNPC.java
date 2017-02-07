@@ -8,13 +8,13 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObject;
 
 public class MoralNPC extends NPC {
 
 	private static final String TAG = MoralNPC.class.getName();
 
 	SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
-	private boolean isLoaded = false;
 	List<List<String>> wordLists = new ArrayList<List<String>>(3);
 	public String word;
 	public boolean drawText = false;
@@ -40,27 +40,25 @@ public class MoralNPC extends NPC {
 		super(tex, world);
 	}
 
+	public MoralNPC(MapObject mapObject, TiledWorld tiledWorld){
+		super(mapObject, tiledWorld);
+		FileHandle handle = Gdx.files.internal("text/Moral.txt");
+
+		String text = handle.readString();
+		String[] parts = text.split("###");
+
+		for (int i = 0; i < parts.length; i++) {
+			String[] word = parts[i].split("\\r?\\n");
+			wordLists.add(new ArrayList<String>());
+			for (int j = 0; j < word.length; j++) {
+				if (!word[j].isEmpty())
+					wordLists.get(i).add(word[j].trim());
+			}
+		}
+	}
+	
 	@Override
 	public boolean onInteract(GameObject obj) {
-		if (!isLoaded) {
-			FileHandle handle = Gdx.files.internal("text/Moral.txt");
-
-			String text = handle.readString();
-			String[] parts = text.split("###");
-
-			for (int i = 0; i < parts.length; i++) {
-				String[] word = parts[i].split("\\r?\\n");
-				wordLists.add(new ArrayList<String>());
-				for (int j = 0; j < word.length; j++) {
-					if (!word[j].isEmpty())
-						wordLists.get(i).add(word[j].trim());
-				}
-			}
-
-			isLoaded = true;
-
-		}
-
 		counter = 0;
 		drawText = true;
 		word = getWord();

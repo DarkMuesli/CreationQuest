@@ -1,7 +1,5 @@
 package com.mygdx.game.tiledworld;
 
-import java.awt.Point;
-
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.graphics.Texture;
@@ -106,13 +104,19 @@ public class Player extends Entity {
 		// TODO FIX THIS not to be the only functioning constructor
 		comGen = new PlayerInputHandler(this);
 	}
-	
-	public InputProcessor getInputProcessor(){
-		return ((PlayerInputHandler)comGen).getPlayerInpAd();
+
+	public Player(MapObject mapObject, TiledWorld world) {
+		super(mapObject, world);
+		// TODO FIX THIS not to be the only functioning constructor
+		comGen = new PlayerInputHandler(this);
 	}
-	
-	public ControllerListener getControllerListener(){
-		return ((PlayerInputHandler)comGen).getPlayerContAd();
+
+	public InputProcessor getInputProcessor() {
+		return ((PlayerInputHandler) comGen).getPlayerInpAd();
+	}
+
+	public ControllerListener getControllerListener() {
+		return ((PlayerInputHandler) comGen).getPlayerContAd();
 	}
 
 	/*
@@ -144,23 +148,25 @@ public class Player extends Entity {
 		return true;
 	}
 
-	public static Player createPlayer(MapObject mapObject, TiledWorld world) {
-		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
-		float pixx = mapObject.getProperties().get("x", float.class);
-		float pixy = mapObject.getProperties().get("y", float.class);
-		Point pos = world.getCellFromPixel(pixx, pixy);
-		return new Player(pos.x, pos.y, tex, world);
-	}
-
 	@Override
 	public boolean onInteract(GameObject obj) {
 		return false;
 	}
-	
+
 	@Override
 	public void reset() {
-		((PlayerInputHandler)comGen).reset();
+		((PlayerInputHandler) comGen).reset();
 		super.reset();
 	}
+
+	public boolean isPulling() {
+		return state == State.PULLING;
+	}
+
+	public boolean isIdle() {
+		return state == State.IDLE;
+	}
+
+
 
 }

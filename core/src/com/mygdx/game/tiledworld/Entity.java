@@ -2,6 +2,8 @@ package com.mygdx.game.tiledworld;
 
 import java.awt.Point;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -9,6 +11,7 @@ import com.mygdx.game.Constants;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * Abstract type for all entities, as in "living things". Characterized by being
@@ -20,7 +23,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public abstract class Entity extends GameObject {
 
 	enum State {
-		IDLE, MOVING, WAITING
+		IDLE, MOVING, WAITING, PULLING
 	}
 
 	protected State state = State.IDLE;
@@ -32,12 +35,18 @@ public abstract class Entity extends GameObject {
 	private Texture sheet;
 	private TextureRegion[] idleFrames;
 	private Animation[] moveAnimations;
+	private Animation[] pullAnimations;
+	private boolean hasPullAnimation;
 	private float animationTimer = 0;
 
 	protected Point movement = new Point(0, -1);
-	protected float moveTimer = 0;
 
+	private float timer = 0;
+	private float pullTimer = 0;
 	private float waitTime = 0;
+	private Fruit pulledFruit;
+
+	private boolean pullingOdd;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = Entity.class.getName();
@@ -161,6 +170,69 @@ public abstract class Entity extends GameObject {
 		this(0, 0, new Sprite(tex), world);
 	}
 
+	public Entity(MapObject mapObject, TiledWorld world) {
+		super(mapObject, world);
+
+		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
+
+		sheet = tex;
+
+		TextureRegion[][] tmp;
+		Integer width, height;
+		if ((width = mapObject.getProperties().get("tileWidth", Integer.class)) != null) {
+			height = mapObject.getProperties().get("tileHeight", Integer.class);
+			tmp = TextureRegion.split(sheet, width, height);
+		} else {
+			tmp = TextureRegion.split(sheet, 32, 36);
+		}
+
+		Integer[] rowsPull = new Integer[4];
+		if ((rowsPull[0] = mapObject.getProperties().get("rowPullUp", Integer.class)) != null) {
+			rowsPull[1] = mapObject.getProperties().get("rowPullRight", Integer.class);
+			rowsPull[2] = mapObject.getProperties().get("rowPullDown", Integer.class);
+			rowsPull[3] = mapObject.getProperties().get("rowPullLeft", Integer.class);
+			hasPullAnimation = true;
+		}
+
+		Integer[] rowsMove = new Integer[4];
+		if ((rowsMove[0] = mapObject.getProperties().get("rowUp", Integer.class)) != null) {
+			rowsMove[1] = mapObject.getProperties().get("rowRight", Integer.class);
+			rowsMove[2] = mapObject.getProperties().get("rowDown", Integer.class);
+			rowsMove[3] = mapObject.getProperties().get("rowLeft", Integer.class);
+		} else {
+			for (int i = 0; i < rowsMove.length; i++)
+				rowsMove[i] = i;
+		}
+
+		idleFrames = new TextureRegion[4];
+		moveAnimations = new Animation[4];
+		pullAnimations = new Animation[4];
+		for (int i = 0; i < 4; i++) {
+			idleFrames[i] = tmp[rowsMove[i]][1];
+			moveAnimations[i] = new Animation(0.2f, tmp[rowsMove[i]]);
+			moveAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
+			if (hasPullAnimation) {
+				pullAnimations[i] = new Animation(0.2f, tmp[rowsPull[i]]);
+				pullAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
+			}
+		}
+		String facingString = mapObject.getProperties().get("facing", String.class);
+		if (facingString != null)
+			facing = Direction.valueOf(facingString);
+		else
+			facing = Direction.DOWN;
+
+		Float moveSpeed;
+		if ((moveSpeed = mapObject.getProperties().get("moveSpeed", Float.class)) == null)
+			this.moveSpeed = 1f;
+		else
+			this.moveSpeed = moveSpeed;
+
+		updateSpriteRegion();
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
+				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
+	}
+
 	/**
 	 * @return the state
 	 */
@@ -236,7 +308,7 @@ public abstract class Entity extends GameObject {
 			y += movement.y;
 
 			state = State.MOVING;
-			moveTimer = 0;
+			timer = 0;
 
 			return true;
 		} else
@@ -324,6 +396,9 @@ public abstract class Entity extends GameObject {
 		case MOVING:
 			sprt.setRegion(moveAnimations[dirMap].getKeyFrame(animationTimer));
 			break;
+		case PULLING:
+			sprt.setRegion(pullAnimations[dirMap].getKeyFrame(animationTimer));
+			break;
 		}
 	}
 
@@ -333,13 +408,37 @@ public abstract class Entity extends GameObject {
 		movement = new Point(0, 0);
 		facing = Direction.DOWN;
 		animationTimer = 0;
-		moveTimer = 0;
+		timer = 0;
 	}
 
 	public void waitFor(float seconds) {
 		movement = new Point(0, 0);
 		state = State.WAITING;
 		waitTime = seconds;
+	}
+
+	public void pull(boolean isOdd) {
+		if (pulledFruit == null)
+			return;
+		else if (state == State.PULLING) {
+			if (pullingOdd == isOdd) {
+				timer = 0f;
+				pullingOdd = !pullingOdd;
+			}
+		}
+	}
+	
+	public void pull(Fruit fruit) {
+		if (state == State.IDLE) {
+			pulledFruit = fruit;
+			state = State.PULLING;
+			timer = 0f;
+			pullTimer = 0f;
+			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/squeeze" + (int)(Math.random() * 2) + ".wav"));
+			long id = sound.play();
+			sound.setPitch(id, 1f + ((float) Math.random() * 0.2f) - 0.1f);
+		}
+		
 	}
 
 	public void update(float deltaTime) {
@@ -369,8 +468,8 @@ public abstract class Entity extends GameObject {
 
 			sprt.translate(movement.x * getWorld().getTileWidth() * movedDistance - (movement.x * stepx),
 					movement.y * getWorld().getTileHeight() * movedDistance - (movement.y * stepy));
-			if ((moveTimer += movedDistance) >= 1) {
-				moveTimer = 0;
+			if ((timer += movedDistance) >= 1) {
+				timer = 0;
 				state = State.IDLE;
 				sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
 			}
@@ -382,11 +481,22 @@ public abstract class Entity extends GameObject {
 
 		case WAITING:
 			sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
-			if ((moveTimer += deltaTime) >= waitTime) {
+			if ((timer += deltaTime) >= waitTime) {
 				state = State.IDLE;
 			}
 			break;
 
+		case PULLING:
+			animationTimer += deltaTime;
+			pullTimer += deltaTime;
+			if ((timer += deltaTime) >= 0.2f) {
+				state = State.IDLE;
+				pullTimer = 0f;
+			} else if (pullTimer >= 1f) {
+				pulledFruit.removeFruit();
+				pulledFruit = null;
+				state = State.IDLE;
+			}
 		}
 
 	}

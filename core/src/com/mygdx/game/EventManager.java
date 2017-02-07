@@ -5,7 +5,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Rectangle;
@@ -22,7 +24,11 @@ public class EventManager implements Observer {
 	private static final String TAG = EventManager.class.getName();
 
 	private static final EventManager instance = new EventManager();
+
 	private MyGdxGame game;
+
+	private FarmInputAdapter farmInputAdapter;
+	private FarmControllerAdapter farmControllerAdapter;
 
 	private EventManager() {
 	}
@@ -93,6 +99,29 @@ public class EventManager implements Observer {
 			Gdx.app.log(TAG, "Event nicht gefunden: " + eventName);
 			break;
 		}
+	}
+
+	public void farmEntered(Player player) {
+		// TODO: Shitty InputProcessor handling begins here
+		farmControllerAdapter = new FarmControllerAdapter(player);
+		farmInputAdapter = new FarmInputAdapter(player);
+
+		if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
+			InputMultiplexer multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
+			multiplexer.addProcessor(farmInputAdapter);
+		}
+		Controllers.addListener(farmControllerAdapter);
+	}
+
+	public void farmLeft(Player player) {
+		farmControllerAdapter = new FarmControllerAdapter(player);
+		farmInputAdapter = new FarmInputAdapter(player);
+		// TODO: Shitty InputProcessor handling begins here
+		if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
+			InputMultiplexer multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
+			multiplexer.removeProcessor(farmInputAdapter);
+		}
+		Controllers.removeListener(farmControllerAdapter);
 	}
 
 }

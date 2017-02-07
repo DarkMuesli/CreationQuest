@@ -392,18 +392,18 @@ public class TiledWorld implements Observer, Screen {
 					break;
 				case "PlayerCreate":
 					if (player == null) {
-						player = Player.createPlayer(mapObject, this);
+						player = new Player(mapObject, this);
 						entityList.add(player);
 					}
 					break;
 				case "NPCCreate":
-					newEntityList.add(NPC.createNPC(mapObject, this));
+					newEntityList.add(new NPC(mapObject, this));
 					break;
 				case "MoralNPCCreate":
-					newEntityList.add(NPC.createMoralNPC(mapObject, this));
+					newEntityList.add(new MoralNPC(mapObject, this));
 					break;
 				case "Fruit":
-					gameObjectList.add(Fruit.createFruit(mapObject, this));
+					gameObjectList.add(new Fruit(mapObject, this));
 					break;
 				case "Trigger":
 					triggerObjects.add(mapObject);
@@ -576,6 +576,9 @@ public class TiledWorld implements Observer, Screen {
 						sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
 
 						String oldMap = mapName;
+						if (oldMap.equals("farm.tmx")) {
+							EventManager.instance().farmLeft(player);
+						}
 
 						newEntityList.clear();
 						newEntityList.add(player);
@@ -583,6 +586,9 @@ public class TiledWorld implements Observer, Screen {
 						setMap(objProp.get("nextMap", String.class));
 
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
+						if (mapName.equals("farm.tmx")) {
+							EventManager.instance().farmEntered(player);
+						}
 
 						spawnPlayer(player, oldMap);
 

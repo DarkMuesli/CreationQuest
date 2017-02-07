@@ -21,32 +21,26 @@ public class SlotMachineInputAdapter extends InputAdapter {
 		} else if (keycode == Keys.ENTER) {
 			slotMachine.stopSlots();
 		} else if (keycode == Keys.NUM_1) {
-			slotMachine.stopSlot(0);
+			slotMachine.pushSlotButton(0);
 		} else if (keycode == Keys.NUM_2) {
-			slotMachine.stopSlot(1);
+			slotMachine.pushSlotButton(1);
 		} else if (keycode == Keys.NUM_3) {
-			slotMachine.stopSlot(2);
-		}else if (keycode == Keys.Q) {
-			slotMachine.toggleSlotLock(0);
-		} else if (keycode == Keys.W) {
-			slotMachine.toggleSlotLock(1);
-		} else if (keycode == Keys.E) {
-			slotMachine.toggleSlotLock(2);
-		}else if (keycode == Keys.UP) {
+			slotMachine.pushSlotButton(2);
+		} else if (keycode == Keys.UP) {
 			slotMachine.tiltSlots();
 		} else if (keycode == Keys.DOWN) {
 			slotMachine.startSlots();
-		} 
+		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.UP) {
 			slotMachine.untilt();
 			return true;
 		}
-		
+
 		return false;
 	}
 
