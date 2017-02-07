@@ -116,14 +116,14 @@
     <property name="Trigger" value="PlayMusic"/>
    </properties>
   </object>
-  <object id="18" name="Entry_Farm" type="LoadingZone" x="448" y="464" width="32" height="32">
+  <object id="18" name="Entry_Farmhouse" type="LoadingZone" x="448" y="464" width="32" height="32">
    <properties>
-    <property name="nextMap" value="farm.tmx"/>
+    <property name="nextMap" value="farmhouse.tmx"/>
    </properties>
   </object>
-  <object id="19" name="FromFarmSpawn" type="PlayerSpawn" x="448" y="496" width="16" height="16">
+  <object id="19" name="FromFarmhouseSpawn" type="PlayerSpawn" x="448" y="496" width="16" height="16">
    <properties>
-    <property name="From" value="farm.tmx"/>
+    <property name="From" value="farmhouse.tmx"/>
    </properties>
   </object>
  </objectgroup>

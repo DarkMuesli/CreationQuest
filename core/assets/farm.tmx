@@ -272,9 +272,9 @@
     <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
    </properties>
   </object>
-  <object id="156" name="ToOverworld" type="LoadingZone" x="304" y="144" width="16" height="16">
+  <object id="156" name="ToFarmhouse" type="LoadingZone" x="304" y="144" width="16" height="16">
    <properties>
-    <property name="nextMap" value="overworld.tmx"/>
+    <property name="nextMap" value="farmhouse.tmx"/>
    </properties>
   </object>
  </objectgroup>
