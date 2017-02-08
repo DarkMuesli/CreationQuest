@@ -107,7 +107,7 @@ public class Slot {
 			break;
 
 		case ALIGNING:
-			vertPosition = lerp(vertPosition, 0.5f, LERP_FRACTION);
+			vertPosition = lerp(vertPosition, 0.5f, LERP_FRACTION * 5f);
 			if (Math.abs(0.5f - vertPosition) <= 0.01f) {
 				vertPosition = 0.5f;
 				speed = 0;

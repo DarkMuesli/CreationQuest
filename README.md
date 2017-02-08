@@ -10,3 +10,9 @@ There is a entire room in our university being set up right now, dedicated only 
 There will be different approaches available to reach this goal: through the plain meet-and-greet with other people searching for good ideas as well as many ways of support for your creativity through tips and suggestions for creativity methods like and a set of hardware further supporting these methods, like digital whiteboards and tablets. Furthermore, there will be much of this wrapped up in games, be it cards, tabletops or role-plays.
 
 One of these games shall be availible in a digital form, as a video game, presented in an old arcade machine. This repository contains the development for this game to serve me as a backup and versioning tool and to eventually be open for public. ;)
+
+
+PLEASE NOTE IF WORKING WITH ECLIPSE:
+When cloning this project on Eclipse, the asset derectory has to be set manually.
+Go to the run configurations of the project, select the DesktopLauncher class and under the "arguments" tab you will find the "working directory" section. Here you must select "other" and the "assets" directory in the core project.
+Other IDEs will likely have to be set up similar, but I don't know how.
