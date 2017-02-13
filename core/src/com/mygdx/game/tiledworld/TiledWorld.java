@@ -407,6 +407,10 @@ public class TiledWorld implements Observer, Screen {
 					break;
 				case "Trigger":
 					triggerObjects.add(mapObject);
+					break;
+				case "Sign":
+					gameObjectList.add(new Sign(mapObject, this));
+					break;
 				default:
 					break;
 				}
@@ -621,8 +625,8 @@ public class TiledWorld implements Observer, Screen {
 
 		// TODO: NIX GUT SO
 		// spriteBatch.begin();
-		entityList.forEach(e -> e.draw(spriteBatch));
 		gameObjectList.forEach(obj -> obj.draw(spriteBatch));
+		entityList.forEach(e -> e.draw(spriteBatch));
 		// spriteBatch.end();
 
 		renderForegroundLayers();

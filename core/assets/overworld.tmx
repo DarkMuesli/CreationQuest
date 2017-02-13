@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="53" height="42" tilewidth="16" tileheight="16" nextobjectid="20">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="53" height="42" tilewidth="16" tileheight="16" nextobjectid="24">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
   <terraintypes>
@@ -124,6 +124,24 @@
   <object id="19" name="FromFarmhouseSpawn" type="PlayerSpawn" x="448" y="496" width="16" height="16">
    <properties>
     <property name="From" value="farmhouse.tmx"/>
+   </properties>
+  </object>
+  <object id="20" name="ToDark" type="LoadingZone" x="224" y="160" width="32" height="32">
+   <properties>
+    <property name="nextMap" value="dark.tmx"/>
+   </properties>
+  </object>
+  <object id="21" name="Entry_Glitchworld" type="LoadingZone" x="352" y="48" width="16" height="16">
+   <properties>
+    <property name="nextMap" value="glitchworld.tmx"/>
+   </properties>
+  </object>
+  <object id="22" name="DirectionsSign" type="Sign" x="496" y="224" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\signpost.png"/>
+    <property name="text">Osten: Tempel
+Süden: Schmiede
+Westen: Gasthaus</property>
    </properties>
   </object>
  </objectgroup>

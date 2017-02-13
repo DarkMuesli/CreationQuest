@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="40" height="20" tilewidth="16" tileheight="16" nextobjectid="2">
+ <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
+  <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
+ </tileset>
+ <layer name="col_0" width="40" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxFlktsl1UQxe8NbrS+KhCtz1ILDXQlD6GihZ3V1rZSiisESsujKonx1VqwFYgFEVoFREkBTawuiGCQGHm4MEXQuGPDqriwvIKPVjGEIOo5zq8h6cm9/6/3mztz5szMtyKl1Cq05JS2an1JmCN8IAwIHcKUHPsR4T6hUL+fEv7W/qDws3Cbfr+qtVnrSq2nhfocts8IE4VXhF84Uy0c1f5H4V7hlPCIUKHnv2n9if1WbNcIn2lf7HPa1+a493at67X2CZuFG/W7RLhB+xP8Hidc1P5u4T3hCutEPW8QPsfmv1rH+V7hpPCxMFmYlyLee3h2SWgX7krBwWJsviZ0CnPNmfCnUKr3voK3aZz5Hb9n+7dW/aU3hB7hfuExPWiCb/M0pPW7FDFVCXfo2Yv2QeuTKfx/WBiv39/CZznnOsnnBOEY9h2rf+8kL9eEJ4QZwnZhdo6YjxD/GGGPMEvPbxHe0n6/8DJ+OU/Onfn7SFhCPucT77v4Zh08iw6+TGFrhFw7T+fh4wi8jtW+Loc/5nhYWJ1Co19j42l0Yw4+JFbfvSTH/60Fv1Omtc26hV9z+ofwfgo9l8F5LbyNRRsLHXeK+ujlvO04pgX2MYUu2oSlev6c1k3CNmGR/c2x1qBL6+B58vCmsCHFPa3EcwFbp7G/Fq3Yv2FiLTAv+P8APv0q3JzD142c24WmOnK8UwWne7Wu4r5G20vhdxkxe+/acN09xDlrzbp9Br+sa9dACTnbQJ7tq+unSNgtHBb6hR3CWXz3HfZ5TYoaMBeP5tCwOXQt/CCsQCsNwq16vo+7O9HRajhdjiasUfeXT9DmIH7MTNFzWlLU8Uz0Uo++zqXQRVeK2vW9e9FQLX2nlh5oDqydZWilB38Wsv5FrJXU5gD6OoAuXCtNOc6cI55BNOC8TaLG9sGla7lbKM6h9cNoxLl27TlHX2i9zP0HyI35cT1UkDP3SPejO80FPr6QrteqzyxHF67JXrisFo7D36daH6Q2rBn30KbR/pmizsbk0M5B8lBO7FPo5b5zPO9Ze+fhsDRFPxpCr47F2v8mRd/pQp/WiPuM+4Xz57rckiJHjnv0vkugm/xbP47dem1jRk1P0efqqK+iHH3bOXZ/LaEur3KuPsUsGSKnDdTz674jR6+2btegWdt0Dq6hn+NwVJyCQ2uoD41eIE77ZTuev+4r1uzSFLVbgDadK2uhHfsj5KiKmMfAbR2adQ0d4lwfee0mPufZMc/FZ88N96Vt+ON5uBldtINKepH37j/zeedt8ltPryhHU9+niMs5L4Qj590zyDqZxLzxc/f9m3LMI+toN7pwL6ugvy3irO/vR5Nn0OB6Yt3DHcPkpplY5mGvBj24TpwH99tB7hwg9sdT9NlmNNVObzSHrtH2fP27ybZ2kC/f20FfOgrv1rz73EZsexbPIjeO11pvhBPnzxp37bmGbH9yjlpogQvX/XbeP4lG1pG3rhTz1n3b31LuI+4P07HlWtnE6r7t76gCYvQ8c89x/9nPec+ji9zje0vJs/VpbVvTrgHXRj8xO45WdOF4/M3Rxv/dt96BjwXYdh78ffNPihlu39eiKXNRRN7NaSmxNVC31oy/U63lZcwi16C/K6xDz1v3H/PZADeV+ON9E7aPwYl1Og09WRv+3tmCbkrgv5d8leLj1BRadi9zjzoFd5fJiWfj/3M1hb4c90r+7/o7i6+uY3NkzbkuDpFD27Q+Z9D3nOMJOeacdTgIf6Mz3bXdw51X8Wex7eTo/yeIp5B567noOGvRmHldx7ur0NAu9GFfrVn3wyJ8mMOdrq8r5LSaXDWiJcfuupmKxnzPfyEWY5I=
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="DefaultSpawn" type="PlayerSpawn" x="160" y="144" width="16" height="16">
+   <properties>
+    <property name="From" value="Default"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
