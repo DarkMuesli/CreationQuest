@@ -16,12 +16,12 @@ public class MyGdxGame extends Game {
 
 	private static final String TAG = MyGdxGame.class.getName();
 
-	SpriteBatch spriteBatch;
-	OrthographicCamera cam;
-	Screen world;
-	Screen slots;
+	private SpriteBatch spriteBatch;
+	private OrthographicCamera cam;
+	private Screen world;
+	private Screen slots;
 
-	float lag = 0;
+	private float lag = 0;
 
 	@Override
 	public void create() {

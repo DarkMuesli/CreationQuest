@@ -14,11 +14,11 @@ public class MoralNPC extends NPC {
 
 	private static final String TAG = MoralNPC.class.getName();
 
-	SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
-	List<List<String>> wordLists = new ArrayList<List<String>>(3);
-	public String word;
-	public boolean drawText = false;
-	public float counter = 0;
+	private SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
+	private List<List<String>> wordLists = new ArrayList<List<String>>(3);
+	private String word;
+	private boolean drawText = false;
+	private float counter = 0;
 
 	public MoralNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
@@ -68,7 +68,7 @@ public class MoralNPC extends NPC {
 		return true;
 	}
 
-	public String getWord() {
+	private String getWord() {
 		StringBuilder result = new StringBuilder(32);
 		for (List<String> list : wordLists) {
 			result.append(" ").append(list.get((int) (Math.random() * list.size())));

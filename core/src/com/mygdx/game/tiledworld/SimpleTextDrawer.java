@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class SimpleTextDrawer {
 
-	BitmapFont font;
-	GlyphLayout layout;
-	ShapeRenderer shapeRenderer;
-	String text;
-	GameObject obj;
+	private BitmapFont font;
+	private GlyphLayout layout;
+	private ShapeRenderer shapeRenderer;
+	private String text;
+	private GameObject obj;
 
 	public SimpleTextDrawer(GameObject obj) {
 		font = new BitmapFont();

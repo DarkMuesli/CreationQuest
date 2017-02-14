@@ -74,6 +74,7 @@ public class PlayerInputHandler implements CommandGenerator {
 		commandOnceMap.put(commandEnum, commandLambda);
 	}
 
+	@Override
 	public void postCommand(Commands commandEnum) {
 		Command c;
 		if ((c = commandOnceMap.get(commandEnum)) != null) {

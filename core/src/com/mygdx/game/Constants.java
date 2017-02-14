@@ -9,7 +9,7 @@ package com.mygdx.game;
  * @author Matthias Gross
  *
  */
-public class Constants {
+public final class Constants {
 
 	public static final int FRAMERATE = 60;
 	public static final float MS_PER_UPDATE = 1f / FRAMERATE;

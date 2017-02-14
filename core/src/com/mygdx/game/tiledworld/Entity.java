@@ -15,7 +15,7 @@ import com.badlogic.gdx.maps.MapObject;
 
 /**
  * Abstract type for all entities, as in "living things". Characterized by being
- * able to move and/or interact with.
+ * able to move and/or to interact with its surroundings.
  * 
  * @author Matthias Gross
  *
