@@ -7,18 +7,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 
-public class MoralNPC extends NPC {
+public class MoralNPC extends MonologNPC {
 
 	private static final String TAG = MoralNPC.class.getName();
 
-	private SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
 	private List<List<String>> wordLists = new ArrayList<List<String>>(3);
-	private String word;
-	private boolean drawText = false;
-	private float counter = 0;
 
 	public MoralNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
@@ -40,12 +35,12 @@ public class MoralNPC extends NPC {
 		super(tex, world);
 	}
 
-	public MoralNPC(MapObject mapObject, TiledWorld tiledWorld){
+	public MoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		FileHandle handle = Gdx.files.internal("text/Moral.txt");
 
-		String text = handle.readString();
-		String[] parts = text.split("###");
+		String tmpText = handle.readString();
+		String[] parts = tmpText.split("###");
 
 		for (int i = 0; i < parts.length; i++) {
 			String[] word = parts[i].split("\\r?\\n");
@@ -56,16 +51,13 @@ public class MoralNPC extends NPC {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onInteract(GameObject obj) {
-		counter = 0;
-		drawText = true;
-		word = getWord();
-		textDrawer.setText(word);
 
-		Gdx.app.log(TAG, "Interaction hat funktioniert");
-		return true;
+		text = getWord();
+
+		return super.onInteract(obj);
 	}
 
 	private String getWord() {
@@ -74,22 +66,6 @@ public class MoralNPC extends NPC {
 			result.append(" ").append(list.get((int) (Math.random() * list.size())));
 		}
 		return result.toString().trim();
-	}
-
-	@Override
-	public void draw(SpriteBatch spriteBatch) {
-		super.draw(spriteBatch);
-		if (drawText) {
-			textDrawer.drawText(spriteBatch);
-		}
-	}
-
-	@Override
-	public void update(float deltaTime) {
-		if (drawText && (counter += deltaTime) >= 3)
-			drawText = false;
-
-		super.update(deltaTime);
 	}
 
 }

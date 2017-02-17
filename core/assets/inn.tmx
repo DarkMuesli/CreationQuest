@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="17" height="12" tilewidth="16" tileheight="16" nextobjectid="9">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="17" height="12" tilewidth="16" tileheight="16" nextobjectid="12">
  <tileset firstgid="1" name="16x16extratiles" tilewidth="16" tileheight="16" tilecount="28" columns="7">
   <image source="tilesets/indoor_baseline/16x16extratiles.PNG" width="112" height="64"/>
  </tileset>
@@ -26,41 +26,36 @@
  </tileset>
  <layer name="bgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxTZmBgUB7Fo3gUE4UBsOwb5Q==
+   eJxjYMANlInE+MBQM2MUj2J8GAAw/hgR
   </data>
  </layer>
  <layer name="bgr_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAPCAPicCCOoMCMWCBWAGJFKFYiw4wUIFYHYg0o1qTAPaOAMiALxHJALE+BGSpArArEalRxEWEAALWNA7Q=
+   eJxjYKAPCMMiZkuCfgUgVgRiJQJi+IA6EGsAsSYQp2ERG4xAFojlgFh+gN2hAsSqQKxGB7sUGCDxSkrcogNYvFI7bgHzPQSd
   </data>
  </layer>
  <layer name="col_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJyzZGBg8MCCLXGw0bE1A27ggIVtC8XEAmxmuEAxNmBMpBkwoAfE+kBsQMAd7lDaA4sZpkBsBsTmBMzA5SZygTsDIh4cGTDjJZMKdhRQoBcWFzB3mJKgF10tJe6AAeTwQscMeORg2BOIAQBZEnw=
+   eJxjYMANLIHYgwC2xqMfGdgSqQ4fcKGCGYQAyM9WWDC6P82A2JwIsYEEOUCcDaVzoZgYYEwzFxEGplA6CoijgdiEima7M+BOxwx45GDYE4gBp/oNlA==
   </data>
  </layer>
  <layer name="col_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYMAEbljE8Mk54FFPDHCiohn6VDDDDIjNKTSDEuBEoX5quoMSM0LQzCA1XKOAOJpCdxhBMTXCFAQA240H1w==
+   eJxjYCAM3IgUwwYc0PhOOMQGoxnofiTWDHQxZDlLILYCYkcg9gBiTyB2RxOzJmAGLjlS3EGpGcQCcs3QhmJKzDCCYpgZ1AAAAsMMNw==
   </data>
  </layer>
  <layer name="col_2" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJzzYmBg8AZiLyiNDOwYsAOYWhgdCMRBSDQycMVhBj496MCHgPwoGAX0AgCHWAWw
+   eJxjYMANvIDYmwJ5EAgE4iAK5Ic7ICYMCYGRFoYmA2g3APvYA90=
   </data>
  </layer>
  <layer name="fgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYCAO+BGpjhKgQyVzDKhkDrnAnkL9WlRxBWUAPS70GYgPVz0gDqauc2gOHIlUBwCXCQJh
+   eJxjYBjawIUMPfpAbECE2EACexziWnjkQEAHSR29gR6UDgbiECDWxaIGm9hgAI5EqgMAxvwDcQ==
   </data>
  </layer>
- <layer name="fgr_1" width="17" height="12">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo4Aw0BtoBwwSAAAyoAAv
-  </data>
- </layer>
- <objectgroup name="objects" visible="0">
-  <object id="1" name="DefaultSpawn" type="PlayerSpawn" x="96" y="96" width="16" height="16">
+ <objectgroup name="objects">
+  <object id="1" name="DefaultSpawn" type="PlayerSpawn" x="112" y="160" width="16" height="16">
    <properties>
     <property name="From" value="Default"/>
    </properties>
@@ -70,27 +65,35 @@
     <property name="nextMap" value="overworld.tmx"/>
    </properties>
   </object>
-  <object id="4" name="Farmer" type="MonologNPCCreate" x="112" y="64" width="16" height="16">
+  <object id="4" name="InnKeeper" type="MonologNPCCreate" x="80" y="112" width="16" height="16">
    <properties>
-    <property name="facing" value="DOWN"/>
-    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_m.png"/>
-    <property name="text">Könntet ihr mir bitte dabei helfen,
-meine Feldfrüchte zu ernten, Reisender?</property>
+    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_f.png"/>
+    <property name="text">Willkommen, Reisender!
+
+Macht es Euch bequem und versucht
+euer Glück an unserem Spielautomaten!</property>
    </properties>
   </object>
-  <object id="6" name="ToFarm" type="LoadingZone" x="0" y="96" width="16" height="16">
+  <object id="7" name="SlotMachine" type="SlotMachine" x="16" y="160" width="16" height="16">
    <properties>
-    <property name="nextMap" value="farm.tmx"/>
+    <property name="path" value="badlogic.jpg"/>
    </properties>
   </object>
-  <object id="7" name="FromFarmSpawn" type="PlayerSpawn" x="16" y="96" width="16" height="16">
+  <object id="9" name="Lover" type="NPCCreate" x="128" y="48" width="16" height="16">
    <properties>
-    <property name="From" value="farm.tmx"/>
+    <property name="facing" value="RIGHT"/>
+    <property name="path" value="tilesets\characters\rpgsprites1\ranger_m.png"/>
    </properties>
   </object>
-  <object id="8" name="FromOverworldSpawn" type="PlayerSpawn" x="112" y="160" width="16" height="16">
+  <object id="10" name="Loveress" type="NPCCreate" x="144" y="48" width="16" height="16">
    <properties>
-    <property name="From" value="overworld.tmx"/>
+    <property name="facing" value="LEFT"/>
+    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_f.png"/>
+   </properties>
+  </object>
+  <object id="11" name="Sleeper" type="NPCCreate" x="224" y="32" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\characters\rpgsprites1\warrior_f.png"/>
    </properties>
   </object>
  </objectgroup>

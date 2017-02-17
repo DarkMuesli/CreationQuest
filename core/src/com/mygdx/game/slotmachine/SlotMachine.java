@@ -27,7 +27,7 @@ public class SlotMachine implements Screen {
 	private State state;
 
 	private float timer;
-	private int slotIndex;
+	private int reelIndex;
 
 	private SpriteBatch spriteBatch;
 	private OrthographicCamera cam;
@@ -38,7 +38,7 @@ public class SlotMachine implements Screen {
 	private SlotMachineInputAdapter inpAd;
 	private SlotMachineControllerAdapter contAd;
 
-	private Slot[] slots;
+	private Reel[] reels;
 
 	public SlotMachine(SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame myGdxGame) {
 		this.spriteBatch = spriteBatch;
@@ -52,10 +52,10 @@ public class SlotMachine implements Screen {
 		String text = handle.readString();
 		String[] parts = text.split("###");
 
-		this.slots = new Slot[3];
-		for (int i = 0; i < slots.length; i++) {
+		this.reels = new Reel[3];
+		for (int i = 0; i < reels.length; i++) {
 			String[] part = parts[i].split("\\r?\\n");
-			this.slots[i] = new Slot(part);
+			this.reels[i] = new Reel(part);
 		}
 
 		this.shapeRenderer = new ShapeRenderer();
@@ -65,7 +65,7 @@ public class SlotMachine implements Screen {
 		this.state = State.STOPPED;
 		this.timer = 0;
 		this.lag = 0;
-		this.slotIndex = 0;
+		this.reelIndex = 0;
 	}
 
 	public MyGdxGame getGame() {
@@ -100,11 +100,11 @@ public class SlotMachine implements Screen {
 		shapeRenderer.line(0, (cam.viewportHeight / 6) * 5, cam.viewportWidth, (cam.viewportHeight / 6) * 5);
 		shapeRenderer.rect(0, cam.viewportHeight / 2 - layout.height - 10, cam.viewportWidth, layout.height + 20);
 
-		for (int i = 0; i < slots.length; i++) {
-			Slot slot = slots[i];
-			if (slot.isLocked()) {
-				float xPos = (cam.viewportWidth / (slots.length + 1) * (i)
-						+ (cam.viewportWidth / (slots.length + 1)) / 2);
+		for (int i = 0; i < reels.length; i++) {
+			Reel reel = reels[i];
+			if (reel.isLocked()) {
+				float xPos = (cam.viewportWidth / (reels.length + 1) * (i)
+						+ (cam.viewportWidth / (reels.length + 1)) / 2);
 				shapeRenderer.rect(xPos, 40, 10, 10);
 			}
 		}
@@ -113,25 +113,25 @@ public class SlotMachine implements Screen {
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
 		spriteBatch.begin();
-		for (int i = 0; i < slots.length; i++) {
-			Slot slot = slots[i];
+		for (int i = 0; i < reels.length; i++) {
+			Reel reel = reels[i];
 
-			float xPos = (cam.viewportWidth / (slots.length + 1) * (i) + (cam.viewportWidth / (slots.length + 1)) / 2);
+			float xPos = (cam.viewportWidth / (reels.length + 1) * (i) + (cam.viewportWidth / (reels.length + 1)) / 2);
 			float yBorder = cam.viewportHeight / 3;
 			float yHalfBorder = yBorder / 2;
 			float yHeight = cam.viewportHeight - yBorder;
-			float yStart = yHeight / slot.ELEMENTS;
-			float yEnd = (yHeight / slot.ELEMENTS) * 2;
+			float yStart = yHeight / reel.ELEMENTS;
+			float yEnd = (yHeight / reel.ELEMENTS) * 2;
 			float yDistance = yEnd - yStart;
-			float yPos = slot.getVertPosition() * yDistance + yHalfBorder + yStart;
+			float yPos = reel.getVertPosition() * yDistance + yHalfBorder + yStart;
 
-			for (int j = 0; j < slot.ELEMENTS; j++) {
-				if (slot.getCurrentWord() == slot.getWords().get(j))
+			for (int j = 0; j < reel.ELEMENTS; j++) {
+				if (reel.getCurrentWord() == reel.getWords().get(j))
 					font.setColor(Color.WHITE);
 				else
 					font.setColor(Color.GRAY);
 
-				font.draw(spriteBatch, slot.getWords().get(j), xPos, yPos + ((j - 1) * yDistance));
+				font.draw(spriteBatch, reel.getWords().get(j), xPos, yPos + ((j - 1) * yDistance));
 			}
 
 		}
@@ -146,67 +146,67 @@ public class SlotMachine implements Screen {
 
 		case STARTING:
 			if ((timer += deltaTime) >= 0.1f) {
-				startSlot(slotIndex++);
+				startReel(reelIndex++);
 				timer = 0;
-				if (slotIndex >= slots.length) {
+				if (reelIndex >= reels.length) {
 					state = State.STARTING_PENDING;
-					slotIndex = 0;
+					reelIndex = 0;
 				}
 			}
 			break;
 
 		case STOPPING:
 			if ((timer += deltaTime) >= 0.1f) {
-				stopSlot(slotIndex++);
+				stopReel(reelIndex++);
 				timer = 0;
-				if (slotIndex >= slots.length) {
+				if (reelIndex >= reels.length) {
 					state = State.STOPPING_PENDING;
-					slotIndex = 0;
+					reelIndex = 0;
 				}
 			}
 			break;
 
 		case STARTING_PENDING:
-			if (areSlotsMoving())
+			if (areReelsMoving())
 				state = State.MOVING;
 			break;
 
 		case STOPPING_PENDING:
 		case MOVING:
-			if (areSlotsStopped())
+			if (areReelsStopped())
 				state = State.STOPPED;
 			break;
 
 		case UNTILTING:
 			if ((timer += deltaTime) > 0.1f)
-				stopSlots();
+				stopReels();
 			break;
 
 		case TILTED_UP:
 		case STOPPED:
 		}
 
-		for (Slot slot : slots) {
-			slot.update(deltaTime);
+		for (Reel reel : reels) {
+			reel.update(deltaTime);
 		}
 	}
 
-	public void startSlots() {
+	public void startReels() {
 		if (state == State.TILTED_UP || state == State.UNTILTING) {
 			timer = 0.1f;
 			state = State.STARTING;
 		}
 	}
 
-	public void tiltSlots() {
+	public void tiltReels() {
 		if (state == State.STOPPED) {
-			for (Slot slot : slots)
-				slot.tilt();
+			for (Reel reel : reels)
+				reel.tilt();
 			state = State.TILTED_UP;
 		}
 	}
 
-	public void stopSlots() {
+	public void stopReels() {
 		if (state == State.MOVING || state == State.UNTILTING) {
 			timer = 0.1f;
 			state = State.STOPPING;
@@ -262,41 +262,41 @@ public class SlotMachine implements Screen {
 
 	}
 
-	public void stopSlot(int i) {
+	public void stopReel(int i) {
 		if (state == State.MOVING || state == State.STOPPING)
-			slots[i].stop();
+			reels[i].stop();
 	}
 
-	public void startSlot(int i) {
+	public void startReel(int i) {
 		if (state == State.STARTING)
-			slots[i].start();
+			reels[i].start();
 	}
 
-	public void toggleSlotLock(int i) {
+	public void toggleReelLock(int i) {
 		if (state == State.STOPPED)
-			slots[i].toggleLock();
+			reels[i].toggleLock();
 	}
 
-	public void pushSlotButton(int i) {
+	public void pushReelButton(int i) {
 		if (state == State.STOPPED)
-			slots[i].toggleLock();
+			reels[i].toggleLock();
 		else if (state == State.MOVING || state == State.STOPPING)
-			slots[i].stop();
+			reels[i].stop();
 
 	}
 
-	private boolean areSlotsStopped() {
-		for (Slot slot : slots) {
-			if (!slot.isStopped())
+	private boolean areReelsStopped() {
+		for (Reel reel : reels) {
+			if (!reel.isStopped())
 				return false;
 		}
 
 		return true;
 	}
 
-	private boolean areSlotsMoving() {
-		for (Slot slot : slots) {
-			if (!slot.isMoving() && !slot.isLocked())
+	private boolean areReelsMoving() {
+		for (Reel reel : reels) {
+			if (!reel.isMoving() && !reel.isLocked())
 				return false;
 		}
 

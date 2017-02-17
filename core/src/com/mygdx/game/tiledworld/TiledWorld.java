@@ -402,6 +402,9 @@ public class TiledWorld implements Observer, Screen {
 				case "MoralNPCCreate":
 					newEntityList.add(new MoralNPC(mapObject, this));
 					break;
+				case "MonologNPCCreate":
+					newEntityList.add(new MonologNPC(mapObject, this));
+					break;
 				case "Fruit":
 					gameObjectList.add(new Fruit(mapObject, this));
 					break;
@@ -410,6 +413,9 @@ public class TiledWorld implements Observer, Screen {
 					break;
 				case "Sign":
 					gameObjectList.add(new Sign(mapObject, this));
+					break;
+				case "SlotMachine":
+					gameObjectList.add(new SlotMachine(mapObject, this));
 					break;
 				default:
 					break;

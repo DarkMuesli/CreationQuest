@@ -17,19 +17,19 @@ public class SlotMachineInputAdapter extends InputAdapter {
 			slotMachine.getGame().setToWorld();
 			return true;
 		} else if (keycode == Keys.SPACE) {
-			slotMachine.startSlots();
+			slotMachine.startReels();
 		} else if (keycode == Keys.ENTER) {
-			slotMachine.stopSlots();
+			slotMachine.stopReels();
 		} else if (keycode == Keys.NUM_1) {
-			slotMachine.pushSlotButton(0);
+			slotMachine.pushReelButton(0);
 		} else if (keycode == Keys.NUM_2) {
-			slotMachine.pushSlotButton(1);
+			slotMachine.pushReelButton(1);
 		} else if (keycode == Keys.NUM_3) {
-			slotMachine.pushSlotButton(2);
+			slotMachine.pushReelButton(2);
 		} else if (keycode == Keys.UP) {
-			slotMachine.tiltSlots();
+			slotMachine.tiltReels();
 		} else if (keycode == Keys.DOWN) {
-			slotMachine.startSlots();
+			slotMachine.startReels();
 		}
 		return false;
 	}

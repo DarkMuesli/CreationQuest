@@ -2,7 +2,7 @@ package com.mygdx.game.slotmachine;
 
 import java.util.LinkedList;
 
-public class Slot {
+public class Reel {
 
 	public enum State {
 		MOVING, STARTING, STOPPING, STOPPED, LOCKED, ALIGNING, TILTED_UP
@@ -19,7 +19,7 @@ public class Slot {
 	private float speed;
 	private State state;
 
-	public Slot(String[] wordPool, int elementCount, float maxSpeed) {
+	public Reel(String[] wordPool, int elementCount, float maxSpeed) {
 
 		if (wordPool.length < elementCount)
 			throw new IllegalArgumentException("Array must be equal to or larger than Element count (defaults to 3).");
@@ -47,15 +47,15 @@ public class Slot {
 
 	}
 
-	public Slot(String[] wordPool) {
+	public Reel(String[] wordPool) {
 		this(wordPool, 3, 2);
 	}
 
-	public Slot(String[] wordPool, int elementCount) {
+	public Reel(String[] wordPool, int elementCount) {
 		this(wordPool, elementCount, 2);
 	}
 
-	public Slot(String[] wordPool, float maxSpeed) {
+	public Reel(String[] wordPool, float maxSpeed) {
 		this(wordPool, 3, maxSpeed);
 	}
 

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="157">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="21" height="20" tilewidth="16" tileheight="16" nextobjectid="158">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
  </tileset>
  <tileset firstgid="397" name="transparent-bg-tiles" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/transparent-bg-tiles.png" trans="ffffff" width="352" height="288"/>
  </tileset>
- <layer name="bgr_0" width="20" height="20">
+ <layer name="bgr_0" width="21" height="20">
   <data encoding="base64" compression="zlib">
-   eJxdlMmxgzAQRBUAxkRhn1gCgBNLDiw5QJGDoyAB4MaJm3EQiHj+qOqpUP1DF7bU090zAp1KqYfgLVgEm+AjKFivBZEgFXiCUdALdsHF0+wNzt4s8AWV4BB0ghe6oWASlNQOcAJ4seAUaDRifFLqZup+6J/8Hslv/n/pp3Wy1PBiuCn8TLDC0+T0gGY9hGfzfdg3mZ+CnHmleCVwFydjC3dAs3fWN3RjvEo4xrNhPjXZWjQ66jNqRvqryVEwh+zf2dqz0/Sx8j+nnxKPBUxoaLKYtQdZK/R88mRkitBqyLQzkwrtEU4OPyFHx9pO5oj6xpl9wJ6PzguNkNoanwe4mN8FNmc2B/UbZ+Mz2wSPA16F/sGzp9fLyTE6Hl80W1BSW9FnAa+lVzuLGv8PNQFeo7rfq4in8ffQfNLHC58MjYr5vdFe0dNOPwFztTPWZCmpjchYs3aSMXfOsacn+60aDft9Jfg0+JusM9lD1nfyWs7M2WmnN+34L3i2rH/JF8CN4DXUl+j/1P292m+8ABGeK2dXMY8Vv5neGub5pLcE/0bdd89ITx48e+cFZOjJMIFY3XeF+75YfV/dd1jveAzUd/jY9ZY52HfXw3dCx56PfedDanq0PPZ3ZhGo+45yz9TU/AGSb6PQ
+   eJxVlM/RREAQxScAayeKdRorgHWy5GDJgZLDRiGB5ebkhiAQz9dT9Zsy3+EV+s/r191mdqXUTRAJBsEk+Are2EtBLHgJAkEnaASz4ORpfS0+g/8nCAWFYBXUggfcNqYX5OS3xGjinoJdcMCRYTup1cNvczdq7Lx39GG/F/qqPD0lcSWcHZw2JxWMxB7oDcCB3RDndH7xa3x39L7htTUT4gdPa0VsC2/j2Se4n3AZZvWj9od5lWis4KnhSMnpvF5faFr4TtX/nbudHvQ08p3RW06dAfRwHOgx2G/oLuAM0ZWiLYbvg7aZ+RTwd8RkYMc/wpORExG3weX2ofGFcD3gMOSWoECrxck8TzB5s1rhmNhXyKwT6qxwL3Aaz9bQ9+np6bw6C7wVyMkt0Dqi48Q/e7Mp0fElT1OvU9c/F/O0GgKv7zs9PaiXwlMwz4jYEc7D60szZzdzgz9Dx0bdGY6c+bfEuP029ObOteVw5zBD90qdEc0/+jDYZ3S7mB/7PLweDzSU6BioXeFz50ETHxP3gSOnxqaus+3uBEMPb/Ju6JiYZc33gLYT3giuBCzYd/gX5jRT566uO1OjpSG2B0913S/+v5TQn32G6roDG69OC0dNLWevmIn7twNq9+gJvb25s2HIa+AL8M/MRavrfhu8PVf08wflzKj2
   </data>
  </layer>
- <layer name="bgr_1" width="20" height="20">
+ <layer name="bgr_1" width="21" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgaQIiJgUGYTCzChGmeBlBMk0ysNWresDevAooHq/tGzRvc5tkBxezJxA5YzBusAABMYSv1
+   eJxjYBhaQIiJgUGYTCzChN1MDaC4JplYa9TMEWtmBRIezO4cNXNommkHFLcnEzvgMHOwAwDEzyxv
   </data>
  </layer>
- <layer name="col_0" width="20" height="20">
+ <layer name="col_0" width="21" height="20">
   <data encoding="base64" compression="zlib">
-   eJw7wcTAcIKKuJeRgWqgn3HUvFHzBs48EBjM7hs1b9Q8Us1bDMRLqISXAjEArL4wOQ==
+   eJw7wcTAcILKuJeRgaqgn3HUzFEzB6+ZIDAU3Dlq5qiZ1DRzMRAvoSJeCsQAzoYxqA==
   </data>
  </layer>
  <objectgroup name="objects">
-  <object id="106" name="DefaultSpawn" type="PlayerSpawn" x="272" y="144" width="16" height="16">
+  <object id="106" name="DefaultSpawn" type="PlayerSpawn" x="288" y="144" width="16" height="16">
    <properties>
     <property name="From" value="Default"/>
    </properties>
@@ -272,9 +272,18 @@
     <property name="path" value="tilesets\town_rpg_pack\town_rpg_pack\graphics\transparent-bg-tiles.png"/>
    </properties>
   </object>
-  <object id="156" name="ToFarmhouse" type="LoadingZone" x="304" y="144" width="16" height="16">
+  <object id="156" name="ToFarmhouse" type="LoadingZone" x="320" y="144" width="16" height="16">
    <properties>
     <property name="nextMap" value="farmhouse.tmx"/>
+   </properties>
+  </object>
+  <object id="157" name="FarmSign" type="Sign" x="288" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\signpost.png"/>
+    <property name="text">Um die Feldfrüchte zu ernten,
+drücke abwechselnd den
+linken und rechten Knopf,
+so schnell wie möglich!</property>
    </properties>
   </object>
  </objectgroup>

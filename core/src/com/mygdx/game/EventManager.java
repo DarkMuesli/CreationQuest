@@ -83,11 +83,11 @@ public class EventManager implements Observer {
 	 */
 	public void triggerEvent(String eventName) {
 		switch (eventName) {
-		case "PlayMusic":
-			Gdx.app.log(TAG, "Triggered! Jetzt wird Musik gespielt! Event: " + eventName);
-			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tng_chime_clean.mp3"));
-			long id = sound.play();
-			sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
+		case "SlotMachine":
+			Gdx.app.log(TAG, "SlotMachine wird gestartet. Event: " + eventName);
+//			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/tng_chime_clean.mp3"));
+//			long id = sound.play();
+//			sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
 			if (game.getScreen() != game.getWorld())
 				game.setToWorld();
 			else
