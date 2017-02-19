@@ -97,9 +97,10 @@ public class Reel {
 			break;
 
 		case STOPPING:
-			speed = lerp(speed, 0, LERP_FRACTION);
+			if (vertPosition < 0.5f && vertPosition > 0.4f)
+				speed = lerp(speed, 0, LERP_FRACTION * 8f);
 			updatePositionAndWords(deltaTime);
-			if (speed <= MAX_SPEED * 0.8f) {
+			if (speed <= MAX_SPEED * 0.1f) {
 				speed = 0f;
 				state = State.ALIGNING;
 			}
@@ -152,7 +153,7 @@ public class Reel {
 	}
 
 	public void stop() {
-		if (state == State.MOVING )
+		if (state == State.MOVING)
 			state = State.STOPPING;
 		else if (state == State.TILTED_UP) {
 			state = State.ALIGNING;

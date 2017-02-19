@@ -59,7 +59,7 @@
    eJxjYBgFo4Aw0BtoBwwSAAAyoAAv
   </data>
  </layer>
- <objectgroup name="objects" visible="0">
+ <objectgroup name="objects">
   <object id="1" name="DefaultSpawn" type="PlayerSpawn" x="96" y="96" width="16" height="16">
    <properties>
     <property name="From" value="Default"/>
@@ -74,8 +74,8 @@
    <properties>
     <property name="facing" value="DOWN"/>
     <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_m.png"/>
-    <property name="text">Könntet ihr mir bitte dabei helfen,
-meine Feldfrüchte zu ernten, Reisender?</property>
+    <property name="text">Wärt Ihr so gut, mir bei der
+Ernte zu helfen, Reisender?</property>
    </properties>
   </object>
   <object id="6" name="ToFarm" type="LoadingZone" x="0" y="96" width="16" height="16">

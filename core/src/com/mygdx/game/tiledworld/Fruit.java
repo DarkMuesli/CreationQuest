@@ -2,7 +2,6 @@ package com.mygdx.game.tiledworld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +13,9 @@ public class Fruit extends GameObject {
 	private static final String TAG = Fruit.class.getName();
 
 	private static final float FADE_TIME = 3f;
+	private static final float PITCH_RANGE = 0.8f;
+	private static final Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/plop.wav"));
+	private static final String words[] = Gdx.files.internal("text/test.txt").readString().trim().split("\n?\r");
 
 	private boolean plucked;
 	private float counter;
@@ -45,9 +47,6 @@ public class Fruit extends GameObject {
 		counter = 0;
 		textDrawer = new SimpleTextDrawer(this);
 
-		FileHandle file = Gdx.files.internal("text/test.txt");
-		String txt = file.readString();
-		String[] words = txt.split("\n?\r");
 		textDrawer.setText(words[(int) (Math.random() * words.length)].trim());
 	}
 
@@ -63,15 +62,15 @@ public class Fruit extends GameObject {
 	@Override
 	public void update(float deltaTime) {
 		if (plucked) {
-			if (sprt.getColor().a != 0)
+			if (counter <= FADE_TIME / 10f)
 				sprt.translate(0, (200f / FADE_TIME) * deltaTime);
 
-			float newSpriteAlpha = Math.max(0, sprt.getColor().a - (10 / (FADE_TIME)) * deltaTime);
+			float newSpriteAlpha = Math.max(0, sprt.getColor().a - (2 / (FADE_TIME)) * deltaTime);
 			sprt.setAlpha(Math.max(0, newSpriteAlpha));
 
 			float newTextAlpha = Math.max(0, textDrawer.getAlpha() - (1 / FADE_TIME) * deltaTime);
 			textDrawer.setAlpha(newTextAlpha);
-			
+
 			if ((counter += deltaTime) >= FADE_TIME) {
 				removeFruit();
 			}
@@ -93,9 +92,9 @@ public class Fruit extends GameObject {
 		penetrable = true;
 		counter = 0;
 		Gdx.app.log(TAG, "Frucht wird entfernt");
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/plop.wav"));
+
 		long id = sound.play();
-		sound.setPitch(id, 1f + ((float) Math.random() * 0.2f) - 0.1f);
+		sound.setPitch(id, 1f + ((float) Math.random() * PITCH_RANGE) - (PITCH_RANGE / 2));
 
 		sprt.setRegion(new Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/ruebe.png"));
 	}
