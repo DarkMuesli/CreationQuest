@@ -7,11 +7,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.mygdx.game.Constants;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
+
+import com.mygdx.game.Constants;
 
 /**
  * Abstract type for all entities, as in "living things". Characterized by being
@@ -22,11 +23,11 @@ import com.badlogic.gdx.maps.MapObject;
  */
 public abstract class Entity extends GameObject {
 
-	enum State {
+	private enum State {
 		IDLE, MOVING, WAITING, PULLING
 	}
 
-	protected State state = State.IDLE;
+	private State state = State.IDLE;
 
 	protected CommandGenerator comGen;
 	private Command onceCommand;
@@ -39,7 +40,7 @@ public abstract class Entity extends GameObject {
 	private boolean hasPullAnimation;
 	private float animationTimer = 0;
 
-	protected Point movement = new Point(0, -1);
+	private Point movement = new Point(0, -1);
 
 	private float timer = 0;
 	private float pullTimer = 0;
@@ -356,14 +357,11 @@ public abstract class Entity extends GameObject {
 			break;
 		}
 
-		for (Entity e : world.getEntityList()) {
-			if (e.getCellPosition().equals(facingCell))
-				return interact(e);
-		}
 		for (GameObject o : world.getGameObjectList()) {
 			if (o.getCellPosition().equals(facingCell))
 				return interact(o);
 		}
+
 		return false;
 	}
 
@@ -427,18 +425,18 @@ public abstract class Entity extends GameObject {
 			}
 		}
 	}
-	
+
 	public void pull(Fruit fruit) {
 		if (state == State.IDLE) {
 			pulledFruit = fruit;
 			state = State.PULLING;
 			timer = 0f;
 			pullTimer = 0f;
-			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/squeeze" + (int)(Math.random() * 2) + ".wav"));
+			Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/squeeze" + (int) (Math.random() * 2) + ".wav"));
 			long id = sound.play();
 			sound.setPitch(id, 1f + ((float) Math.random() * 0.2f) - 0.1f);
 		}
-		
+
 	}
 
 	public void update(float deltaTime) {
@@ -470,17 +468,17 @@ public abstract class Entity extends GameObject {
 					movement.y * getWorld().getTileHeight() * movedDistance - (movement.y * stepy));
 			if ((timer += movedDistance) >= 1) {
 				timer = 0;
-				state = State.IDLE;
 				sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+				state = State.IDLE;
 			}
 			break;
 
 		case IDLE:
-			sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+			// sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
 			break;
 
 		case WAITING:
-			sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
+			// sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
 			if ((timer += deltaTime) >= waitTime) {
 				state = State.IDLE;
 			}
@@ -489,11 +487,11 @@ public abstract class Entity extends GameObject {
 		case PULLING:
 			animationTimer += deltaTime;
 			pullTimer += deltaTime;
-			if ((timer += deltaTime) >= 0.2f) {
+			if ((timer += deltaTime) >= 0.35f) {
 				state = State.IDLE;
 				pullTimer = 0f;
 			} else if (pullTimer >= 1f) {
-				pulledFruit.removeFruit();
+				pulledFruit.pluckFruit();
 				pulledFruit = null;
 				state = State.IDLE;
 			}
@@ -506,6 +504,14 @@ public abstract class Entity extends GameObject {
 		spriteBatch.begin();
 		sprt.draw(spriteBatch);
 		spriteBatch.end();
+	}
+
+	public boolean isPulling() {
+		return state == State.PULLING;
+	}
+
+	public boolean isIdle() {
+		return state == State.IDLE;
 	}
 
 }

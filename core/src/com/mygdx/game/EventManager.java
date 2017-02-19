@@ -114,8 +114,8 @@ public class EventManager implements Observer {
 	}
 
 	public void farmLeft(Player player) {
-		farmControllerAdapter = new FarmControllerAdapter(player);
-		farmInputAdapter = new FarmInputAdapter(player);
+//		farmControllerAdapter = new FarmControllerAdapter(player);
+//		farmInputAdapter = new FarmInputAdapter(player);
 		// TODO: Shitty InputProcessor handling begins here
 		if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
 			InputMultiplexer multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();

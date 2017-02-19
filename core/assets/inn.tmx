@@ -31,7 +31,7 @@
  </layer>
  <layer name="bgr_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAPCMMiZkuCfgUgVgRiJQJi+IA6EGsAsSYQp2ERG4xAFojlgFh+gN2hAsSqQKxGB7sUGCDxSkrcogNYvFI7bgHzPQSd
+   eJxjYKAPCMMiZkuCfgUgVgRiJQJi+IA6EGsAsSYQp2ERG0zAHkrLArEcEMtD+VpIcviAFpXdowLEqkCsRmVzsQEFBki8khK36AAWr9SOWwAstwVv
   </data>
  </layer>
  <layer name="col_0" width="17" height="12">
@@ -51,7 +51,7 @@
  </layer>
  <layer name="fgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBjawIUMPfpAbECE2EACexziWnjkQEAHSR29gR6UDgbiECDWxaIGm9hgAI5EqgMAxvwDcQ==
+   eJxjYBjawIUMPfpAbECE2FAEOgNotx6UDgbiECDWxaIGm9hgAI5EqgMAjZECnw==
   </data>
  </layer>
  <objectgroup name="objects">

@@ -10,6 +10,8 @@ public class MonologNPC extends NPC {
 
 	private static final String TAG = MonologNPC.class.getName();
 
+	private static final int TEXT_SHOWTIME = 5;
+
 	protected String text;
 
 	private SimpleTextDrawer textDrawer = new SimpleTextDrawer(this);
@@ -60,7 +62,7 @@ public class MonologNPC extends NPC {
 
 	@Override
 	public void update(float deltaTime) {
-		if (drawText && (counter += deltaTime) >= 3)
+		if (drawText && (counter += deltaTime) >= TEXT_SHOWTIME)
 			drawText = false;
 
 		super.update(deltaTime);

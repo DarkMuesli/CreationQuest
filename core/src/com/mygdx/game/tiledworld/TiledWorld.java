@@ -53,9 +53,7 @@ public class TiledWorld implements Observer, Screen {
 	private OrthographicCamera cam;
 
 	private List<GameObject> gameObjectList;
-
-	private List<Entity> entityList;
-	private List<Entity> newEntityList;
+	private List<GameObject> newGameObjectList;
 
 	private MapRenderer mapRenderer;
 
@@ -90,16 +88,20 @@ public class TiledWorld implements Observer, Screen {
 	 * @param mapName
 	 */
 	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame game) {
-		entityList = new ArrayList<Entity>();
-		newEntityList = new ArrayList<Entity>();
 		gameObjectList = new ArrayList<GameObject>();
+		newGameObjectList = new ArrayList<GameObject>();
 		this.cam = cam;
 		this.spriteBatch = spriteBatch;
 		this.game = game;
 
 		setMap(mapName);
 
+		gameObjectList.addAll(newGameObjectList);
+
+		// update(0);
+
 		resetCam(cam);
+
 	}
 
 	public MyGdxGame getGame() {
@@ -108,10 +110,6 @@ public class TiledWorld implements Observer, Screen {
 
 	public void setGame(MyGdxGame game) {
 		this.game = game;
-	}
-
-	public List<Entity> getEntityList() {
-		return entityList;
 	}
 
 	public List<GameObject> getGameObjectList() {
@@ -298,14 +296,12 @@ public class TiledWorld implements Observer, Screen {
 				return true;
 			}
 		}
-		for (Entity entity : entityList) {
-			if (entity.getCellPosition().equals(p))
-				return true;
-		}
+
 		for (GameObject obj : gameObjectList) {
-			if (obj.getCellPosition().equals(p))
+			if (obj.getCellPosition().equals(p) && !obj.isPenetrable())
 				return true;
 		}
+
 		return false;
 	}
 
@@ -393,29 +389,29 @@ public class TiledWorld implements Observer, Screen {
 				case "PlayerCreate":
 					if (player == null) {
 						player = new Player(mapObject, this);
-						entityList.add(player);
+						newGameObjectList.add(player);
 					}
 					break;
 				case "NPCCreate":
-					newEntityList.add(new NPC(mapObject, this));
+					newGameObjectList.add(new NPC(mapObject, this));
 					break;
 				case "MoralNPCCreate":
-					newEntityList.add(new MoralNPC(mapObject, this));
+					newGameObjectList.add(new MoralNPC(mapObject, this));
 					break;
 				case "MonologNPCCreate":
-					newEntityList.add(new MonologNPC(mapObject, this));
+					newGameObjectList.add(new MonologNPC(mapObject, this));
 					break;
 				case "Fruit":
-					gameObjectList.add(new Fruit(mapObject, this));
+					newGameObjectList.add(new Fruit(mapObject, this));
 					break;
 				case "Trigger":
 					triggerObjects.add(mapObject);
 					break;
 				case "Sign":
-					gameObjectList.add(new Sign(mapObject, this));
+					newGameObjectList.add(new Sign(mapObject, this));
 					break;
 				case "SlotMachine":
-					gameObjectList.add(new SlotMachine(mapObject, this));
+					newGameObjectList.add(new SlotMachine(mapObject, this));
 					break;
 				default:
 					break;
@@ -590,9 +586,9 @@ public class TiledWorld implements Observer, Screen {
 							EventManager.instance().farmLeft(player);
 						}
 
-						newEntityList.clear();
-						newEntityList.add(player);
-						gameObjectList.clear();
+						newGameObjectList.clear();
+						newGameObjectList.add(player);
+
 						setMap(objProp.get("nextMap", String.class));
 
 						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
@@ -632,7 +628,6 @@ public class TiledWorld implements Observer, Screen {
 		// TODO: NIX GUT SO
 		// spriteBatch.begin();
 		gameObjectList.forEach(obj -> obj.draw(spriteBatch));
-		entityList.forEach(e -> e.draw(spriteBatch));
 		// spriteBatch.end();
 
 		renderForegroundLayers();
@@ -683,20 +678,20 @@ public class TiledWorld implements Observer, Screen {
 	}
 
 	public void update(float deltaTime) {
-		newEntityList.addAll(entityList);
 
-		entityList.forEach(e -> e.update(deltaTime));
+		newGameObjectList.clear();
+		newGameObjectList.addAll(gameObjectList);
 
 		gameObjectList.forEach(obj -> obj.update(deltaTime));
 
-		entityList.clear();
-		entityList.addAll(newEntityList);
-		newEntityList.clear();
+		List<GameObject> tmp = gameObjectList;
+		gameObjectList = newGameObjectList;
+		newGameObjectList = tmp;
 
-		entityList.sort((e1, e2) -> {
-			if (e1.getCellPosition().y == e2.getCellPosition().y)
+		gameObjectList.sort((o1, o2) -> {
+			if (o1.getCellPosition().y == o2.getCellPosition().y)
 				return 0;
-			else if (e1.getCellPosition().y < e2.getCellPosition().y)
+			else if (o1.getCellPosition().y < o2.getCellPosition().y)
 				return 1;
 			else
 				return -1;
@@ -707,7 +702,7 @@ public class TiledWorld implements Observer, Screen {
 	@Override
 	public void dispose() {
 		map.dispose();
-		entityList.forEach(e -> e.dispose());
+		gameObjectList.forEach(e -> e.dispose());
 	}
 
 	@Override
@@ -766,7 +761,7 @@ public class TiledWorld implements Observer, Screen {
 	}
 
 	public void removeGameObject(GameObject obj) {
-		gameObjectList.remove(obj);
+		newGameObjectList.remove(obj);
 	}
 
 }

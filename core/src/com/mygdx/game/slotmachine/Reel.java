@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Reel {
 
-	public enum State {
+	private enum State {
 		MOVING, STARTING, STOPPING, STOPPED, LOCKED, ALIGNING, TILTED_UP
 	}
 
@@ -99,7 +99,7 @@ public class Reel {
 		case STOPPING:
 			speed = lerp(speed, 0, LERP_FRACTION);
 			updatePositionAndWords(deltaTime);
-			if (speed <= 0.1f) {
+			if (speed <= MAX_SPEED * 0.8f) {
 				speed = 0f;
 				state = State.ALIGNING;
 			}
@@ -152,8 +152,11 @@ public class Reel {
 	}
 
 	public void stop() {
-		if (state == State.MOVING || state == State.TILTED_UP)
+		if (state == State.MOVING )
 			state = State.STOPPING;
+		else if (state == State.TILTED_UP) {
+			state = State.ALIGNING;
+		}
 	}
 
 	public void toggleLock() {

@@ -159,14 +159,4 @@ public class Player extends Entity {
 		super.reset();
 	}
 
-	public boolean isPulling() {
-		return state == State.PULLING;
-	}
-
-	public boolean isIdle() {
-		return state == State.IDLE;
-	}
-
-
-
 }

@@ -27,6 +27,7 @@ public abstract class GameObject extends Observable implements Disposable {
 	protected int y;
 	protected Sprite sprt;
 	protected TiledWorld world;
+	protected boolean penetrable;
 
 	/**
 	 * Generate a new GameObject using the given {@link Sprite} at the
@@ -141,6 +142,14 @@ public abstract class GameObject extends Observable implements Disposable {
 	 */
 	public void setSprt(Sprite sprt) {
 		this.sprt = sprt;
+	}
+
+	public boolean isPenetrable() {
+		return penetrable;
+	}
+
+	public void setPenetrable(boolean penetrable) {
+		this.penetrable = penetrable;
 	}
 
 	/**

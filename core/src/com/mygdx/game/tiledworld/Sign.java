@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapObject;
 
 public class Sign extends GameObject {
 	
+	private static final int TEXT_SHOWTIME = 5;
 	private SimpleTextDrawer textDrawer;
 	private boolean drawText;
 	private float counter = 0f;
@@ -50,7 +51,7 @@ public class Sign extends GameObject {
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
-		if (drawText && (counter += deltaTime) > 3f) {
+		if (drawText && (counter += deltaTime) > TEXT_SHOWTIME) {
 			drawText = false;
 			counter = 0f;
 		}
