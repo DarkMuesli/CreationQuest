@@ -11,8 +11,11 @@ There will be different approaches available to reach this goal: through the pla
 
 One of these games shall be availible in a digital form, as a video game, presented in an old arcade machine. This repository contains the development for this game to serve me as a backup and versioning tool and to eventually be open for public. ;)
 
+## Some helpful advice
+
+To open and edit the map data (.tmx files) the usage of the [Tiled Map Editor](http://www.mapeditor.org/ "Tiled Map Editor Homepage") is advised.
 
 PLEASE NOTE IF WORKING WITH ECLIPSE:
-When cloning this project on Eclipse, the asset derectory has to be set manually.
+When cloning this project on Eclipse, the asset derectory has to be set manually. (At least I have to, so you will probably too.)
 Go to the run configurations of the project, select the DesktopLauncher class and under the "arguments" tab you will find the "working directory" section. Here you must select "other" and the "assets" directory in the core project.
 Other IDEs will likely have to be set up similar, but I don't know how.
