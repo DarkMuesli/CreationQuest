@@ -279,7 +279,7 @@
   </object>
   <object id="157" name="FarmSign" type="Sign" x="288" y="112" width="16" height="16">
    <properties>
-    <property name="path" value="tilesets\signpost.png"/>
+    <property name="path" value="tilesets\Signs\Sign5.png"/>
     <property name="text">Um die Feldfrüchte zu ernten,
 drücke abwechselnd den
 linken und rechten Knopf,

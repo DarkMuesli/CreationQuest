@@ -31,27 +31,27 @@
  </layer>
  <layer name="bgr_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYKAPCMMiZkuCfgUgVgRiJQJi+IA6EGsAsSYQp2ERG0zAHkrLArEcEMtD+VpIcviAFpXdowLEqkCsRmVzsQEFBki8khK36AAWr9SOWwAstwVv
+   eJxjYKAPCMMiZkuCfgUgVgRiJQJi+IA6EGsAsSYQp2ERG0zAHoe4Fh45dHWDHcgCsRwQy6OJKzBA4pWYuFUBYlUgVkMTh8UrteMWAJ1oBW8=
   </data>
  </layer>
  <layer name="col_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYMANLIHYgwC2xqMfGdgSqQ4fcKGCGYQAyM9WWDC6P82A2JwIsYEEOUCcDaVzoZgYYEwzFxEGplA6CoijgdiEima7M+BOxwx45GDYE4gBp/oNlA==
+   eJxjYMANLIHYgwC2xqMfGdgSqQ4fcKGCGYQAyM9WWDC6P82A2ByPmA4V3GJMof4wIA6H4hQ62ksJMIXSUUAcDcQmONThEscH3Blwp2MGPHIw7AnEAHnGDXI=
   </data>
  </layer>
  <layer name="col_1" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYCAM3IgUwwYc0PhOOMQGoxnofiTWDHQxZDlLILYCYkcg9gBiTyB2RxOzJmAGLjlS3EGpGcQCcs3QhmJKzDCCYpgZ1AAAAsMMNw==
+   eJxjYCAM3IgUwwYc0PhOOMQGoxnofiTWDHQxZDlLILYCYkcg9gBiTyB2RxOzJmAGLjlS3EGpGcQCdDNiiNSnDcXYzEgm0gwjKIaZQQ0AAHe3DPY=
   </data>
  </layer>
  <layer name="col_2" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYMANvIDYmwJ5EAgE4iAK5Ic7ICYMCYGRFoYmA2g3APvYA90=
+   eJxjYMANvIDYmwJ5EAgE4iAK5Ic7ICYMCYGRHob0BADiqAOp
   </data>
  </layer>
  <layer name="fgr_0" width="17" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBjawIUMPfpAbECE2FAEOgNotx6UDgbiECDWxaIGm9hgAI5EqgMAjZECnw==
+   eJxjYBjawIUMPfpAbECE2FAEOjQ0O56AvB6UDgbiECDWxaEOl/hAAkci1QEA7VkC/g==
   </data>
  </layer>
  <objectgroup name="objects">
@@ -65,8 +65,9 @@
     <property name="nextMap" value="overworld.tmx"/>
    </properties>
   </object>
-  <object id="4" name="InnKeeper" type="MonologNPCCreate" x="80" y="112" width="16" height="16">
+  <object id="4" name="InnKeeper" type="MonologNPCCreate" x="48" y="128" width="16" height="16">
    <properties>
+    <property name="facing" value="RIGHT"/>
     <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_f.png"/>
     <property name="text">Willkommen, Reisender!
 
@@ -74,9 +75,9 @@ Macht es Euch bequem und versucht
 euer Glück an unserem Spielautomaten!</property>
    </properties>
   </object>
-  <object id="7" name="SlotMachine" type="SlotMachine" x="16" y="160" width="16" height="16">
+  <object id="7" name="SlotMachine" type="SlotMachine" x="32" y="80" width="16" height="16">
    <properties>
-    <property name="path" value="badlogic.jpg"/>
+    <property name="path" value="tilesets\Machines\Arcade.png"/>
    </properties>
   </object>
   <object id="9" name="Lover" type="NPCCreate" x="128" y="48" width="16" height="16">

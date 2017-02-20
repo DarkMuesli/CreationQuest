@@ -92,7 +92,7 @@ public abstract class GameObject extends Observable implements Disposable {
 		this.y = pos.y;
 		this.sprt = new Sprite(tex);
 
-		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y, getWorld().getTileWidth(),
 				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
 	}
 

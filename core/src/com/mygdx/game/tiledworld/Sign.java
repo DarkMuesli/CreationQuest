@@ -28,7 +28,6 @@ public class Sign extends GameObject {
 		super(mapObject, world);
 		textDrawer = new SimpleTextDrawer(this);
 		textDrawer.setText(mapObject.getProperties().get("text", String.class));
-		sprt.translate(0, -5);
 	}
 
 	public Sign(int x, int y, Texture tex, TiledWorld world) {

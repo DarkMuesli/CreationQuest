@@ -117,7 +117,7 @@
   </object>
   <object id="22" name="DirectionsSign" type="Sign" x="496" y="224" width="16" height="16">
    <properties>
-    <property name="path" value="tilesets\signpost.png"/>
+    <property name="path" value="tilesets\Signs\Sign5.png"/>
     <property name="text">Osten: Tempel
 Süden: Bauernhof
 Westen: Gasthaus</property>
