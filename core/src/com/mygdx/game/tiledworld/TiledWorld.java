@@ -401,6 +401,9 @@ public class TiledWorld implements Observer, Screen {
 				case "MonologNPCCreate":
 					newGameObjectList.add(new MonologNPC(mapObject, this));
 					break;
+				case "RandomTextNPCCreate":
+					newGameObjectList.add(new RandomTextNPC(mapObject, this));
+					break;
 				case "Fruit":
 					newGameObjectList.add(new Fruit(mapObject, this));
 					break;

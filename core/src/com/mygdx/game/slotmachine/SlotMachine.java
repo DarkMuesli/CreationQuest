@@ -47,7 +47,7 @@ public class SlotMachine implements Screen {
 		this.inpAd = new SlotMachineInputAdapter(this);
 		this.contAd = new SlotMachineControllerAdapter(this);
 
-		FileHandle handle = Gdx.files.internal("text/Moral.txt");
+		FileHandle handle = Gdx.files.internal("text/VNA.txt");
 
 		String text = handle.readString();
 		String[] parts = text.split("###");

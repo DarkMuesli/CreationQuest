@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="21" height="20" tilewidth="16" tileheight="16" nextobjectid="158">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="21" height="20" tilewidth="16" tileheight="16" nextobjectid="159">
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
  </tileset>
@@ -284,6 +284,15 @@
 drücke abwechselnd den
 linken und rechten Knopf,
 so schnell wie möglich!</property>
+   </properties>
+  </object>
+  <object id="158" name="FarmSign" type="Sign" x="304" y="112" width="16" height="16">
+   <properties>
+    <property name="path" value="tilesets\Signs\Sign5.png"/>
+    <property name="text">Versuche, die erscheinenden Worte
+mit deiner Idee zu verknüpfen.
+Es klingt vielleicht im ersten Moment
+völlig verrückt... aber das sind die besten Ideen!</property>
    </properties>
   </object>
  </objectgroup>

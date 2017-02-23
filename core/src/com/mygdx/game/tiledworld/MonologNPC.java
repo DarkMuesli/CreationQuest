@@ -76,7 +76,7 @@ public class MonologNPC extends NPC {
 
 		Gdx.app.log(TAG, "Interaction hat funktioniert");
 
-		return true;
+		return super.onInteract(obj);
 	}
 
 }

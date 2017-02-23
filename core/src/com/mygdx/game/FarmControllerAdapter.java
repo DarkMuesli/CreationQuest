@@ -14,13 +14,13 @@ public class FarmControllerAdapter extends ControllerAdapter {
 
 	@Override
 	public boolean buttonDown(Controller controller, int buttonIndex) {
-		if (buttonIndex == 10) {
+		if (buttonIndex == 2) {
 			if (player.isPulling()) {
 				player.pull(true);
 			} else if (player.isIdle()) {
 				player.interactWithFacing();
 			}
-		} else if (buttonIndex == 11) {
+		} else if (buttonIndex == 1) {
 			if (player.isPulling()) {
 				player.pull(false);
 			} else if (player.isIdle()) {

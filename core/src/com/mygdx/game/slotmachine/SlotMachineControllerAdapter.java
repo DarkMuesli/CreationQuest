@@ -13,13 +13,13 @@ public class SlotMachineControllerAdapter extends ControllerAdapter {
 
 	@Override
 	public boolean buttonDown(Controller controller, int buttonIndex) {
-		if (buttonIndex == 11) {
+		if (buttonIndex == 0) {
 			slotMachine.getGame().setToWorld();
-		} else if (buttonIndex == 0) {
+		} else if (buttonIndex == 1) {
 			slotMachine.pushReelButton(0);
-		} else if (buttonIndex == 6) {
+		} else if (buttonIndex == 3) {
 			slotMachine.pushReelButton(1);
-		} else if (buttonIndex == 10) {
+		} else if (buttonIndex == 2) {
 			slotMachine.pushReelButton(2);
 		} else
 			return false;

@@ -26,9 +26,8 @@ public class PlayerControllerAdapter extends ControllerAdapter {
 		buttonsPressed = new boolean[256];
 
 		mapButton(0, Commands.INTERACT);
-		mapButton(6, Commands.TESTOUTPUT);
-		mapButton(10, Commands.SPEED_DOWN);
-		mapButton(11, Commands.SPEED_UP);
+		// mapButton(2, Commands.SPEED_DOWN);
+		// mapButton(3, Commands.SPEED_UP);
 	}
 
 	public void mapButton(int key, Commands command) {
@@ -41,6 +40,7 @@ public class PlayerControllerAdapter extends ControllerAdapter {
 
 	@Override
 	public boolean buttonDown(Controller controller, int buttonIndex) {
+
 		buttonsPressed[buttonIndex] = true;
 
 		Commands cEnum;

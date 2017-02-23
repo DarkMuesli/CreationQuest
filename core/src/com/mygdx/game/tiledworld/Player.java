@@ -149,11 +149,6 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public boolean onInteract(GameObject obj) {
-		return false;
-	}
-
-	@Override
 	public void reset() {
 		((PlayerInputHandler) comGen).reset();
 		super.reset();

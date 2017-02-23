@@ -77,7 +77,7 @@ public class NPC extends Entity {
 
 	@Override
 	public boolean onInteract(GameObject obj) {
-		return false;
+		return super.onInteract(obj);
 	}
 
 }

@@ -514,4 +514,19 @@ public abstract class Entity extends GameObject {
 		return state == State.IDLE;
 	}
 
+	@Override
+	public boolean onInteract(GameObject obj) {
+		int dx = getCellPosition().x - obj.getCellPosition().x;
+		int dy = getCellPosition().y - obj.getCellPosition().y;
+		if (dx == 1)
+			facing = Direction.LEFT;
+		else if (dx == -1) {
+			facing = Direction.RIGHT;
+		} else if (dy == 1) {
+			facing = Direction.DOWN;
+		} else if (dy == -1) {
+			facing = Direction.UP;
+		}
+		return true;
+	}
 }
