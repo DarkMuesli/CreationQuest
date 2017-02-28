@@ -63,6 +63,9 @@ public class NPC extends Entity {
 
 	public NPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
+		String prop = mapObject.getProperties().get("ComGen", String.class);
+		if (prop != null && prop.equals("RandomWalk"))
+			comGen = new RandomWalkAI();
 	}
 
 	/*

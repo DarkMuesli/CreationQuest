@@ -65,7 +65,7 @@ public class PlayerControllerAdapter extends ControllerAdapter {
 
 	@Override
 	public boolean axisMoved(Controller controller, int axisIndex, float value) {
-		if (axisIndex == 2)
+		if (axisIndex == 2 || axisIndex == 0)
 			if (value == 1)
 				comGen.postCommand(Commands.MOVE_DOWN);
 			else if (value == -1)
@@ -74,7 +74,7 @@ public class PlayerControllerAdapter extends ControllerAdapter {
 				comGen.stopCommand(Commands.MOVE_UP);
 				comGen.stopCommand(Commands.MOVE_DOWN);
 			}
-		else if (axisIndex == 3)
+		else if (axisIndex == 3 || axisIndex == 1)
 			if (value == 1)
 				comGen.postCommand(Commands.MOVE_RIGHT);
 			else if (value == -1)

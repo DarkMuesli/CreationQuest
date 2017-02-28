@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.MapObject;
 
 public class RandomTextNPC extends MonologNPC {
 
-	private static String[] strings = Gdx.files.internal("text/Provokationen.txt").readString().split("\n?\r");
+	private static String[] strings = Gdx.files.internal("text/Provokationen.txt").readString().split("\\r?\\n");
 
 	public RandomTextNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);

@@ -15,11 +15,11 @@ public class SlotMachineControllerAdapter extends ControllerAdapter {
 	public boolean buttonDown(Controller controller, int buttonIndex) {
 		if (buttonIndex == 0) {
 			slotMachine.getGame().setToWorld();
-		} else if (buttonIndex == 1) {
+		} else if (buttonIndex == 2) {
 			slotMachine.pushReelButton(0);
 		} else if (buttonIndex == 3) {
 			slotMachine.pushReelButton(1);
-		} else if (buttonIndex == 2) {
+		} else if (buttonIndex == 1) {
 			slotMachine.pushReelButton(2);
 		} else
 			return false;
@@ -29,7 +29,7 @@ public class SlotMachineControllerAdapter extends ControllerAdapter {
 
 	@Override
 	public boolean axisMoved(Controller controller, int axisIndex, float value) {
-		if (axisIndex == 2) {
+		if (axisIndex == 2 || axisIndex == 0) {
 			if (value == 1)
 				slotMachine.startReels();
 			else if (value == -1)

@@ -386,6 +386,9 @@ public class TiledWorld implements Observer, Screen {
 				case "PlayerSpawn":
 					playerSpawnObjects.add(mapObject);
 					break;
+				case "Trigger":
+					triggerObjects.add(mapObject);
+					break;
 				case "PlayerCreate":
 					if (player == null) {
 						player = new Player(mapObject, this);
@@ -406,9 +409,6 @@ public class TiledWorld implements Observer, Screen {
 					break;
 				case "Fruit":
 					newGameObjectList.add(new Fruit(mapObject, this));
-					break;
-				case "Trigger":
-					triggerObjects.add(mapObject);
 					break;
 				case "Sign":
 					newGameObjectList.add(new Sign(mapObject, this));
