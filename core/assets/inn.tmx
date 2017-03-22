@@ -68,7 +68,7 @@
   <object id="4" name="InnKeeper" type="MonologNPCCreate" x="48" y="128" width="16" height="16">
    <properties>
     <property name="facing" value="RIGHT"/>
-    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_f.png"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/townfolk1_f.png"/>
     <property name="text">Willkommen, Reisender!
 
 Macht es Euch bequem und versucht
@@ -77,24 +77,24 @@ euer Glück an unserem Spielautomaten!</property>
   </object>
   <object id="7" name="SlotMachine" type="SlotMachine" x="32" y="80" width="16" height="16">
    <properties>
-    <property name="path" value="tilesets\Machines\Arcade.png"/>
+    <property name="path" value="tilesets/Machines/Arcade.png"/>
    </properties>
   </object>
   <object id="9" name="Lover" type="NPCCreate" x="128" y="48" width="16" height="16">
    <properties>
     <property name="facing" value="RIGHT"/>
-    <property name="path" value="tilesets\characters\rpgsprites1\ranger_m.png"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/ranger_m.png"/>
    </properties>
   </object>
   <object id="10" name="Loveress" type="NPCCreate" x="144" y="48" width="16" height="16">
    <properties>
     <property name="facing" value="LEFT"/>
-    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_f.png"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/townfolk1_f.png"/>
    </properties>
   </object>
   <object id="11" name="Sleeper" type="NPCCreate" x="224" y="32" width="16" height="16">
    <properties>
-    <property name="path" value="tilesets\characters\rpgsprites1\warrior_f.png"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/warrior_f.png"/>
    </properties>
   </object>
  </objectgroup>

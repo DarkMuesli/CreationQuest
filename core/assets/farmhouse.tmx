@@ -73,7 +73,7 @@
   <object id="4" name="Farmer" type="MonologNPCCreate" x="112" y="64" width="16" height="16">
    <properties>
     <property name="facing" value="DOWN"/>
-    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_m.png"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/townfolk1_m.png"/>
     <property name="text">Wärt Ihr so gut, mir bei der
 Ernte zu helfen, Reisender?</property>
    </properties>

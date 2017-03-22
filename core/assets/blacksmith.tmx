@@ -67,7 +67,7 @@
   </object>
   <object id="4" name="Blacksmith" type="NPCCreate" x="192" y="48" width="16" height="16">
    <properties>
-    <property name="path" value="tilesets\characters\rpgsprites1\townfolk1_f.png"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/townfolk1_f.png"/>
    </properties>
   </object>
  </objectgroup>
