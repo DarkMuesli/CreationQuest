@@ -600,6 +600,7 @@ public class TiledWorld implements Observer, Screen {
 						}
 
 						spawnPlayer(player, oldMap);
+						player.updateSize(getTileWidth(), getTileHeight() / getTileWidth() * getTileHeight());
 
 						player.reset();
 						player.waitFor(0.2f);

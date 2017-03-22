@@ -399,6 +399,10 @@ public abstract class Entity extends GameObject {
 			break;
 		}
 	}
+	
+	public void updateSize(float width, float height){
+		sprt.setSize(width, height);
+	}
 
 	public void reset() {
 		sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);
@@ -500,7 +504,6 @@ public abstract class Entity extends GameObject {
 	}
 
 	public void draw(SpriteBatch spriteBatch) {
-
 		spriteBatch.begin();
 		sprt.draw(spriteBatch);
 		spriteBatch.end();
