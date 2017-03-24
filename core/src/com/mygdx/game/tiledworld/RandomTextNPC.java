@@ -11,27 +11,22 @@ public class RandomTextNPC extends MonologNPC {
 
 	public RandomTextNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RandomTextNPC(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RandomTextNPC(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RandomTextNPC(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RandomTextNPC(Texture tex, TiledWorld world) {
 		super(tex, world);
-		// TODO Auto-generated constructor stub
 	}
 
 	public RandomTextNPC(MapObject mapObject, TiledWorld tiledWorld) {
@@ -41,9 +36,10 @@ public class RandomTextNPC extends MonologNPC {
 
 	@Override
 	public boolean onInteract(GameObject obj) {
+		String oldText = text;
 		do {
 			text = strings[(int) (Math.random() * strings.length)].trim();
-		} while (text.isEmpty());
+		} while (text.isEmpty() || text.equals(oldText));
 		
 		return super.onInteract(obj);
 	}

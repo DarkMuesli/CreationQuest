@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 
@@ -20,7 +19,7 @@ public class Fruit extends GameObject {
 	private boolean plucked;
 	private float counter;
 
-	private SimpleTextDrawer textDrawer;
+	private String text;
 
 	public Fruit(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
@@ -45,9 +44,8 @@ public class Fruit extends GameObject {
 		sprt = new Sprite(split[5][2]);
 		sprt.setPosition(world.getPixelFromCell(x, y).x, world.getPixelFromCell(x, y).y);
 		counter = 0;
-		textDrawer = new SimpleTextDrawer(this);
 
-		textDrawer.setText(words[(int) (Math.random() * words.length)].trim());
+		text = words[(int) (Math.random() * words.length)].trim();
 	}
 
 	@Override
@@ -68,22 +66,10 @@ public class Fruit extends GameObject {
 			float newSpriteAlpha = Math.max(0, sprt.getColor().a - (2 / (FADE_TIME)) * deltaTime);
 			sprt.setAlpha(Math.max(0, newSpriteAlpha));
 
-			float newTextAlpha = Math.max(0, textDrawer.getAlpha() - (1 / FADE_TIME) * deltaTime);
-			textDrawer.setAlpha(newTextAlpha);
-
 			if ((counter += deltaTime) >= FADE_TIME) {
 				removeFruit();
 			}
 		}
-	}
-
-	@Override
-	public void draw(SpriteBatch spriteBatch) {
-		super.draw(spriteBatch);
-
-		if (plucked)
-			textDrawer.drawText(spriteBatch);
-
 	}
 
 	public void pluckFruit() {
@@ -96,6 +82,7 @@ public class Fruit extends GameObject {
 		long id = sound.play();
 		sound.setPitch(id, 1f + ((float) Math.random() * PITCH_RANGE) - (PITCH_RANGE / 2));
 
+		world.addText(text, FADE_TIME, FADE_TIME, this);
 		sprt.setRegion(new Texture("tilesets/town_rpg_pack/town_rpg_pack/graphics/ruebe.png"));
 	}
 

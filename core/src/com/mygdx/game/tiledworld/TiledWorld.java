@@ -55,6 +55,8 @@ public class TiledWorld implements Observer, Screen {
 	private List<GameObject> gameObjectList;
 	private List<GameObject> newGameObjectList;
 
+	private List<SimpleTextDrawer> texts;
+
 	private MapRenderer mapRenderer;
 
 	private List<TiledMapTileLayer> tileLayers;
@@ -90,6 +92,8 @@ public class TiledWorld implements Observer, Screen {
 	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame game) {
 		gameObjectList = new ArrayList<GameObject>();
 		newGameObjectList = new ArrayList<GameObject>();
+		texts = new ArrayList<SimpleTextDrawer>();
+
 		this.cam = cam;
 		this.spriteBatch = spriteBatch;
 		this.game = game;
@@ -588,6 +592,8 @@ public class TiledWorld implements Observer, Screen {
 						if (oldMap.equals("farm.tmx")) {
 							EventManager.instance().farmLeft(player);
 						}
+						
+						texts.clear();
 
 						newGameObjectList.clear();
 						newGameObjectList.add(player);
@@ -635,6 +641,14 @@ public class TiledWorld implements Observer, Screen {
 		// spriteBatch.end();
 
 		renderForegroundLayers();
+
+		SimpleTextDrawer.beginShapes();
+		texts.forEach(text -> text.drawBackground());
+		SimpleTextDrawer.endShapes();
+
+		spriteBatch.begin();
+		texts.forEach(text -> text.drawText(spriteBatch));
+		spriteBatch.end();
 
 	}
 
@@ -701,6 +715,14 @@ public class TiledWorld implements Observer, Screen {
 				return -1;
 		});
 
+		for (Iterator<SimpleTextDrawer> iterator = texts.iterator(); iterator.hasNext();) {
+			SimpleTextDrawer drawer = (SimpleTextDrawer) iterator.next();
+			if (drawer.isDead())
+				iterator.remove();
+			else
+				drawer.update(deltaTime);
+		}
+
 	}
 
 	@Override
@@ -766,6 +788,35 @@ public class TiledWorld implements Observer, Screen {
 
 	public void removeGameObject(GameObject obj) {
 		newGameObjectList.remove(obj);
+	}
+
+	public void addText(String text, float lifetime, GameObject obj) {
+		for (Iterator<SimpleTextDrawer> iterator = texts.iterator(); iterator.hasNext();) {
+			SimpleTextDrawer drawer = (SimpleTextDrawer) iterator.next();
+			if (drawer.getObject() == obj) {
+				drawer.setText(text);
+				drawer.setLifeTime(lifetime);
+				drawer.reset();
+				return;
+			}
+		}
+		
+		texts.add(new SimpleTextDrawer(obj, text, lifetime));
+	}
+
+	public void addText(String text, float lifeTime, float fadeTime, GameObject obj) {
+		for (Iterator<SimpleTextDrawer> iterator = texts.iterator(); iterator.hasNext();) {
+			SimpleTextDrawer drawer = (SimpleTextDrawer) iterator.next();
+			if (drawer.getObject() == obj) {
+				drawer.setText(text);
+				drawer.setLifeTime(lifeTime);
+				drawer.setFadeTime(fadeTime);
+				drawer.reset();
+				return;
+			}
+		}
+		
+		texts.add(new SimpleTextDrawer(obj, text, lifeTime, fadeTime));
 	}
 
 }

@@ -6,11 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 
 public class Sign extends GameObject {
-	
+
 	private static final int TEXT_SHOWTIME = 5;
-	private SimpleTextDrawer textDrawer;
-	private boolean drawText;
-	private float counter = 0f;
+	private String text;
 
 	public Sign(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
@@ -26,8 +24,7 @@ public class Sign extends GameObject {
 
 	public Sign(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
-		textDrawer = new SimpleTextDrawer(this);
-		textDrawer.setText(mapObject.getProperties().get("text", String.class));
+		text = mapObject.getProperties().get("text", String.class);
 	}
 
 	public Sign(int x, int y, Texture tex, TiledWorld world) {
@@ -36,24 +33,13 @@ public class Sign extends GameObject {
 
 	@Override
 	public boolean onInteract(GameObject obj) {
-		drawText = true;
+		world.addText(text, TEXT_SHOWTIME, this);
 		return true;
 	}
-	
+
 	@Override
 	public void draw(SpriteBatch spriteBatch) {
 		super.draw(spriteBatch);
-		if (drawText) 
-			textDrawer.drawText(spriteBatch);
-	}
-	
-	@Override
-	public void update(float deltaTime) {
-		super.update(deltaTime);
-		if (drawText && (counter += deltaTime) > TEXT_SHOWTIME) {
-			drawText = false;
-			counter = 0f;
-		}
 	}
 
 }
