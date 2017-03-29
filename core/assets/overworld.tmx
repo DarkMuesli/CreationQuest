@@ -130,6 +130,7 @@ Westen: Gasthaus</property>
   </object>
   <object id="353" name="RandomNPC" type="RandomTextNPCCreate" x="336" y="192" width="16" height="16">
    <properties>
+    <property name="ComGen" value="RandomWalk"/>
     <property name="facing" value="DOWN"/>
     <property name="path" value="tilesets/characters/rpgsprites1/townfolk1_m.png"/>
     <property name="text">Wärt Ihr so gut, mir bei der
@@ -170,6 +171,7 @@ Ernte zu helfen, Reisender?</property>
   </object>
   <object id="358" name="RandomNPC" type="RandomTextNPCCreate" x="624" y="464" width="16" height="16">
    <properties>
+    <property name="ComGen" value="RandomWalk"/>
     <property name="facing" value="UP"/>
     <property name="path" value="tilesets/characters/rpgsprites1/mage_f.png"/>
     <property name="text">Wärt Ihr so gut, mir bei der

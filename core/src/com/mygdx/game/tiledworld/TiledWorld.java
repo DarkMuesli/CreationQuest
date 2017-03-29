@@ -12,9 +12,12 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -46,6 +49,7 @@ public class TiledWorld implements Observer, Screen {
 	private float lag;
 	private TiledMap map;
 	private String mapName;
+	private String newMap;
 
 	private Player player;
 
@@ -58,6 +62,12 @@ public class TiledWorld implements Observer, Screen {
 	private List<SimpleTextDrawer> texts;
 
 	private MapRenderer mapRenderer;
+	private ShapeRenderer shapeRenderer;
+
+	private float fadeCounter;
+	private boolean fadingOut;
+	private boolean fadingIn;
+	private float fadeTime;
 
 	private List<TiledMapTileLayer> tileLayers;
 
@@ -90,17 +100,21 @@ public class TiledWorld implements Observer, Screen {
 	 * @param mapName
 	 */
 	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame game) {
-		gameObjectList = new ArrayList<GameObject>();
-		newGameObjectList = new ArrayList<GameObject>();
-		texts = new ArrayList<SimpleTextDrawer>();
+		this.gameObjectList = new ArrayList<GameObject>();
+		this.newGameObjectList = new ArrayList<GameObject>();
+		this.texts = new ArrayList<SimpleTextDrawer>();
 
 		this.cam = cam;
 		this.spriteBatch = spriteBatch;
 		this.game = game;
 
+		this.fadeCounter = 0;
+		this.fadeTime = 0;
+		this.shapeRenderer = new ShapeRenderer();
+
 		setMap(mapName);
 
-		gameObjectList.addAll(newGameObjectList);
+		this.gameObjectList.addAll(newGameObjectList);
 
 		// update(0);
 
@@ -588,30 +602,9 @@ public class TiledWorld implements Observer, Screen {
 						long id = sound.play();
 						sound.setPitch(id, 1f + ((float) Math.random() * 0.1f) - 0.05f);
 
-						String oldMap = mapName;
-						if (oldMap.equals("farm.tmx")) {
-							EventManager.instance().farmLeft(player);
-						}
-						
-						texts.clear();
+						newMap = objProp.get("nextMap", String.class);
 
-						newGameObjectList.clear();
-						newGameObjectList.add(player);
-
-						setMap(objProp.get("nextMap", String.class));
-
-						Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
-						if (mapName.equals("farm.tmx")) {
-							EventManager.instance().farmEntered(player);
-						}
-
-						spawnPlayer(player, oldMap);
-						player.updateSize(getTileWidth(), getTileHeight() / getTileWidth() * getTileHeight());
-
-						player.reset();
-						player.waitFor(0.2f);
-
-						resetCam(cam);
+						fadeOut(0.2f);
 
 					}
 				}
@@ -623,6 +616,33 @@ public class TiledWorld implements Observer, Screen {
 
 		}
 
+	}
+
+	private void changeMap(String newMap) {
+		String oldMap = mapName;
+		if (oldMap.equals("farm.tmx")) {
+			EventManager.instance().farmLeft(player);
+		}
+
+		texts.clear();
+
+		newGameObjectList.clear();
+		newGameObjectList.add(player);
+
+		setMap(newMap);
+
+		Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
+		if (mapName.equals("farm.tmx")) {
+			EventManager.instance().farmEntered(player);
+		}
+
+		spawnPlayer(player, oldMap);
+		player.updateSize(getTileWidth(), getTileHeight() / getTileWidth() * getTileHeight());
+
+		player.reset();
+		player.waitFor(0.2f);
+
+		resetCam(cam);
 	}
 
 	public void draw(SpriteBatch spriteBatch, OrthographicCamera cam) {
@@ -649,6 +669,25 @@ public class TiledWorld implements Observer, Screen {
 		spriteBatch.begin();
 		texts.forEach(text -> text.drawText(spriteBatch));
 		spriteBatch.end();
+
+		if (fadingOut || fadingIn) {
+
+			Color color;
+			if (fadingOut)
+				color = new Color(0, 0, 0, fadeCounter / fadeTime);
+			else
+				color = new Color(0, 0, 0, 1 - fadeCounter / fadeTime);
+
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			shapeRenderer.setProjectionMatrix(cam.combined);
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(color);
+			shapeRenderer.rect(cam.position.x - cam.viewportWidth / 2, cam.position.y - cam.viewportHeight / 2,
+					cam.viewportWidth, cam.viewportHeight);
+			shapeRenderer.end();
+			Gdx.gl.glDisable(GL20.GL_BLEND);
+		}
 
 	}
 
@@ -701,6 +740,18 @@ public class TiledWorld implements Observer, Screen {
 		newGameObjectList.addAll(gameObjectList);
 
 		gameObjectList.forEach(obj -> obj.update(deltaTime));
+
+		if (fadingOut || fadingIn) {
+			fadeCounter += deltaTime;
+			if (fadeCounter >= fadeTime) {
+				fadeCounter = 0;
+				if (fadingOut) {
+					changeMap(newMap);
+					fadeIn(fadeTime);
+				} else
+					fadingIn = false;
+			}
+		}
 
 		List<GameObject> tmp = gameObjectList;
 		gameObjectList = newGameObjectList;
@@ -800,7 +851,7 @@ public class TiledWorld implements Observer, Screen {
 				return;
 			}
 		}
-		
+
 		texts.add(new SimpleTextDrawer(obj, text, lifetime));
 	}
 
@@ -815,8 +866,20 @@ public class TiledWorld implements Observer, Screen {
 				return;
 			}
 		}
-		
+
 		texts.add(new SimpleTextDrawer(obj, text, lifeTime, fadeTime));
 	}
 
+	public void fadeOut(float seconds) {
+		fadeTime = seconds;
+		fadingIn = false;
+		fadingOut = true;
+		player.waitFor(seconds * 2);
+	}
+
+	private void fadeIn(float seconds) {
+		fadeTime = seconds;
+		fadingIn = true;
+		fadingOut = false;
+	}
 }
