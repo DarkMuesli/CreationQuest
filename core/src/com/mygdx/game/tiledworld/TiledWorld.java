@@ -100,9 +100,9 @@ public class TiledWorld implements Observer, Screen {
 	 * @param mapName
 	 */
 	public TiledWorld(String mapName, SpriteBatch spriteBatch, OrthographicCamera cam, MyGdxGame game) {
-		this.gameObjectList = new ArrayList<GameObject>();
-		this.newGameObjectList = new ArrayList<GameObject>();
-		this.texts = new ArrayList<SimpleTextDrawer>();
+		this.gameObjectList = new ArrayList<>();
+		this.newGameObjectList = new ArrayList<>();
+		this.texts = new ArrayList<>();
 
 		this.cam = cam;
 		this.spriteBatch = spriteBatch;
@@ -210,7 +210,7 @@ public class TiledWorld implements Observer, Screen {
 	 * @return the width of a single tile of the current {@link TiledMap} in
 	 *         pixels.
 	 */
-	public float getTileWidth() {
+	float getTileWidth() {
 		return (map.getProperties().get("tilewidth", int.class));
 	}
 
@@ -218,7 +218,7 @@ public class TiledWorld implements Observer, Screen {
 	 * @return the height of a single tile of the current {@link TiledMap} in
 	 *         pixels.
 	 */
-	public float getTileHeight() {
+	float getTileHeight() {
 		return (map.getProperties().get("tileheight", int.class));
 	}
 
@@ -230,7 +230,7 @@ public class TiledWorld implements Observer, Screen {
 	 * @return the pixel in the lower, left corner of the given cell in world
 	 *         coordinates as a {@link Vector2}
 	 */
-	public Vector2 getPixelFromCell(Point p) {
+	Vector2 getPixelFromCell(Point p) {
 		return getPixelFromCell(p.x, p.y);
 	}
 
@@ -246,7 +246,7 @@ public class TiledWorld implements Observer, Screen {
 	 *
 	 * @return
 	 */
-	public Vector2 getPixelFromCell(int x, int y) {
+	Vector2 getPixelFromCell(int x, int y) {
 		float newX = x * getTileWidth();
 		float newY = y * getTileHeight();
 
@@ -260,7 +260,7 @@ public class TiledWorld implements Observer, Screen {
 	 *            pixel based position to transform as a {@link Vector2}
 	 * @return corresponding cell based position as a {@link Point}
 	 */
-	public Point getCellFromPixel(Vector2 p) {
+	Point getCellFromPixel(Vector2 p) {
 		return getCellFromPixel(p.x, p.y);
 	}
 
@@ -273,7 +273,7 @@ public class TiledWorld implements Observer, Screen {
 	 *            pixel based y coordinate as float
 	 * @return corresponding cell based position as a {@link Point}
 	 */
-	public Point getCellFromPixel(float x, float y) {
+	Point getCellFromPixel(float x, float y) {
 
 		float newX = x / getTileWidth();
 		float newY = y / getTileHeight();
@@ -290,7 +290,7 @@ public class TiledWorld implements Observer, Screen {
 	 *            pixel based y coordinate as integer
 	 * @return corresponding cell based position as a {@link Point}
 	 */
-	public Point getCellFromPixel(int x, int y) {
+	Point getCellFromPixel(int x, int y) {
 		return getCellFromPixel((float) x, (float) y);
 	}
 
@@ -303,7 +303,7 @@ public class TiledWorld implements Observer, Screen {
 	 * @return <code>true</code> if there is something to collide with at the
 	 *         given point, <code>false</code> otherwise
 	 */
-	public boolean checkCollision(Point p) {
+	boolean checkCollision(Point p) {
 
 		if (p.x < 0 || p.x >= this.getMapWidth() || p.y < 0 || p.y >= this.getMapHeight()) {
 			return true;
@@ -334,35 +334,35 @@ public class TiledWorld implements Observer, Screen {
 	 * @return <code>true</code> if there is something to collide with at the
 	 *         given point, <code>false</code> otherwise
 	 */
-	public boolean checkCollision(int x, int y) {
+	boolean checkCollision(int x, int y) {
 		return checkCollision(new Point(x, y));
 	}
 
 	/**
 	 * @return the total width of the current map in pixels
 	 */
-	public float getMapPixelWidth() {
+	float getMapPixelWidth() {
 		return getTileWidth() * (map.getProperties().get("width", int.class));
 	}
 
 	/**
 	 * @return the total height of the current map in pixels
 	 */
-	public float getMapPixelHeight() {
+	float getMapPixelHeight() {
 		return getTileHeight() * (map.getProperties().get("height", int.class));
 	}
 
 	/**
 	 * @return the total width of the current map in cells
 	 */
-	public float getMapWidth() {
+	float getMapWidth() {
 		return (map.getProperties().get("width", int.class));
 	}
 
 	/**
 	 * @return the total height of the current map in cells
 	 */
-	public float getMapHeight() {
+	float getMapHeight() {
 		return (map.getProperties().get("height", int.class));
 	}
 
@@ -373,7 +373,7 @@ public class TiledWorld implements Observer, Screen {
 	 * @param mapName
 	 *            path of the map to load, relative to the assets directory.
 	 */
-	public void setMap(String mapName) {
+	private void setMap(String mapName) {
 
 		if (this.map != null)
 			this.map.dispose();
@@ -387,64 +387,61 @@ public class TiledWorld implements Observer, Screen {
 
 		objectTileLayer = map.getLayers().get("objects");
 
-		loadingZoneObjects = new ArrayList<MapObject>();
-		playerSpawnObjects = new ArrayList<MapObject>();
-		triggerObjects = new ArrayList<MapObject>();
+		loadingZoneObjects = new ArrayList<>();
+		playerSpawnObjects = new ArrayList<>();
+		triggerObjects = new ArrayList<>();
 
 		if (objectTileLayer != null) {
-			Iterator<MapObject> objIt = objectTileLayer.getObjects().iterator();
 
-			while (objIt.hasNext()) {
-				MapObject mapObject = (MapObject) objIt.next();
-
+			for (MapObject mapObject : objectTileLayer.getObjects()) {
 				switch (mapObject.getProperties().get("type", String.class)) {
-				case "LoadingZone":
-					loadingZoneObjects.add(mapObject);
-					break;
-				case "PlayerSpawn":
-					playerSpawnObjects.add(mapObject);
-					break;
-				case "Trigger":
-					triggerObjects.add(mapObject);
-					break;
-				case "PlayerCreate":
-					if (player == null) {
-						player = new Player(mapObject, this);
-						newGameObjectList.add(player);
-					}
-					break;
-				case "NPCCreate":
-					newGameObjectList.add(new NPC(mapObject, this));
-					break;
-				case "MoralNPCCreate":
-					newGameObjectList.add(new MoralNPC(mapObject, this));
-					break;
-				case "MonologNPCCreate":
-					newGameObjectList.add(new MonologNPC(mapObject, this));
-					break;
-				case "RandomTextNPCCreate":
-					newGameObjectList.add(new RandomTextNPC(mapObject, this));
-					break;
-				case "Fruit":
-					newGameObjectList.add(new Fruit(mapObject, this));
-					break;
-				case "Sign":
-					newGameObjectList.add(new Sign(mapObject, this));
-					break;
-				case "SlotMachine":
-					newGameObjectList.add(new SlotMachine(mapObject, this));
-					break;
-				default:
-					break;
+					case "LoadingZone":
+						loadingZoneObjects.add(mapObject);
+						break;
+					case "PlayerSpawn":
+						playerSpawnObjects.add(mapObject);
+						break;
+					case "Trigger":
+						triggerObjects.add(mapObject);
+						break;
+					case "PlayerCreate":
+						if (player == null) {
+							player = new Player(mapObject, this);
+							newGameObjectList.add(player);
+						}
+						break;
+					case "NPCCreate":
+						newGameObjectList.add(new NPC(mapObject, this));
+						break;
+					case "MoralNPCCreate":
+						newGameObjectList.add(new MoralNPC(mapObject, this));
+						break;
+					case "MonologNPCCreate":
+						newGameObjectList.add(new MonologNPC(mapObject, this));
+						break;
+					case "RandomTextNPCCreate":
+						newGameObjectList.add(new RandomTextNPC(mapObject, this));
+						break;
+					case "Fruit":
+						newGameObjectList.add(new Fruit(mapObject, this));
+						break;
+					case "Sign":
+						newGameObjectList.add(new Sign(mapObject, this));
+						break;
+					case "SlotMachine":
+						newGameObjectList.add(new SlotMachine(mapObject, this));
+						break;
+					default:
+						break;
 				}
 			}
 		}
 
-		tileLayers = new ArrayList<TiledMapTileLayer>();
-		bgTileLayers = new ArrayList<TiledMapTileLayer>();
-		fgTileLayers = new ArrayList<TiledMapTileLayer>();
-		collisionTileLayers = new ArrayList<TiledMapTileLayer>();
-		triggerTileLayers = new ArrayList<TiledMapTileLayer>();
+		tileLayers = new ArrayList<>();
+		bgTileLayers = new ArrayList<>();
+		fgTileLayers = new ArrayList<>();
+		collisionTileLayers = new ArrayList<>();
+		triggerTileLayers = new ArrayList<>();
 
 		for (TiledMapTileLayer tmtl : tileLayersArray) {
 			tileLayers.add(tmtl);
@@ -455,22 +452,20 @@ public class TiledWorld implements Observer, Screen {
 		collisionTileLayersIndicesCount = 0;
 		triggerTileLayersIndicesCount = 0;
 
-		for (int i = 0; i < tileLayers.size(); i++) {
-			TiledMapTileLayer tl = tileLayers.get(i);
-
+		for (TiledMapTileLayer tl : tileLayers) {
 			switch (tl.getName().substring(0, 3)) {
-			case "fgr":
-				fgTileLayersIndicesCount++;
-				break;
-			case "bgr":
-				bgTileLayersIndicesCount++;
-				break;
-			case "col":
-				collisionTileLayersIndicesCount++;
-				break;
-			case "trg":
-				triggerTileLayersIndicesCount++;
-				break;
+				case "fgr":
+					fgTileLayersIndicesCount++;
+					break;
+				case "bgr":
+					bgTileLayersIndicesCount++;
+					break;
+				case "col":
+					collisionTileLayersIndicesCount++;
+					break;
+				case "trg":
+					triggerTileLayersIndicesCount++;
+					break;
 			}
 		}
 
@@ -512,7 +507,7 @@ public class TiledWorld implements Observer, Screen {
 	/**
 	 * Render the whole map at once.
 	 */
-	public void renderMap() {
+	void renderMap() {
 		mapRenderer.render();
 	}
 
@@ -521,7 +516,7 @@ public class TiledWorld implements Observer, Screen {
 	 * Tiled-software by the prefix "bgr". Render order of Tiled-software will
 	 * be maintained (bottom-up).
 	 */
-	public void renderBackgroundLayers() {
+	void renderBackgroundLayers() {
 		mapRenderer.render(bgTileLayersIndices);
 	}
 
@@ -530,7 +525,7 @@ public class TiledWorld implements Observer, Screen {
 	 * Tiled-software by the prefix "col". Render order of Tiled-software will
 	 * be maintained (bottom-up).
 	 */
-	public void renderCollisionLayers() {
+	void renderCollisionLayers() {
 		mapRenderer.render(collisionTileLayersIndices);
 	}
 
@@ -539,7 +534,7 @@ public class TiledWorld implements Observer, Screen {
 	 * Tiled-software by the prefix "fgr". Render order of Tiled-software will
 	 * be maintained (bottom-up).
 	 */
-	public void renderForegroundLayers() {
+	void renderForegroundLayers() {
 		mapRenderer.render(fgTileLayersIndices);
 	}
 
@@ -554,7 +549,7 @@ public class TiledWorld implements Observer, Screen {
 	 *            the map, the player is coming from. Empty string or
 	 *            <code>null</code> causes default spawn.
 	 */
-	public void spawnPlayer(Player player, String oldMap) {
+	void spawnPlayer(Player player, String oldMap) {
 
 		MapObject defaultSpawn = null;
 
@@ -645,7 +640,7 @@ public class TiledWorld implements Observer, Screen {
 		resetCam(cam);
 	}
 
-	public void draw(SpriteBatch spriteBatch, OrthographicCamera cam) {
+	void draw(SpriteBatch spriteBatch, OrthographicCamera cam) {
 
 		updateCam(cam);
 
@@ -691,7 +686,7 @@ public class TiledWorld implements Observer, Screen {
 
 	}
 
-	public void updateCam(OrthographicCamera cam) {
+	void updateCam(OrthographicCamera cam) {
 		float camx, camy, camz = 0;
 
 		if (getMapPixelWidth() >= cam.viewportWidth)
@@ -713,7 +708,7 @@ public class TiledWorld implements Observer, Screen {
 	}
 
 	// TODO Codedopplung zu updateCam vermeiden
-	public void resetCam(OrthographicCamera cam) {
+	void resetCam(OrthographicCamera cam) {
 		float camx, camy, camz = 0;
 
 		if (getMapPixelWidth() >= cam.viewportWidth)
@@ -734,7 +729,7 @@ public class TiledWorld implements Observer, Screen {
 		cam.update();
 	}
 
-	public void update(float deltaTime) {
+	void update(float deltaTime) {
 
 		newGameObjectList.clear();
 		newGameObjectList.addAll(gameObjectList);
@@ -757,17 +752,10 @@ public class TiledWorld implements Observer, Screen {
 		gameObjectList = newGameObjectList;
 		newGameObjectList = tmp;
 
-		gameObjectList.sort((o1, o2) -> {
-			if (o1.getCellPosition().y == o2.getCellPosition().y)
-				return 0;
-			else if (o1.getCellPosition().y < o2.getCellPosition().y)
-				return 1;
-			else
-				return -1;
-		});
+		gameObjectList.sort((o1, o2) -> Integer.compare(o2.getCellPosition().y, o1.getCellPosition().y));
 
 		for (Iterator<SimpleTextDrawer> iterator = texts.iterator(); iterator.hasNext();) {
-			SimpleTextDrawer drawer = (SimpleTextDrawer) iterator.next();
+			SimpleTextDrawer drawer = iterator.next();
 			if (drawer.isDead())
 				iterator.remove();
 			else
@@ -837,13 +825,12 @@ public class TiledWorld implements Observer, Screen {
 		return a + f * (b - a);
 	}
 
-	public void removeGameObject(GameObject obj) {
+	void removeGameObject(GameObject obj) {
 		newGameObjectList.remove(obj);
 	}
 
-	public void addText(String text, float lifetime, GameObject obj) {
-		for (Iterator<SimpleTextDrawer> iterator = texts.iterator(); iterator.hasNext();) {
-			SimpleTextDrawer drawer = (SimpleTextDrawer) iterator.next();
+	void addText(String text, float lifetime, GameObject obj) {
+		for (SimpleTextDrawer drawer : texts) {
 			if (drawer.getObject() == obj) {
 				drawer.setText(text);
 				drawer.setLifeTime(lifetime);
@@ -855,9 +842,8 @@ public class TiledWorld implements Observer, Screen {
 		texts.add(new SimpleTextDrawer(obj, text, lifetime));
 	}
 
-	public void addText(String text, float lifeTime, float fadeTime, GameObject obj) {
-		for (Iterator<SimpleTextDrawer> iterator = texts.iterator(); iterator.hasNext();) {
-			SimpleTextDrawer drawer = (SimpleTextDrawer) iterator.next();
+	void addText(String text, float lifeTime, float fadeTime, GameObject obj) {
+		for (SimpleTextDrawer drawer : texts) {
 			if (drawer.getObject() == obj) {
 				drawer.setText(text);
 				drawer.setLifeTime(lifeTime);
@@ -870,7 +856,7 @@ public class TiledWorld implements Observer, Screen {
 		texts.add(new SimpleTextDrawer(obj, text, lifeTime, fadeTime));
 	}
 
-	public void fadeOut(float seconds) {
+	private void fadeOut(float seconds) {
 		fadeTime = seconds;
 		fadingIn = false;
 		fadingOut = true;

@@ -21,8 +21,6 @@ public class MyGdxGame extends Game {
 	private Screen world;
 	private Screen slots;
 
-	private float lag = 0;
-
 	@Override
 	public void create() {
 

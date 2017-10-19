@@ -27,7 +27,7 @@ public class SimpleTextDrawer {
 	private boolean fading;
 	private float fadeTime;
 
-	public SimpleTextDrawer(GameObject obj, String text, float lifetime) {
+	SimpleTextDrawer(GameObject obj, String text, float lifetime) {
 		this.font = new BitmapFont();
 		this.layout = new GlyphLayout();
 		this.obj = obj;
@@ -39,7 +39,7 @@ public class SimpleTextDrawer {
 		this.counter = 0;
 	}
 
-	public SimpleTextDrawer(GameObject obj, String text, float lifeTime, float fadeTime) {
+	SimpleTextDrawer(GameObject obj, String text, float lifeTime, float fadeTime) {
 		this.font = new BitmapFont();
 		this.layout = new GlyphLayout();
 		this.obj = obj;
@@ -51,7 +51,7 @@ public class SimpleTextDrawer {
 		this.counter = 0;
 	}
 
-	public SimpleTextDrawer(GameObject obj) {
+	SimpleTextDrawer(GameObject obj) {
 		this.font = new BitmapFont();
 		this.layout = new GlyphLayout();
 		this.obj = obj;
@@ -59,18 +59,18 @@ public class SimpleTextDrawer {
 
 	}
 
-	public GameObject getObject() {
+	GameObject getObject() {
 		return obj;
 	}
 
-	public void setLifeTime(float lifetime) {
+	void setLifeTime(float lifetime) {
 		if (lifetime < 0 || lifetime > MAX_LIFETIME)
 			this.lifeTime = DEFAULT_LIFETIME;
 		else
 			this.lifeTime = lifetime;
 	}
 
-	public void setText(String text) {
+	void setText(String text) {
 		this.text = text;
 		this.layout.setText(font, text);
 	}
@@ -106,7 +106,7 @@ public class SimpleTextDrawer {
 	 *
 	 * 
 	 */
-	public void drawBackground() {
+	void drawBackground() {
 
 		shapeRenderer.setProjectionMatrix(obj.getWorld().getCam().combined);
 		shapeRenderer.setColor(0f, 0f, 0f, font.getColor().a * 0.5f);
@@ -116,23 +116,23 @@ public class SimpleTextDrawer {
 
 	}
 
-	public static void beginShapes() {
+	static void beginShapes() {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		shapeRenderer.begin(ShapeType.Filled);
 	}
 
-	public static void endShapes() {
+	static void endShapes() {
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
-	public void drawText(SpriteBatch batch) {
+	void drawText(SpriteBatch batch) {
 		font.draw(batch, text, obj.getSprt().getX() + obj.getWorld().getTileWidth() / 2 - layout.width / 2,
 				obj.getSprt().getY() + obj.getWorld().getTileHeight() + layout.height + BORDER - 5);
 	}
 
-	public void update(float deltaTime) {
+	void update(float deltaTime) {
 		counter += deltaTime;
 		if (fading && counter >= lifeTime - fadeTime) {
 			float newTextAlpha = Math.max(0, getAlpha() - (1 / fadeTime) * deltaTime);
@@ -148,15 +148,15 @@ public class SimpleTextDrawer {
 		return font.getColor().a;
 	}
 
-	public boolean isDead() {
+	boolean isDead() {
 		return counter > lifeTime;
 	}
 
-	public void reset() {
+	void reset() {
 		counter = 0;
 	}
 
-	public void setFadeTime(float fadeTime) {
+	void setFadeTime(float fadeTime) {
 
 		fading = true;
 

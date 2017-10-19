@@ -8,7 +8,7 @@ public class FarmInputAdapter extends InputAdapter {
 
 	private Player player;
 
-	public FarmInputAdapter(Player player) {
+	FarmInputAdapter(Player player) {
 		this.player = player;
 	}
 

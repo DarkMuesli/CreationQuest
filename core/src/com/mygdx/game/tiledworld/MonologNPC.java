@@ -13,27 +13,27 @@ public class MonologNPC extends NPC {
 
 	protected String text;
 
-	public MonologNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
+	MonologNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
-	public MonologNPC(int x, int y, Sprite sprt, TiledWorld world) {
+	MonologNPC(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
-	public MonologNPC(int x, int y, Texture tex, TiledWorld world) {
+	MonologNPC(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 	}
 
-	public MonologNPC(Sprite sprt, TiledWorld world) {
+	MonologNPC(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
-	public MonologNPC(Texture tex, TiledWorld world) {
+	MonologNPC(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
-	public MonologNPC(MapObject mapObject, TiledWorld tiledWorld) {
+	MonologNPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		text = mapObject.getProperties().get("text", String.class);
 	}

@@ -9,27 +9,27 @@ public class RandomTextNPC extends MonologNPC {
 
 	private static String[] strings = Gdx.files.internal("text/Provokationen.txt").readString().split("\\r?\\n");
 
-	public RandomTextNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
+	RandomTextNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
-	public RandomTextNPC(int x, int y, Sprite sprt, TiledWorld world) {
+	RandomTextNPC(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
-	public RandomTextNPC(int x, int y, Texture tex, TiledWorld world) {
+	RandomTextNPC(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 	}
 
-	public RandomTextNPC(Sprite sprt, TiledWorld world) {
+	RandomTextNPC(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
-	public RandomTextNPC(Texture tex, TiledWorld world) {
+	RandomTextNPC(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
-	public RandomTextNPC(MapObject mapObject, TiledWorld tiledWorld) {
+	RandomTextNPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		// TODO Auto-generated constructor stub
 	}

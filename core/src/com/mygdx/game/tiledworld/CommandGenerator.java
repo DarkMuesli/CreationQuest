@@ -39,7 +39,7 @@ public interface CommandGenerator {
 	 * 
 	 * @param commandEnum
 	 */
-	public void postCommand(Commands commandEnum);
+	void postCommand(Commands commandEnum);
 
 	/**
 	 * Tells this {@link CommandGenerator} to stop the continuous execution of
@@ -47,5 +47,5 @@ public interface CommandGenerator {
 	 * 
 	 * @param commandEnum
 	 */
-	public void stopCommand(Commands commandEnum);
+	void stopCommand(Commands commandEnum);
 }

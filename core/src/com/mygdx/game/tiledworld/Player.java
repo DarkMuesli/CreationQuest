@@ -37,7 +37,7 @@ public class Player extends Entity {
 	 * @param world
 	 *            {@link TiledWorld} the {@link Player} will be present in
 	 */
-	public Player(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
+	Player(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
@@ -50,7 +50,7 @@ public class Player extends Entity {
 	 * @param world
 	 *            {@link TiledWorld} to spawn the player in
 	 */
-	public Player(Sprite sprt, TiledWorld world) {
+	Player(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
@@ -64,7 +64,7 @@ public class Player extends Entity {
 	 * @param world
 	 *            {@link TiledWorld} to spawn the player in
 	 */
-	public Player(Texture tex, TiledWorld world) {
+	Player(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
@@ -81,7 +81,7 @@ public class Player extends Entity {
 	 * @param world
 	 *            {@link TiledWorld} to spawn the player in
 	 */
-	public Player(int x, int y, Sprite sprt, TiledWorld world) {
+	Player(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
@@ -99,23 +99,23 @@ public class Player extends Entity {
 	 * @param world
 	 *            {@link TiledWorld} to spawn the player in
 	 */
-	public Player(int x, int y, Texture tex, TiledWorld world) {
+	Player(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 		// TODO FIX THIS not to be the only functioning constructor
 		comGen = new PlayerInputHandler(this);
 	}
 
-	public Player(MapObject mapObject, TiledWorld world) {
+	Player(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 		// TODO FIX THIS not to be the only functioning constructor
 		comGen = new PlayerInputHandler(this);
 	}
 
-	public InputProcessor getInputProcessor() {
+	InputProcessor getInputProcessor() {
 		return ((PlayerInputHandler) comGen).getPlayerInpAd();
 	}
 
-	public ControllerListener getControllerListener() {
+	ControllerListener getControllerListener() {
 		return ((PlayerInputHandler) comGen).getPlayerContAd();
 	}
 

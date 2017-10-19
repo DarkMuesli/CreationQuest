@@ -52,6 +52,8 @@ public class SlotMachine implements Screen {
 		String text = handle.readString();
 		String[] parts = text.split("###");
 
+		//TODO: Magic number of reels... maybe rethink that
+		// Maybe make it a param that has to be odd?
 		this.reels = new Reel[3];
 		for (int i = 0; i < reels.length; i++) {
 			String[] part = parts[i].split("\\r?\\n");
@@ -191,14 +193,14 @@ public class SlotMachine implements Screen {
 		}
 	}
 
-	public void startReels() {
+	void startReels() {
 		if (state == State.TILTED_UP || state == State.UNTILTING) {
 			timer = 0.1f;
 			state = State.STARTING;
 		}
 	}
 
-	public void tiltReels() {
+	void tiltReels() {
 		if (state == State.STOPPED) {
 			for (Reel reel : reels)
 				reel.tilt();
@@ -206,14 +208,14 @@ public class SlotMachine implements Screen {
 		}
 	}
 
-	public void stopReels() {
+	void stopReels() {
 		if (state == State.MOVING || state == State.UNTILTING) {
 			timer = 0.1f;
 			state = State.STOPPING;
 		}
 	}
 
-	public void untilt() {
+	void untilt() {
 		if (state == State.TILTED_UP) {
 			timer = 0f;
 			state = State.UNTILTING;
@@ -262,24 +264,24 @@ public class SlotMachine implements Screen {
 
 	}
 
-	public void stopReel(int i) {
+	private void stopReel(int i) {
 		if (state == State.MOVING || state == State.STOPPING)
 			reels[i].stop();
 	}
 
-	public void startReel(int i) {
+	private void startReel(int i) {
 		if (state == State.STARTING)
 			reels[i].start();
 	}
 
-	public void toggleReelLock(int i) {
+	private void toggleReelLock(int i) {
 		if (state == State.STOPPED)
 			reels[i].toggleLock();
 	}
 
-	public void pushReelButton(int i) {
+	void pushReelButton(int i) {
 		if (state == State.STOPPED)
-			reels[i].toggleLock();
+			toggleReelLock(i);
 		else if (state == State.MOVING || state == State.STOPPING)
 			reels[i].stop();
 

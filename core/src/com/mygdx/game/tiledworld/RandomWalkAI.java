@@ -6,7 +6,7 @@ public class RandomWalkAI implements CommandGenerator {
 	private float counter = 0f;
 	private Direction dir = Direction.values()[(int) (Direction.values().length * Math.random())];
 
-	public RandomWalkAI() {
+	RandomWalkAI() {
 		// TODO Auto-generated constructor stub
 	}
 

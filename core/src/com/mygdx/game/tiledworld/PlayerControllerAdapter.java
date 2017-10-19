@@ -17,11 +17,11 @@ public class PlayerControllerAdapter extends ControllerAdapter {
 	private Map<Integer, Commands> buttonMap;
 	private boolean[] buttonsPressed;
 
-	public PlayerControllerAdapter(Player player, PlayerInputHandler playerInpHandl) {
+	PlayerControllerAdapter(Player player, PlayerInputHandler playerInpHandl) {
 		this.player = player;
 		this.comGen = playerInpHandl;
 
-		buttonMap = new HashMap<Integer, Commands>();
+		buttonMap = new HashMap<>();
 
 		buttonsPressed = new boolean[256];
 

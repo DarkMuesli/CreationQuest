@@ -7,7 +7,7 @@ public class SlotMachineInputAdapter extends InputAdapter {
 
 	private SlotMachine slotMachine;
 
-	public SlotMachineInputAdapter(SlotMachine slotMachine) {
+	SlotMachineInputAdapter(SlotMachine slotMachine) {
 		this.slotMachine = slotMachine;
 	}
 

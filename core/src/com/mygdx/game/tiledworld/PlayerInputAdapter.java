@@ -17,13 +17,13 @@ public class PlayerInputAdapter extends InputAdapter {
 	private Map<Integer, Commands> keyMap;
 	private boolean[] keysPressed;
 
-	public PlayerInputAdapter(Player player, PlayerInputHandler playerInpHandl) {
+	PlayerInputAdapter(Player player, PlayerInputHandler playerInpHandl) {
 
 		this.player = player;
 
 		this.comGen = playerInpHandl;
 
-		keyMap = new HashMap<Integer, Commands>();
+		keyMap = new HashMap<>();
 
 		keysPressed = new boolean[256];
 

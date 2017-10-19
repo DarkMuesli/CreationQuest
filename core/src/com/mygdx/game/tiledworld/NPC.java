@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.mygdx.game.tiledworld;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +18,7 @@ public class NPC extends Entity {
 	 * @param facing
 	 * @param world
 	 */
-	public NPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
+	NPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
@@ -31,7 +28,7 @@ public class NPC extends Entity {
 	 * @param sprt
 	 * @param world
 	 */
-	public NPC(int x, int y, Sprite sprt, TiledWorld world) {
+	NPC(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
@@ -41,7 +38,7 @@ public class NPC extends Entity {
 	 * @param tex
 	 * @param world
 	 */
-	public NPC(int x, int y, Texture tex, TiledWorld world) {
+	NPC(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 	}
 
@@ -49,7 +46,7 @@ public class NPC extends Entity {
 	 * @param sprt
 	 * @param world
 	 */
-	public NPC(Sprite sprt, TiledWorld world) {
+	NPC(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
@@ -57,11 +54,11 @@ public class NPC extends Entity {
 	 * @param tex
 	 * @param world
 	 */
-	public NPC(Texture tex, TiledWorld world) {
+	NPC(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
-	public NPC(MapObject mapObject, TiledWorld tiledWorld) {
+	NPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		String prop = mapObject.getProperties().get("ComGen", String.class);
 		if (prop != null && prop.equals("RandomWalk"))

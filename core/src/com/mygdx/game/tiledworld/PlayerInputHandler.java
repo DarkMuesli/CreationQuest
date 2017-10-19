@@ -22,17 +22,17 @@ public class PlayerInputHandler implements CommandGenerator {
 
 	private LinkedList<Command> contCommandList;
 
-	public PlayerInputHandler(Player player) {
+	PlayerInputHandler(Player player) {
 
 		this.player = player;
 
 		playerContAd = new PlayerControllerAdapter(player, this);
 		playerInpAd = new PlayerInputAdapter(player, this);
 
-		commandContMap = new EnumMap<Commands, Command>(Commands.class);
-		commandOnceMap = new EnumMap<Commands, Command>(Commands.class);
+		commandContMap = new EnumMap<>(Commands.class);
+		commandOnceMap = new EnumMap<>(Commands.class);
 
-		contCommandList = new LinkedList<Command>();
+		contCommandList = new LinkedList<>();
 
 		// Adding Continuous commands
 		mapContCommand(Commands.MOVE_DOWN, e -> e.move(Direction.DOWN));
@@ -50,7 +50,7 @@ public class PlayerInputHandler implements CommandGenerator {
 
 	}
 
-	public PlayerControllerAdapter getPlayerContAd() {
+	PlayerControllerAdapter getPlayerContAd() {
 		return playerContAd;
 	}
 
@@ -58,7 +58,7 @@ public class PlayerInputHandler implements CommandGenerator {
 		this.playerContAd = playerContAd;
 	}
 
-	public PlayerInputAdapter getPlayerInpAd() {
+	PlayerInputAdapter getPlayerInpAd() {
 		return playerInpAd;
 	}
 
@@ -107,7 +107,7 @@ public class PlayerInputHandler implements CommandGenerator {
 		return contCommandList.peek();
 	}
 
-	public void reset() {
+	void reset() {
 		currentOnceCommand = null;
 		contCommandList.clear();
 	}

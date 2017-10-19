@@ -10,19 +10,19 @@ public class Sign extends GameObject {
 	private static final int TEXT_SHOWTIME = 5;
 	private String text;
 
-	public Sign(Sprite sprt, TiledWorld world) {
+	Sign(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
-	public Sign(Texture tex, TiledWorld world) {
+	Sign(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
-	public Sign(int x, int y, Sprite sprt, TiledWorld world) {
+	Sign(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
-	public Sign(MapObject mapObject, TiledWorld world) {
+	Sign(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 		text = mapObject.getProperties().get("text", String.class);
 	}

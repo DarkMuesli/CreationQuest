@@ -21,23 +21,23 @@ public class Fruit extends GameObject {
 
 	private String text;
 
-	public Fruit(Sprite sprt, TiledWorld world) {
+	Fruit(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
-	public Fruit(Texture tex, TiledWorld world) {
+	Fruit(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
-	public Fruit(int x, int y, Sprite sprt, TiledWorld world) {
+	Fruit(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
-	public Fruit(int x, int y, Texture tex, TiledWorld world) {
+	Fruit(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 	}
 
-	public Fruit(MapObject mapObject, TiledWorld world) {
+	Fruit(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
 		TextureRegion[][] split = TextureRegion.split(tex, 16, 16);
@@ -72,7 +72,7 @@ public class Fruit extends GameObject {
 		}
 	}
 
-	public void pluckFruit() {
+	void pluckFruit() {
 
 		plucked = true;
 		penetrable = true;

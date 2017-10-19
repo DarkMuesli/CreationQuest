@@ -13,29 +13,29 @@ public class MoralNPC extends MonologNPC {
 
 	private static final String TAG = MoralNPC.class.getName();
 
-	private List<List<String>> wordLists = new ArrayList<List<String>>(3);
+	private List<List<String>> wordLists = new ArrayList<>(3);
 
-	public MoralNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
+	MoralNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, moveSpeed, facing, world);
 	}
 
-	public MoralNPC(int x, int y, Sprite sprt, TiledWorld world) {
+	MoralNPC(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 	}
 
-	public MoralNPC(int x, int y, Texture tex, TiledWorld world) {
+	MoralNPC(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 	}
 
-	public MoralNPC(Sprite sprt, TiledWorld world) {
+	MoralNPC(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 	}
 
-	public MoralNPC(Texture tex, TiledWorld world) {
+	MoralNPC(Texture tex, TiledWorld world) {
 		super(tex, world);
 	}
 
-	public MoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
+	MoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		FileHandle handle = Gdx.files.internal("text/Moral.txt");
 
@@ -44,10 +44,10 @@ public class MoralNPC extends MonologNPC {
 
 		for (int i = 0; i < parts.length; i++) {
 			String[] word = parts[i].split("\\r?\\n");
-			wordLists.add(new ArrayList<String>());
-			for (int j = 0; j < word.length; j++) {
-				if (!word[j].isEmpty())
-					wordLists.get(i).add(word[j].trim());
+			wordLists.add(new ArrayList<>());
+			for (String aWord : word) {
+				if (!aWord.isEmpty())
+					wordLists.get(i).add(aWord.trim());
 			}
 		}
 	}

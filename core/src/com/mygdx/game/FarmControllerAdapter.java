@@ -8,7 +8,7 @@ public class FarmControllerAdapter extends ControllerAdapter {
 
 	private Player player;
 
-	public FarmControllerAdapter(Player player) {
+	FarmControllerAdapter(Player player) {
 		this.player = player;
 	}
 

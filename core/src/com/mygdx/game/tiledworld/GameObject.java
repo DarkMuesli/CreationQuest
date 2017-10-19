@@ -156,7 +156,7 @@ public abstract class GameObject extends Observable implements Disposable {
 	 * @return the cell-based position of this {@link GameObject} as a
 	 *         {@link Vector2}
 	 */
-	public Point getCellPosition() {
+	Point getCellPosition() {
 		return new Point(this.x, this.y);
 	}
 
@@ -167,7 +167,7 @@ public abstract class GameObject extends Observable implements Disposable {
 	 * @param x
 	 * @param y
 	 */
-	public void setCellPosition(int x, int y) {
+	void setCellPosition(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -179,7 +179,7 @@ public abstract class GameObject extends Observable implements Disposable {
 	 * @param pos
 	 *            new position as {@link Vector2}
 	 */
-	public void setCellPosition(Point pos) {
+	void setCellPosition(Point pos) {
 		setCellPosition(pos.x, pos.y);
 	}
 
@@ -188,7 +188,7 @@ public abstract class GameObject extends Observable implements Disposable {
 	 *         {@link Vector2}. Calculated by cell-based position and its
 	 *         {@link TiledWorld}'s tile height / width in pixels.
 	 */
-	public Vector2 getPixelPosition() {
+	Vector2 getPixelPosition() {
 		Vector2 pt = new Vector2();
 		pt.x = world.getTileWidth() * this.x;
 		pt.y = world.getTileHeight() * this.y;

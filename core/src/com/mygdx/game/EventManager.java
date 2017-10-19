@@ -1,17 +1,16 @@
 package com.mygdx.game;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.tiledworld.Player;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Singleton Manager Class to handle trigger-events.

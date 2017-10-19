@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.mygdx.game.tiledworld;
 
 import java.util.ArrayList;
@@ -33,9 +30,9 @@ public class InputHandler {
 
 	private InputHandler() {
 
-		commandContMap = new EnumMap<CommandsEnum, Command>(CommandsEnum.class);
-		commandOnceMap = new EnumMap<CommandsEnum, Command>(CommandsEnum.class);
-		keyMap = new HashMap<Integer, CommandsEnum>();
+		commandContMap = new EnumMap<>(CommandsEnum.class);
+		commandOnceMap = new EnumMap<>(CommandsEnum.class);
+		keyMap = new HashMap<>();
 
 		// Adding Continuous commands
 
@@ -81,7 +78,7 @@ public class InputHandler {
 
 	public List<Command> handleInput() {
 
-		List<Command> list = new ArrayList<Command>();
+		List<Command> list = new ArrayList<>();
 
 		for (Map.Entry<Integer, CommandsEnum> entry : keyMap.entrySet()) {
 			if (Gdx.input.isKeyJustPressed(entry.getKey())) {

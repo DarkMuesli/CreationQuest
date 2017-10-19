@@ -2,16 +2,17 @@ package com.mygdx.game.slotmachine;
 
 import java.util.LinkedList;
 
-public class Reel {
+class Reel {
 
 	private enum State {
 		MOVING, STARTING, STOPPING, STOPPED, LOCKED, ALIGNING, TILTED_UP
 	}
 
-	public final int ELEMENTS;
-	public final float MAX_SPEED;
-	public static final float LERP_FRACTION = 0.05f;
-	public static final float TILT_POS = 0.6f;
+	final int ELEMENTS;
+
+	private final float MAX_SPEED;
+	private static final float LERP_FRACTION = 0.05f;
+	private static final float TILT_POS = 0.6f;
 
 	private String[] wordPool;
 	private LinkedList<String> words;
@@ -19,7 +20,7 @@ public class Reel {
 	private float speed;
 	private State state;
 
-	public Reel(String[] wordPool, int elementCount, float maxSpeed) {
+	Reel(String[] wordPool, int elementCount, float maxSpeed) {
 
 		if (wordPool.length < elementCount)
 			throw new IllegalArgumentException("Array must be equal to or larger than Element count (defaults to 3).");
@@ -29,7 +30,7 @@ public class Reel {
 		this.MAX_SPEED = maxSpeed * elementCount;
 		this.ELEMENTS = elementCount;
 		this.wordPool = wordPool;
-		this.words = new LinkedList<String>();
+		this.words = new LinkedList<>();
 
 		for (int i = 0; i < ELEMENTS; i++) {
 			String newWord;
@@ -47,23 +48,23 @@ public class Reel {
 
 	}
 
-	public Reel(String[] wordPool) {
+	Reel(String[] wordPool) {
 		this(wordPool, 3, 2);
 	}
 
-	public Reel(String[] wordPool, int elementCount) {
+	Reel(String[] wordPool, int elementCount) {
 		this(wordPool, elementCount, 2);
 	}
 
-	public Reel(String[] wordPool, float maxSpeed) {
+	Reel(String[] wordPool, float maxSpeed) {
 		this(wordPool, 3, maxSpeed);
 	}
 
-	public float getVertPosition() {
+	float getVertPosition() {
 		return vertPosition;
 	}
 
-	public void setVertPosition(float vertPosition) {
+	private void setVertPosition(float vertPosition) {
 		if (vertPosition >= 1f)
 			this.vertPosition = vertPosition - 1f;
 		else if (vertPosition < 0f) {
@@ -72,15 +73,15 @@ public class Reel {
 			this.vertPosition = vertPosition;
 	}
 
-	public LinkedList<String> getWords() {
+	LinkedList<String> getWords() {
 		return words;
 	}
 
-	public String getCurrentWord() {
+	String getCurrentWord() {
 		return words.get(ELEMENTS / 2);
 	}
 
-	public void update(float deltaTime) {
+	void update(float deltaTime) {
 		switch (state) {
 
 		case MOVING:
@@ -142,17 +143,17 @@ public class Reel {
 
 	}
 
-	public void tilt() {
+	void tilt() {
 		if (state == State.STOPPED)
 			state = State.TILTED_UP;
 	}
 
-	public void start() {
+	void start() {
 		if (state == State.TILTED_UP)
 			state = State.STARTING;
 	}
 
-	public void stop() {
+	void stop() {
 		if (state == State.MOVING)
 			state = State.STOPPING;
 		else if (state == State.TILTED_UP) {
@@ -160,26 +161,26 @@ public class Reel {
 		}
 	}
 
-	public void toggleLock() {
+	void toggleLock() {
 		if (state == State.LOCKED)
 			state = State.STOPPED;
 		else if (state == State.STOPPED)
 			state = State.LOCKED;
 	}
 
-	public boolean isMoving() {
+	boolean isMoving() {
 		return state == State.MOVING;
 	}
 
-	public boolean isStopped() {
+	boolean isStopped() {
 		return (state == State.STOPPED) || (state == State.LOCKED);
+	}
+
+	boolean isLocked() {
+		return state == State.LOCKED;
 	}
 
 	private float lerp(float a, float b, float f) {
 		return a + f * (b - a);
-	}
-
-	public boolean isLocked() {
-		return state == State.LOCKED;
 	}
 }

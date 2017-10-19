@@ -7,27 +7,27 @@ import com.mygdx.game.EventManager;
 
 public class SlotMachine extends GameObject {
 
-	public SlotMachine(Sprite sprt, TiledWorld world) {
+	SlotMachine(Sprite sprt, TiledWorld world) {
 		super(sprt, world);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SlotMachine(Texture tex, TiledWorld world) {
+	SlotMachine(Texture tex, TiledWorld world) {
 		super(tex, world);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SlotMachine(int x, int y, Sprite sprt, TiledWorld world) {
+	SlotMachine(int x, int y, Sprite sprt, TiledWorld world) {
 		super(x, y, sprt, world);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SlotMachine(MapObject mapObject, TiledWorld world) {
+	SlotMachine(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 		// TODO Auto-generated constructor stub
 	}
 
-	public SlotMachine(int x, int y, Texture tex, TiledWorld world) {
+	SlotMachine(int x, int y, Texture tex, TiledWorld world) {
 		super(x, y, tex, world);
 		// TODO Auto-generated constructor stub
 	}

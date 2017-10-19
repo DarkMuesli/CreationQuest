@@ -82,7 +82,7 @@ public abstract class Entity extends GameObject {
 	 * @param world
 	 *            {@link TiledWorld} the {@link Entity} will be present in
 	 */
-	public Entity(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
+	Entity(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
 		super(x, y, sprt, world);
 		this.moveSpeed = moveSpeed;
 		this.facing = facing;
@@ -102,7 +102,7 @@ public abstract class Entity extends GameObject {
 	 * @param world
 	 *            {@link TiledWorld} the {@link Entity} will be present in
 	 */
-	public Entity(int x, int y, Sprite sprt, TiledWorld world) {
+	Entity(int x, int y, Sprite sprt, TiledWorld world) {
 		this(x, y, sprt, 1, Direction.DOWN, world);
 	}
 
@@ -120,7 +120,7 @@ public abstract class Entity extends GameObject {
 	 * @param world
 	 *            {@link TiledWorld} the {@link Entity} will be present in
 	 */
-	public Entity(int x, int y, Texture tex, TiledWorld world) {
+	Entity(int x, int y, Texture tex, TiledWorld world) {
 		this(x, y, new Sprite(tex), world);
 
 		// TODO: FIX THIS not to be the only functioning constructor
@@ -153,7 +153,7 @@ public abstract class Entity extends GameObject {
 	 * @param world
 	 *            {@link TiledWorld}, the {@link Entity} will be present in
 	 */
-	public Entity(Sprite sprt, TiledWorld world) {
+	Entity(Sprite sprt, TiledWorld world) {
 		this(0, 0, sprt, world);
 	}
 
@@ -167,16 +167,14 @@ public abstract class Entity extends GameObject {
 	 * @param world
 	 *            {@link TiledWorld}, the {@link Entity} will be present in
 	 */
-	public Entity(Texture tex, TiledWorld world) {
+	Entity(Texture tex, TiledWorld world) {
 		this(0, 0, new Sprite(tex), world);
 	}
 
-	public Entity(MapObject mapObject, TiledWorld world) {
+	Entity(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 
-		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
-
-		sheet = tex;
+		sheet = new Texture(mapObject.getProperties().get("path", String.class));
 
 		TextureRegion[][] tmp;
 		Integer width, height;
@@ -260,7 +258,7 @@ public abstract class Entity extends GameObject {
 	/**
 	 * @return current movement sped of this {@link Entity}
 	 */
-	public float getMoveSpeed() {
+	float getMoveSpeed() {
 		return moveSpeed;
 	}
 
@@ -269,7 +267,7 @@ public abstract class Entity extends GameObject {
 	 * 
 	 * @param moveSpeed
 	 */
-	public void setMoveSpeed(float moveSpeed) {
+	void setMoveSpeed(float moveSpeed) {
 		if (moveSpeed > 0)
 			this.moveSpeed = moveSpeed;
 	}
@@ -413,7 +411,7 @@ public abstract class Entity extends GameObject {
 		timer = 0;
 	}
 
-	public void waitFor(float seconds) {
+	void waitFor(float seconds) {
 		movement = new Point(0, 0);
 		state = State.WAITING;
 		waitTime = seconds;
@@ -430,7 +428,7 @@ public abstract class Entity extends GameObject {
 		}
 	}
 
-	public void pull(Fruit fruit) {
+	void pull(Fruit fruit) {
 		if (state == State.IDLE) {
 			pulledFruit = fruit;
 			state = State.PULLING;
