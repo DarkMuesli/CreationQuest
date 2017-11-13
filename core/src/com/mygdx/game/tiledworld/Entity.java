@@ -63,114 +63,6 @@ public abstract class Entity extends GameObject {
 	 */
 	protected Direction facing;
 
-	/**
-	 * Instantiates an {@link Entity} with the given coordinates, movement
-	 * speed, {@link Direction} to face, {@link Sprite} to be represented by and
-	 * {@link TiledWorld} to be present in.
-	 * 
-	 * @param x
-	 *            Cell-based x coordinate
-	 * @param y
-	 *            Cell-based y coordinate
-	 * @param sprt
-	 *            {@link Sprite} the {@link Entity} will be represented by
-	 * @param moveSpeed
-	 *            Speed the {@link Entity} will move with, 1 meaning 100% or
-	 *            "normal" speed
-	 * @param facing
-	 *            {@link Direction} the {@link Entity} will be facing
-	 * @param world
-	 *            {@link TiledWorld} the {@link Entity} will be present in
-	 */
-	Entity(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
-		super(x, y, sprt, world);
-		this.moveSpeed = moveSpeed;
-		this.facing = facing;
-	}
-
-	/**
-	 * Instantiates an {@link Entity} with 100% movement speed at the given
-	 * coordinates, represented by the given {@link Sprite} in the given
-	 * {@link TiledWorld}, facing down.
-	 * 
-	 * @param x
-	 *            Cell-based x coordinate
-	 * @param y
-	 *            Cell-based y coordinate
-	 * @param sprt
-	 *            {@link Sprite} the {@link Entity} will be represented by
-	 * @param world
-	 *            {@link TiledWorld} the {@link Entity} will be present in
-	 */
-	Entity(int x, int y, Sprite sprt, TiledWorld world) {
-		this(x, y, sprt, 1, Direction.DOWN, world);
-	}
-
-	/**
-	 * Instantiates an {@link Entity} with 100% movement speed at the given
-	 * coordinates, represented by the given {@link Texture} in the given
-	 * {@link TiledWorld}, facing down.
-	 * 
-	 * @param x
-	 *            Cell-based x coordinate
-	 * @param y
-	 *            Cell-based y coordinate
-	 * @param tex
-	 *            {@link Texture} the {@link Entity} will be represented by
-	 * @param world
-	 *            {@link TiledWorld} the {@link Entity} will be present in
-	 */
-	Entity(int x, int y, Texture tex, TiledWorld world) {
-		this(x, y, new Sprite(tex), world);
-
-		// TODO: FIX THIS not to be the only functioning constructor
-
-		sheet = tex;
-
-		TextureRegion[][] tmp = TextureRegion.split(sheet, 32, 36);
-
-		moveAnimations = new Animation[4];
-		idleFrames = new TextureRegion[4];
-		for (int i = 0; i < 4; i++) {
-			idleFrames[i] = tmp[i][1];
-			moveAnimations[i] = new Animation(0.2f, tmp[i]);
-			moveAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
-		}
-
-		updateSpriteRegion();
-		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
-				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
-
-	}
-
-	/**
-	 * Instantiates an {@link Entity} with 100% movement speed at the coordinate
-	 * origin represented by the given {@link Sprite} in the given
-	 * {@link TiledWorld}, facing down.
-	 * 
-	 * @param sprt
-	 *            {@link Sprite}, the {@link Entity} will be represented by
-	 * @param world
-	 *            {@link TiledWorld}, the {@link Entity} will be present in
-	 */
-	Entity(Sprite sprt, TiledWorld world) {
-		this(0, 0, sprt, world);
-	}
-
-	/**
-	 * Instantiates an {@link Entity} with 100% movement speed at the coordinate
-	 * origin represented by the given {@link Texture} in the given
-	 * {@link TiledWorld}, facing down.
-	 * 
-	 * @param tex
-	 *            {@link Texture}, the {@link Entity} will be represented by
-	 * @param world
-	 *            {@link TiledWorld}, the {@link Entity} will be present in
-	 */
-	Entity(Texture tex, TiledWorld world) {
-		this(0, 0, new Sprite(tex), world);
-	}
-
 	Entity(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 
@@ -228,31 +120,10 @@ public abstract class Entity extends GameObject {
 			this.moveSpeed = moveSpeed;
 
 		updateSpriteRegion();
-		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
-				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
-	}
 
-	/**
-	 * @return the state
-	 */
-	public State getState() {
-		return state;
-	}
-
-	/**
-	 * @param state
-	 *            the state to set
-	 */
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public CommandGenerator getComGen() {
-		return comGen;
-	}
-
-	public void setComGen(CommandGenerator comGen) {
-		this.comGen = comGen;
+		//TODO Compare With Game object constructor...
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getMapProp().getTileWidth(),
+				sprt.getRegionHeight() * getWorld().getMapProp().getTileWidth() / sprt.getRegionWidth());
 	}
 
 	/**
@@ -463,11 +334,11 @@ public abstract class Entity extends GameObject {
 
 			float movedDistance = deltaTime * Constants.MOVESPEEDMOD * moveSpeed;
 
-			float stepx = getWorld().getTileWidth() % movedDistance;
-			float stepy = getWorld().getTileHeight() % movedDistance;
+			float stepx = getWorld().getMapProp().getTileWidth() % movedDistance;
+			float stepy = getWorld().getMapProp().getTileHeight() % movedDistance;
 
-			sprt.translate(movement.x * getWorld().getTileWidth() * movedDistance - (movement.x * stepx),
-					movement.y * getWorld().getTileHeight() * movedDistance - (movement.y * stepy));
+			sprt.translate(movement.x * getWorld().getMapProp().getTileWidth() * movedDistance - (movement.x * stepx),
+					movement.y * getWorld().getMapProp().getTileHeight() * movedDistance - (movement.y * stepy));
 			if ((timer += movedDistance) >= 1) {
 				timer = 0;
 				sprt.setPosition(getPixelPosition().x, getPixelPosition().y + 5);

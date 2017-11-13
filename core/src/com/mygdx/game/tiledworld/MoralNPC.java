@@ -15,26 +15,6 @@ public class MoralNPC extends MonologNPC {
 
 	private List<List<String>> wordLists = new ArrayList<>(3);
 
-	MoralNPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
-		super(x, y, sprt, moveSpeed, facing, world);
-	}
-
-	MoralNPC(int x, int y, Sprite sprt, TiledWorld world) {
-		super(x, y, sprt, world);
-	}
-
-	MoralNPC(int x, int y, Texture tex, TiledWorld world) {
-		super(x, y, tex, world);
-	}
-
-	MoralNPC(Sprite sprt, TiledWorld world) {
-		super(sprt, world);
-	}
-
-	MoralNPC(Texture tex, TiledWorld world) {
-		super(tex, world);
-	}
-
 	MoralNPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		FileHandle handle = Gdx.files.internal("text/Moral.txt");

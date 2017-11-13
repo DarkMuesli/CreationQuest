@@ -3,6 +3,7 @@ package com.mygdx.game.tiledworld;
 import java.awt.Point;
 import java.util.Observable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,89 +30,21 @@ public abstract class GameObject extends Observable implements Disposable {
 	protected TiledWorld world;
 	protected boolean penetrable;
 
-	/**
-	 * Generate a new GameObject using the given {@link Sprite} at the
-	 * coordinate origin.
-	 * 
-	 * @param sprt
-	 *            {@link Sprite} the {@link GameObject} will be represented by
-	 * @param world
-	 *            {@link TiledWorld} the {@link GameObject} will be present in
-	 */
-	public GameObject(Sprite sprt, TiledWorld world) {
-		this(0, 0, sprt, world);
-	}
-
-	/**
-	 * Generate a new GameObject using the given {@link Texture} as a
-	 * {@link Sprite} at the coordinate origin.
-	 * 
-	 * @param tex
-	 *            {@link Texture} used as {@link Sprite} the {@link GameObject}
-	 *            will be represented by
-	 * @param world
-	 *            {@link TiledWorld} the {@link GameObject} will be present in
-	 */
-	public GameObject(Texture tex, TiledWorld world) {
-		this(0, 0, tex, world);
-	}
-
-	/**
-	 * Generate a new GameObject by using the given coordinates and
-	 * {@link Sprite}.
-	 * 
-	 * @param x
-	 *            Cell-based x coordinate
-	 * @param y
-	 *            Cell-based y coordinate
-	 * @param sprt
-	 *            {@link Sprite} the {@link GameObject} will be represented by
-	 * @param world
-	 *            {@link TiledWorld} the {@link GameObject} will be present in
-	 */
-	public GameObject(int x, int y, Sprite sprt, TiledWorld world) {
-		this(world);
-
-		this.x = x;
-		this.y = y;
-		this.sprt = sprt;
-
-		sprt.setBounds(getPixelPosition().x, getPixelPosition().y + 5, getWorld().getTileWidth(),
-				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
-	}
-
 	public GameObject(MapObject mapObject, TiledWorld world) {
 		this(world);
 
 		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
 		float pixx = mapObject.getProperties().get("x", float.class);
 		float pixy = mapObject.getProperties().get("y", float.class);
-		Point pos = world.getCellFromPixel(pixx, pixy);
+		Point pos = CoordinateHelper.getCellFromPixel(pixx, pixy, world.getMapProp().getTileWidth(), world.getMapProp().getTileHeight());
 
 		this.x = pos.x;
 		this.y = pos.y;
 		this.sprt = new Sprite(tex);
 
-		sprt.setBounds(getPixelPosition().x, getPixelPosition().y, getWorld().getTileWidth(),
-				sprt.getRegionHeight() * getWorld().getTileWidth() / sprt.getRegionWidth());
-	}
-
-	/**
-	 * Generate a new GameObject by using the given {@link Texture} as a
-	 * {@link Sprite} at the given coordinates.
-	 * 
-	 * @param x
-	 *            Cell-based x coordinate
-	 * @param y
-	 *            Cell-based y coordinate
-	 * @param tex
-	 *            {@link Texture} used as {@link Sprite} the {@link GameObject}
-	 *            will be represented by
-	 * @param world
-	 *            {@link TiledWorld} the {@link GameObject} will be present in
-	 */
-	public GameObject(int x, int y, Texture tex, TiledWorld world) {
-		this(x, y, new Sprite(tex), world);
+		//TODO: Compare with Entity Constructor...
+		sprt.setBounds(getPixelPosition().x, getPixelPosition().y, world.getMapProp().getTileWidth(),
+				sprt.getRegionHeight() * world.getMapProp().getTileWidth() / sprt.getRegionWidth());
 	}
 
 	private GameObject(TiledWorld world) {
@@ -190,8 +123,8 @@ public abstract class GameObject extends Observable implements Disposable {
 	 */
 	Vector2 getPixelPosition() {
 		Vector2 pt = new Vector2();
-		pt.x = world.getTileWidth() * this.x;
-		pt.y = world.getTileHeight() * this.y;
+		pt.x = world.getMapProp().getTileWidth() * this.x;
+		pt.y = world.getMapProp().getTileHeight() * this.y;
 		return pt;
 	}
 
@@ -202,16 +135,11 @@ public abstract class GameObject extends Observable implements Disposable {
 	 */
 	public Vector2 getPixelCenter() {
 		Vector2 ct = getPixelPosition();
-		ct.x += world.getTileWidth() / 2;
-		ct.y += world.getTileHeight() / 2;
+		ct.x += world.getMapProp().getTileWidth() / 2;
+		ct.y += world.getMapProp().getTileHeight() / 2;
 		return ct;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.utils.Disposable#dispose()
-	 */
 	@Override
 	public void dispose() {
 		sprt.getTexture().dispose();
@@ -228,4 +156,28 @@ public abstract class GameObject extends Observable implements Disposable {
 	}
 
 	public abstract boolean onInteract(GameObject obj);
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		GameObject that = (GameObject) o;
+
+		if (x != that.x) return false;
+		if (y != that.y) return false;
+		if (penetrable != that.penetrable) return false;
+		if (!sprt.equals(that.sprt)) return false;
+		return world.equals(that.world);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = x;
+		result = 31 * result + y;
+		result = 31 * result + sprt.hashCode();
+		result = 31 * result + world.hashCode();
+		result = 31 * result + (penetrable ? 1 : 0);
+		return result;
+	}
 }

@@ -10,54 +10,6 @@ import com.badlogic.gdx.maps.MapObject;
  */
 public class NPC extends Entity {
 
-	/**
-	 * @param x
-	 * @param y
-	 * @param sprt
-	 * @param moveSpeed
-	 * @param facing
-	 * @param world
-	 */
-	NPC(int x, int y, Sprite sprt, float moveSpeed, Direction facing, TiledWorld world) {
-		super(x, y, sprt, moveSpeed, facing, world);
-	}
-
-	/**
-	 * @param x
-	 * @param y
-	 * @param sprt
-	 * @param world
-	 */
-	NPC(int x, int y, Sprite sprt, TiledWorld world) {
-		super(x, y, sprt, world);
-	}
-
-	/**
-	 * @param x
-	 * @param y
-	 * @param tex
-	 * @param world
-	 */
-	NPC(int x, int y, Texture tex, TiledWorld world) {
-		super(x, y, tex, world);
-	}
-
-	/**
-	 * @param sprt
-	 * @param world
-	 */
-	NPC(Sprite sprt, TiledWorld world) {
-		super(sprt, world);
-	}
-
-	/**
-	 * @param tex
-	 * @param world
-	 */
-	NPC(Texture tex, TiledWorld world) {
-		super(tex, world);
-	}
-
 	NPC(MapObject mapObject, TiledWorld tiledWorld) {
 		super(mapObject, tiledWorld);
 		String prop = mapObject.getProperties().get("ComGen", String.class);
@@ -65,11 +17,6 @@ public class NPC extends Entity {
 			comGen = new RandomWalkAI();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.mygdx.game.Entity#isPlayer()
-	 */
 	@Override
 	public boolean isPlayer() {
 		return false;

@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.math.Vector2;
+
 
 public class Fruit extends GameObject {
 
@@ -21,28 +23,15 @@ public class Fruit extends GameObject {
 
 	private String text;
 
-	Fruit(Sprite sprt, TiledWorld world) {
-		super(sprt, world);
-	}
-
-	Fruit(Texture tex, TiledWorld world) {
-		super(tex, world);
-	}
-
-	Fruit(int x, int y, Sprite sprt, TiledWorld world) {
-		super(x, y, sprt, world);
-	}
-
-	Fruit(int x, int y, Texture tex, TiledWorld world) {
-		super(x, y, tex, world);
-	}
-
 	Fruit(MapObject mapObject, TiledWorld world) {
 		super(mapObject, world);
 		Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
 		TextureRegion[][] split = TextureRegion.split(tex, 16, 16);
 		sprt = new Sprite(split[5][2]);
-		sprt.setPosition(world.getPixelFromCell(x, y).x, world.getPixelFromCell(x, y).y);
+
+		Vector2 v = CoordinateHelper.getPixelFromCell(x,  y, world.getMapProp().getTileWidth(), world.getMapProp().getTileHeight());
+		sprt.setPosition(v.x, v.y);
+
 		counter = 0;
 
 		text = words[(int) (Math.random() * words.length)].trim();

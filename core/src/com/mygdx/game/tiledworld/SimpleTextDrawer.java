@@ -28,15 +28,7 @@ public class SimpleTextDrawer {
 	private float fadeTime;
 
 	SimpleTextDrawer(GameObject obj, String text, float lifetime) {
-		this.font = new BitmapFont();
-		this.layout = new GlyphLayout();
-		this.obj = obj;
-		this.text = text;
-		this.layout.setText(font, text);
-		this.fading = false;
-		this.fadeTime = 0;
-		this.lifeTime = lifetime;
-		this.counter = 0;
+		this(obj,text,lifetime, 0);
 	}
 
 	SimpleTextDrawer(GameObject obj, String text, float lifeTime, float fadeTime) {
@@ -45,18 +37,10 @@ public class SimpleTextDrawer {
 		this.obj = obj;
 		this.text = text;
 		this.layout.setText(font, text);
-		this.fading = true;
 		this.fadeTime = fadeTime;
+		this.fading = !(fadeTime == 0);
 		this.lifeTime = lifeTime;
 		this.counter = 0;
-	}
-
-	SimpleTextDrawer(GameObject obj) {
-		this.font = new BitmapFont();
-		this.layout = new GlyphLayout();
-		this.obj = obj;
-		this.text = "";
-
 	}
 
 	GameObject getObject() {
@@ -88,15 +72,15 @@ public class SimpleTextDrawer {
 		shapeRenderer.setProjectionMatrix(obj.getWorld().getCam().combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(0f, 0f, 0f, font.getColor().a * 0.5f);
-		shapeRenderer.rect(obj.getSprt().getX() + obj.getWorld().getTileWidth() / 2 - layout.width / 2 - (BORDER / 2),
-				obj.getSprt().getY() + obj.getWorld().getTileHeight() + (BORDER / 2) - 5, layout.width + BORDER,
+		shapeRenderer.rect(obj.getSprt().getX() + obj.getWorld().getMapProp().getTileWidth() / 2 - layout.width / 2 - (BORDER / 2),
+				obj.getSprt().getY() + obj.getWorld().getMapProp().getTileHeight() + (BORDER / 2) - 5, layout.width + BORDER,
 				layout.height + BORDER);
 		shapeRenderer.end();
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 
 		batch.begin();
-		font.draw(batch, text, obj.getSprt().getX() + obj.getWorld().getTileWidth() / 2 - layout.width / 2,
-				obj.getSprt().getY() + obj.getWorld().getTileHeight() + layout.height + BORDER - 5);
+		font.draw(batch, text, obj.getSprt().getX() + obj.getWorld().getMapProp().getTileWidth() / 2 - layout.width / 2,
+				obj.getSprt().getY() + obj.getWorld().getMapProp().getTileHeight() + layout.height + BORDER - 5);
 		batch.end();
 	}
 
@@ -110,8 +94,8 @@ public class SimpleTextDrawer {
 
 		shapeRenderer.setProjectionMatrix(obj.getWorld().getCam().combined);
 		shapeRenderer.setColor(0f, 0f, 0f, font.getColor().a * 0.5f);
-		shapeRenderer.rect(obj.getSprt().getX() + obj.getWorld().getTileWidth() / 2 - layout.width / 2 - (BORDER / 2),
-				obj.getSprt().getY() + obj.getWorld().getTileHeight() + (BORDER / 2) - 5, layout.width + BORDER,
+		shapeRenderer.rect(obj.getSprt().getX() + obj.getWorld().getMapProp().getTileWidth() / 2 - layout.width / 2 - (BORDER / 2),
+				obj.getSprt().getY() + obj.getWorld().getMapProp().getTileHeight() + (BORDER / 2) - 5, layout.width + BORDER,
 				layout.height + BORDER);
 
 	}
@@ -128,8 +112,8 @@ public class SimpleTextDrawer {
 	}
 
 	void drawText(SpriteBatch batch) {
-		font.draw(batch, text, obj.getSprt().getX() + obj.getWorld().getTileWidth() / 2 - layout.width / 2,
-				obj.getSprt().getY() + obj.getWorld().getTileHeight() + layout.height + BORDER - 5);
+		font.draw(batch, text, obj.getSprt().getX() + obj.getWorld().getMapProp().getTileWidth() / 2 - layout.width / 2,
+				obj.getSprt().getY() + obj.getWorld().getMapProp().getTileHeight() + layout.height + BORDER - 5);
 	}
 
 	void update(float deltaTime) {

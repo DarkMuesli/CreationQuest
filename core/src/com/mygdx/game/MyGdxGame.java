@@ -37,10 +37,12 @@ public class MyGdxGame extends Game {
 					return false;
 			}
 		}));
-		Gdx.input.setCursorCatched(true);
+
+		Gdx.input.setCursorCatched(false);
 
 		EventManager.setGame(this);
 
+		//TODO Singleton SpriteBatch? Cam?
 		spriteBatch = new SpriteBatch();
 
 		// Constructs a new OrthographicCamera, using the given viewport width

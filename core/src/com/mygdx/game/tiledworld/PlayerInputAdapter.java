@@ -35,6 +35,7 @@ public class PlayerInputAdapter extends InputAdapter {
 		mapKey(Keys.ENTER, Commands.TESTOUTPUT);
 		mapKey(Keys.PLUS, Commands.SPEED_UP);
 		mapKey(Keys.MINUS, Commands.SPEED_DOWN);
+		mapKey(Keys.K, Commands.DEBUG_OUTPUT);
 	}
 
 	public void mapKey(int key, Commands command) {

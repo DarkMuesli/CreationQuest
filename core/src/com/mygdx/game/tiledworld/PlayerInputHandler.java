@@ -47,6 +47,7 @@ public class PlayerInputHandler implements CommandGenerator {
 		mapOnceCommand(Commands.INTERACT, e -> e.interactWithFacing());
 		mapOnceCommand(Commands.SPEED_UP, e -> e.setMoveSpeed(e.getMoveSpeed() + 1));
 		mapOnceCommand(Commands.SPEED_DOWN, e -> e.setMoveSpeed(e.getMoveSpeed() - 1));
+		mapOnceCommand(Commands.DEBUG_OUTPUT, e -> Gdx.app.log(TAG, "Fick dich!"));
 
 	}
 
