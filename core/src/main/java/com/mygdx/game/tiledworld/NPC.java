@@ -1,7 +1,5 @@
 package com.mygdx.game.tiledworld;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
 
 /**
