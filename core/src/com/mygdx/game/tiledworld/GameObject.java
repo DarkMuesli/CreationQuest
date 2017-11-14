@@ -3,7 +3,6 @@ package com.mygdx.game.tiledworld;
 import java.awt.Point;
 import java.util.Observable;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,6 +10,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.EventManager;
+import com.mygdx.game.utils.CoordinateHelper;
 
 /**
  * Abstract type for any Object inside the game with basic structures like

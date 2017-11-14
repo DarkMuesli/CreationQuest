@@ -1,4 +1,4 @@
-package com.mygdx.game.tiledworld
+package com.mygdx.game.utils
 
 import com.badlogic.gdx.math.Vector2
 import java.awt.Point

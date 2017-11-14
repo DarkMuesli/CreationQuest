@@ -27,6 +27,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Constants;
 import com.mygdx.game.EventManager;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.utils.CoordinateHelper;
 
 /**
  * Class, representing the whole world, the game takes place in. Contains a
@@ -74,7 +75,6 @@ public class TiledWorld extends ScreenAdapter implements Observer{
 
 	private TiledWorldData tiledWorldData;
 
-	//TODO Helper Klassen für Koordinatenberechnung
 	/**
 	 * Instantiates a new game world, using the {@link TiledMap} in the
 	 * specified location. Only necessary once per application run.

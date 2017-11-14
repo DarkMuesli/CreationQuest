@@ -15,9 +15,9 @@ class TiledWorldData(layers: MapLayers, gameObjectProvider: GameObjectProvider) 
 
     private val objectTileLayer: MapLayer? = layers.get(OBJECTS_LAYER_KEY)
 
-    val tileLayersArray = layers.getByType(TiledMapTileLayer::class.java)
-
     var gameObjectList = mutableListOf<GameObject>()
+
+    val tileLayersArray = layers.getByType(TiledMapTileLayer::class.java)
 
     val loadingZoneObjects = mutableListOf<MapObject>()
     val playerSpawnObjects = mutableListOf<MapObject>()
