@@ -41,13 +41,12 @@ public class PlayerInputHandler implements CommandGenerator {
 		mapContCommand(Commands.MOVE_RIGHT, e -> e.move(Direction.RIGHT));
 
 		// Adding one-time commands
-		mapOnceCommand(Commands.DO_NOTHING, e -> {
-		});
+		mapOnceCommand(Commands.DO_NOTHING, e -> {});
 		mapOnceCommand(Commands.TESTOUTPUT, e -> Gdx.app.log(TAG, "Testing Lambdas"));
 		mapOnceCommand(Commands.INTERACT, e -> e.interactWithFacing());
 		mapOnceCommand(Commands.SPEED_UP, e -> e.setMoveSpeed(e.getMoveSpeed() + 1));
 		mapOnceCommand(Commands.SPEED_DOWN, e -> e.setMoveSpeed(e.getMoveSpeed() - 1));
-		mapOnceCommand(Commands.DEBUG_OUTPUT, e -> Gdx.app.log(TAG, "Fick dich!"));
+		mapOnceCommand(Commands.DEBUG_OUTPUT, e -> Gdx.app.log(TAG, "Nothing to Debug. Whoop Whoooop!"));
 
 	}
 

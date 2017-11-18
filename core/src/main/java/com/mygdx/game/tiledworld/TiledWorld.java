@@ -319,11 +319,13 @@ public class TiledWorld extends ScreenAdapter implements Observer{
 		texts.clear();
 
 		newGameObjectList.clear();
-		newGameObjectList.add(player);
+//		newGameObjectList.add(gameObjectProvider.returnPlayer());
 
 		setMap(newMap);
 
 		newGameObjectList.addAll(tiledWorldData.getGameObjectList());
+		if (!newGameObjectList.contains(gameObjectProvider.returnPlayer()))
+			newGameObjectList.add(gameObjectProvider.returnPlayer());
 
 		Gdx.app.log(TAG, "Neue Karte geladen: " + mapName);
 		if (mapName.equals("farm.tmx")) {
@@ -332,7 +334,7 @@ public class TiledWorld extends ScreenAdapter implements Observer{
 
 		spawnPlayer(player, oldMap);
 //		player.updateSize(getTileWidth(), getTileHeight() / getTileWidth() * getTileHeight());
-		player.updateSize(mapProp.getTileWidth(), mapProp.getTileHeight());
+		player.updateSize(mapProp.getTileWidth(), mapProp.getTileHeight() / mapProp.getTileWidth() * mapProp.getTileHeight());
 
 		player.reset();
 		player.waitFor(0.2f);
@@ -358,7 +360,7 @@ public class TiledWorld extends ScreenAdapter implements Observer{
 		renderForegroundLayers();
 
 		SimpleTextDrawer.beginShapes();
-		texts.forEach(text -> text.drawBackground());
+		texts.forEach(SimpleTextDrawer::drawBackground);
 		SimpleTextDrawer.endShapes();
 
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapLayer
 import com.badlogic.gdx.maps.MapLayers
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
+import com.mygdx.game.utils.addDistinct
 
 //TODO: Name: MapData?
 class TiledWorldData(layers: MapLayers, gameObjectProvider: GameObjectProvider) {
@@ -40,11 +41,7 @@ class TiledWorldData(layers: MapLayers, gameObjectProvider: GameObjectProvider) 
                 "LoadingZone" -> loadingZoneObjects += obj
                 "PlayerSpawn" -> playerSpawnObjects += obj
                 "Trigger" -> triggerObjects += obj
-                "PlayerCreate" -> {
-                    val player: GameObject = gameObjectProvider.returnPlayer(obj)
-                    if (!gameObjectList.contains(player))
-                        gameObjectList.add(player)
-                }
+                "PlayerCreate" -> gameObjectList.addDistinct(gameObjectProvider.returnPlayer(obj))
                 "NPCCreate" -> gameObjectList.add(gameObjectProvider.createNPC(obj))
                 "MoralNPCCreate" -> gameObjectList.add(gameObjectProvider.createMoralNPC(obj))
                 "MonologNPCCreate" -> gameObjectList.add(gameObjectProvider.createMonologNPC(obj))
