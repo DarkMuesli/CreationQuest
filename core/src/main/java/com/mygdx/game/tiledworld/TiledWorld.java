@@ -133,6 +133,10 @@ public class TiledWorld extends ScreenAdapter implements Observer{
 		return mapProp;
 	}
 
+	public GameObjectProvider getGameObjectProvider() {
+		return gameObjectProvider;
+	}
+
 	/**
 	 * Checks, if there is anything to collide with at a given cell based
 	 * position.

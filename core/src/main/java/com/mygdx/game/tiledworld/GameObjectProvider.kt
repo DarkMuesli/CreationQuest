@@ -30,4 +30,6 @@ class GameObjectProvider(val world: TiledWorld) {
 
     fun createSlotMachine (mapObject: MapObject) = SlotMachine(mapObject, world)
 
+    fun createDoor(mapObject: MapObject): GameObject = Door(mapObject, world)
+
 }

@@ -48,6 +48,7 @@ class TiledWorldData(layers: MapLayers, gameObjectProvider: GameObjectProvider) 
                 "RandomTextNPCCreate" -> gameObjectList.add(gameObjectProvider.createRandomTextNPC(obj))
                 "Fruit" -> gameObjectList.add(gameObjectProvider.createFruit(obj))
                 "Sign" -> gameObjectList.add(gameObjectProvider.createSign(obj))
+                "Door" -> gameObjectList.add(gameObjectProvider.createDoor(obj))
                 "SlotMachine" -> gameObjectList.add(gameObjectProvider.createSlotMachine(obj))
                 else -> throw Exception("Unexpected MapObject Type")
             }
