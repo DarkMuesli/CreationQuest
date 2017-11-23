@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="4">
+ <tileset firstgid="1" source="tilesets/celiannas-tileset/celianna_Doors.tsx"/>
+ <tileset firstgid="145" source="tilesets/celiannas-tileset/celianna_TileA1.tsx"/>
+ <tileset firstgid="545" source="tilesets/celiannas-tileset/celianna_TileA2.tsx"/>
+ <tileset firstgid="945" source="tilesets/celiannas-tileset/celianna_TileA3.tsx"/>
+ <tileset firstgid="1281" source="tilesets/celiannas-tileset/celianna_TileA4.tsx"/>
+ <tileset firstgid="1857" source="tilesets/celiannas-tileset/celianna_TileA5.tsx"/>
+ <tileset firstgid="2113" source="tilesets/celiannas-tileset/celianna_TileB1.tsx"/>
+ <tileset firstgid="2369" source="tilesets/celiannas-tileset/celianna_TileB2.tsx"/>
+ <tileset firstgid="2625" source="tilesets/celiannas-tileset/celianna_TileC.tsx"/>
+ <tileset firstgid="2881" source="tilesets/celiannas-tileset/celianna_TileD.tsx"/>
+ <tileset firstgid="3137" source="tilesets/celiannas-tileset/celianna_TileE.tsx"/>
+ <layer name="bgr_00" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJzjZWNg4B3FgwYDANq7B20=
+  </data>
+ </layer>
+ <layer name="bgr_01" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFAwFmsUMwOgAAHS4BQw==
+  </data>
+ </layer>
+ <layer name="col_00" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJz7ysrA8JwA/gLEN4D4DxD/xYH/AfE1qDoeNgYGXhyYjw2hTgbIlsWB5ZDU6fEw4AQWPAh1dmjqgrhR+TB1IBCIJgcCxkD9Jjyo6pYA1YVgUYtsXjBQfgsONZHcEHVPgfg4FJ9gRcgfQxJ/AsQAJfkr/g==
+  </data>
+ </layer>
+ <layer name="col_01" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYKA9yORmYMjixi53CEm8EsiuwqHuEg7x4QYAvdsDnQ==
+  </data>
+ </layer>
+ <layer name="fgr_00" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYKANmMnNwDCLG1VsNTd2taQCJzzmOGKRU+ZhYFDhwRR3IeAeZ6B8HA41nlTyCzoAALVSBFI=
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="FromChristmasSpawn" type="PlayerSpawn" x="160" y="256" width="32" height="32">
+   <properties>
+    <property name="From" value="christmas.tmx"/>
+   </properties>
+  </object>
+  <object id="2" name="exitToChirstmas" type="LoadingZone" x="128" y="288" width="64" height="32">
+   <properties>
+    <property name="nextMap" value="christmas.tmx"/>
+   </properties>
+  </object>
+  <object id="3" name="RandomNPC" type="RandomTextNPCCreate" x="128" y="160" width="32" height="32">
+   <properties>
+    <property name="ComGen" value="RandomWalk"/>
+    <property name="facing" value="DOWN"/>
+    <property name="path" value="tilesets/characters/rpgsprites1/townfolk1_m.png"/>
+    <property name="text" value="Einen schönen ersten Dezember!"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

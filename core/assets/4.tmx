@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" source="tilesets/celiannas-tileset/celianna_Doors.tsx"/>
+ <tileset firstgid="145" source="tilesets/celiannas-tileset/celianna_TileA1.tsx"/>
+ <tileset firstgid="545" source="tilesets/celiannas-tileset/celianna_TileA2.tsx"/>
+ <tileset firstgid="945" source="tilesets/celiannas-tileset/celianna_TileA3.tsx"/>
+ <tileset firstgid="1281" source="tilesets/celiannas-tileset/celianna_TileA4.tsx"/>
+ <tileset firstgid="1857" source="tilesets/celiannas-tileset/celianna_TileA5.tsx"/>
+ <tileset firstgid="2113" source="tilesets/celiannas-tileset/celianna_TileB1.tsx"/>
+ <tileset firstgid="2369" source="tilesets/celiannas-tileset/celianna_TileB2.tsx"/>
+ <tileset firstgid="2625" source="tilesets/celiannas-tileset/celianna_TileC.tsx"/>
+ <tileset firstgid="2881" source="tilesets/celiannas-tileset/celianna_TileD.tsx"/>
+ <tileset firstgid="3137" source="tilesets/celiannas-tileset/celianna_TileE.tsx"/>
+ <layer name="bgr_00" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBh5IJWdOnjUvFHzRs0bNW+omUcIkKIeAODMelk=
+  </data>
+ </layer>
+ <layer name="col_00" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJz7ysrA8JxK+AsQ3wDiP0D8l0L8D4ivQc2TYWNgkKUQy7EhzKMWGDVv1LxR84aGeYHchM1bDlSzAos6bGAJUF0Imlp087YD5XcQYV4wUM0WItxHCgjCYd5TID6OB59Asu8YAbVPgBgAlf5adw==
+  </data>
+ </layer>
+ <layer name="fgr_00" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKANmMnNwDCLm0aGj4JRMAqGNXCkQdnhQiUznWngNqchWlYCAArlAoA=
+  </data>
+ </layer>
+</map>
