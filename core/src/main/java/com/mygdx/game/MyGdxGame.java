@@ -46,7 +46,7 @@ public class MyGdxGame extends Game {
         cam = new OrthographicCamera();
         cam.setToOrtho(false, Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
 
-        // Karte Laden
+        // Load initial map
         world = new TiledWorld("overworld.tmx", spriteBatch, cam, this);
         slots = new SlotMachine(spriteBatch, cam, this);
         setScreen(world);
