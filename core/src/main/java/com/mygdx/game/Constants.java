@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.*;
+
 /**
  * All relevant constants with global visibility should be defined here.
  * 
@@ -7,6 +9,8 @@ package com.mygdx.game;
  *
  */
 public final class Constants {
+
+	public static final int LOG_LVL = Application.LOG_DEBUG;
 
 	public static final int FRAMERATE = 60;
 	public static final float MS_PER_UPDATE = 1f / FRAMERATE;

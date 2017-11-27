@@ -12,13 +12,13 @@ class WorldProperties(properties: MapProperties) {
         private const val MAP_HEIGHT_IN_TILES_KEY = "height"
     }
 
-    val tileWidth: Float = properties.get(TILE_WIDTH_KEY, Float::class.java)
-    val tileHeight: Float = properties.get(TILE_HEIGHT_KEY, Float::class.java)
+    val tileWidth: Int = properties.get(TILE_WIDTH_KEY, Int::class.java)
+    val tileHeight: Int = properties.get(TILE_HEIGHT_KEY, Int::class.java)
 
     val widthInTiles: Int = properties.get(MAP_WIDTH_IN_TILES_KEY, Int::class.java)
     val heightInTiles: Int = properties.get(MAP_HEIGHT_IN_TILES_KEY, Int::class.java)
 
-    val widthInPixels: Float = tileWidth * widthInTiles
-    val heightInPixels: Float = tileHeight * heightInTiles
+    val widthInPixels: Int = tileWidth * widthInTiles
+    val heightInPixels: Int = tileHeight * heightInTiles
 
 }
