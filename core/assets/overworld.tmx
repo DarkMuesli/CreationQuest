@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-up" width="53" height="42" tilewidth="16" tileheight="16" nextobjectid="368">
+ <properties>
+  <property name="defaultEntityHeight" type="int" value="36"/>
+  <property name="defaultEntityWidth" type="int" value="32"/>
+ </properties>
  <tileset firstgid="1" name="tiles-map" tilewidth="16" tileheight="16" tilecount="396" columns="22">
   <image source="tilesets/town_rpg_pack/town_rpg_pack/graphics/tiles-map.png" trans="ffffff" width="352" height="288"/>
   <terraintypes>
@@ -61,8 +65,6 @@
     <property name="rowPullUp" type="int" value="4"/>
     <property name="rowRight" type="int" value="1"/>
     <property name="rowUp" type="int" value="0"/>
-    <property name="tileHeight" type="int" value="36"/>
-    <property name="tileWidth" type="int" value="32"/>
    </properties>
   </object>
   <object id="3" name="Entry_Temple" type="LoadingZone" x="592" y="176" width="16" height="32">

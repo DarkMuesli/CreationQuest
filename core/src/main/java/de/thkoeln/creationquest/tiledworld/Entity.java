@@ -1,7 +1,5 @@
 package de.thkoeln.creationquest.tiledworld;
 
-import java.awt.Point;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,17 +8,22 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
-
+import com.badlogic.gdx.maps.MapProperties;
 import de.thkoeln.creationquest.Constants;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract type for all entities, as in "living things". Characterized by being
  * able to move and/or to interact with its surroundings.
  *
  * @author Matthias Gross
- *
  */
 public abstract class Entity extends GameObject {
+
+    public static final float FRAME_DURATION = 0.2f;
 
     private enum State {
         IDLE, MOVING, WAITING, PULLING
@@ -34,8 +37,8 @@ public abstract class Entity extends GameObject {
 
     private Texture sheet;
     private TextureRegion[] idleFrames;
-    private Animation<TextureRegion>[] moveAnimations;
-    private Animation<TextureRegion>[] pullAnimations;
+    private List<Animation<TextureRegion>> moveAnimations;
+    private List<Animation<TextureRegion>> pullAnimations;
     private boolean hasPullAnimation;
     private float animationTimer = 0;
 
@@ -65,55 +68,71 @@ public abstract class Entity extends GameObject {
     Entity(MapObject mapObject, TiledWorld world) {
         super(mapObject, world);
 
-        sheet = new Texture(mapObject.getProperties().get("path", String.class));
+        MapProperties props = mapObject.getProperties();
+
+        sheet = new Texture(props.get("path", String.class));
 
         TextureRegion[][] tmp;
         Integer width, height;
-        if ((width = mapObject.getProperties().get("tileWidth", Integer.class)) != null) {
-            height = mapObject.getProperties().get("tileHeight", Integer.class);
-            tmp = TextureRegion.split(sheet, width, height);
+
+        /*TODO: Move responsibility to figure out sprite and its dimension to somewhere else
+         * also hide MapProperties object
+         */
+
+        if ((props.containsKey("tileHeight")) && (props.containsKey("tileWidth")))
+            tmp = TextureRegion.split(
+                    sheet,
+                    props.get("tileWidth", Integer.class), props.get("tileHeight", Integer.class));
+        else if (world.getMapProp().containsKey("defaultEntityHeight") &&
+                world.getMapProp().containsKey("defaultEntityWidth")) {
+            Gdx.app.debug(TAG, "No Sprite dimensions found for \"" + name + "\". Defaulting to map default.");
+            tmp = TextureRegion.split(
+                    sheet,
+                    world.getMapProp().getProperties().get("defaultEntityWidth", Integer.class),
+                    world.getMapProp().getProperties().get("defaultEntityHeight", Integer.class));
         } else {
-            tmp = TextureRegion.split(sheet, 32, 36);
+            Gdx.app.debug(TAG, "No Sprite dimensions found for \"" + name + "\". Defaulting to map tile dimensions.");
+            tmp = TextureRegion.split(sheet, world.getMapProp().getTileWidth(), world.getMapProp().getTileHeight());
         }
 
         Integer[] rowsPull = new Integer[4];
-        if ((rowsPull[0] = mapObject.getProperties().get("rowPullUp", Integer.class)) != null) {
-            rowsPull[1] = mapObject.getProperties().get("rowPullRight", Integer.class);
-            rowsPull[2] = mapObject.getProperties().get("rowPullDown", Integer.class);
-            rowsPull[3] = mapObject.getProperties().get("rowPullLeft", Integer.class);
+        if ((rowsPull[0] = props.get("rowPullUp", Integer.class)) != null) {
+            rowsPull[1] = props.get("rowPullRight", Integer.class);
+            rowsPull[2] = props.get("rowPullDown", Integer.class);
+            rowsPull[3] = props.get("rowPullLeft", Integer.class);
             hasPullAnimation = true;
         }
 
         Integer[] rowsMove = new Integer[4];
-        if ((rowsMove[0] = mapObject.getProperties().get("rowUp", Integer.class)) != null) {
-            rowsMove[1] = mapObject.getProperties().get("rowRight", Integer.class);
-            rowsMove[2] = mapObject.getProperties().get("rowDown", Integer.class);
-            rowsMove[3] = mapObject.getProperties().get("rowLeft", Integer.class);
+        if ((rowsMove[0] = props.get("rowUp", Integer.class)) != null) {
+            rowsMove[1] = props.get("rowRight", Integer.class);
+            rowsMove[2] = props.get("rowDown", Integer.class);
+            rowsMove[3] = props.get("rowLeft", Integer.class);
         } else {
             for (int i = 0; i < rowsMove.length; i++)
                 rowsMove[i] = i;
         }
 
         idleFrames = new TextureRegion[4];
-        moveAnimations = new Animation[4];
-        pullAnimations = new Animation[4];
+        moveAnimations = new ArrayList<>();
+        pullAnimations = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             idleFrames[i] = tmp[rowsMove[i]][1];
-            moveAnimations[i] = new Animation(0.2f, tmp[rowsMove[i]]);
-            moveAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
+            moveAnimations.add(i, new Animation<>(FRAME_DURATION, tmp[rowsMove[i]]));
+            moveAnimations.get(i).setPlayMode(PlayMode.LOOP_PINGPONG);
             if (hasPullAnimation) {
-                pullAnimations[i] = new Animation(0.2f, tmp[rowsPull[i]]);
-                pullAnimations[i].setPlayMode(PlayMode.LOOP_PINGPONG);
+                pullAnimations.add(i, new Animation<>(FRAME_DURATION, tmp[rowsPull[i]]));
+                pullAnimations.get(i).setPlayMode(PlayMode.LOOP_PINGPONG);
             }
         }
-        String facingString = mapObject.getProperties().get("facing", String.class);
+        String facingString = props.get("facing", String.class);
         if (facingString != null)
             facing = Direction.valueOf(facingString);
         else
             facing = Direction.DOWN;
 
         Float moveSpeed;
-        if ((moveSpeed = mapObject.getProperties().get("moveSpeed", Float.class)) == null)
+        if ((moveSpeed = props.get("moveSpeed", Float.class)) == null)
             this.moveSpeed = 1f;
         else
             this.moveSpeed = moveSpeed;
@@ -146,10 +165,9 @@ public abstract class Entity extends GameObject {
      * Try to move this {@link Entity} one cell towards the specified
      * {@link Direction}.
      *
-     * @param dir
-     *            {@link Direction} to move to
+     * @param dir {@link Direction} to move to
      * @return <code>true</code> if the movement was successful,
-     *         <code>false</code> otherwise (e.g. when collision happened).
+     * <code>false</code> otherwise (e.g. when collision happened).
      */
     public boolean move(Direction dir) {
         if (dir != facing) {
@@ -187,10 +205,9 @@ public abstract class Entity extends GameObject {
     /**
      * Starts an interaction with the specified {@link GameObject}.
      *
-     * @param obj
-     *            the {@link GameObject} to interact with
+     * @param obj the {@link GameObject} to interact with
      * @return <code>true</code>, if the interaction did happen,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public boolean interact(GameObject obj) {
         return obj.onInteract(this);
@@ -206,7 +223,7 @@ public abstract class Entity extends GameObject {
      * currently facing.
      *
      * @return <code>true</code>, if the interaction did happen,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public boolean interactWithFacing() {
         Point facingCell = getCellPosition();
@@ -260,15 +277,15 @@ public abstract class Entity extends GameObject {
                 sprt.setRegion(idleFrames[dirMap]);
                 break;
             case MOVING:
-                sprt.setRegion(moveAnimations[dirMap].getKeyFrame(animationTimer));
+                sprt.setRegion(moveAnimations.get(dirMap).getKeyFrame(animationTimer));
                 break;
             case PULLING:
-                sprt.setRegion(pullAnimations[dirMap].getKeyFrame(animationTimer));
+                sprt.setRegion(pullAnimations.get(dirMap).getKeyFrame(animationTimer));
                 break;
         }
     }
 
-    public void updateSize(float width, float height){
+    public void updateSize(float width, float height) {
         sprt.setSize(width, height);
     }
 

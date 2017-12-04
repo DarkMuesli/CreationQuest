@@ -2,7 +2,8 @@ package de.thkoeln.creationquest.tiledworld
 
 import com.badlogic.gdx.maps.MapProperties
 
-class WorldProperties(properties: MapProperties) {
+//TODO: Hide MapProperties
+class WorldProperties(val properties: MapProperties) {
 
     companion object {
         private const val TILE_WIDTH_KEY = "tilewidth"
@@ -20,5 +21,7 @@ class WorldProperties(properties: MapProperties) {
 
     val widthInPixels: Int = tileWidth * widthInTiles
     val heightInPixels: Int = tileHeight * heightInTiles
+
+    fun containsKey(key: String) = properties.containsKey(key)
 
 }

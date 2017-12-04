@@ -24,6 +24,7 @@ public abstract class GameObject extends Observable implements Disposable {
     @SuppressWarnings("unused")
     private static final String TAG = GameObject.class.getName();
 
+    protected String name;
     protected int x;
     protected int y;
     protected Sprite sprt;
@@ -32,6 +33,8 @@ public abstract class GameObject extends Observable implements Disposable {
 
     public GameObject(MapObject mapObject, TiledWorld world) {
         this(world);
+
+        name = mapObject.getName();
 
         Texture tex = new Texture(mapObject.getProperties().get("path", String.class));
         float pixx = mapObject.getProperties().get("x", float.class);
