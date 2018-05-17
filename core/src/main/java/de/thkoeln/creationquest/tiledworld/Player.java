@@ -7,9 +7,7 @@ import com.badlogic.gdx.maps.MapObject;
 /**
  * Main character class, instantiated and managed by {@link TiledWorld}.
  *
- *
  * @author Matthias Gross
- *
  */
 public class Player extends Entity {
 
@@ -31,7 +29,6 @@ public class Player extends Entity {
 
     @Override
     public boolean move(Direction dir) {
-        // if (facing != dir)
 
         boolean hasMoved = super.move(dir);
         if (hasMoved) {

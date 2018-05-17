@@ -4,7 +4,6 @@ import com.badlogic.gdx.maps.MapObject;
 
 /**
  * @author mgadm
- *
  */
 public class NPC extends Entity {
 
@@ -18,11 +17,6 @@ public class NPC extends Entity {
     @Override
     public boolean isPlayer() {
         return false;
-    }
-
-    @Override
-    public boolean onInteract(GameObject obj) {
-        return super.onInteract(obj);
     }
 
 }

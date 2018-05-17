@@ -1,14 +1,16 @@
 package de.thkoeln.creationquest.tiledworld;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.MapObject;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class MoralNPC extends MonologNPC {
 
+    @SuppressWarnings("unused")
     private static final String TAG = MoralNPC.class.getName();
 
     private List<List<String>> wordLists = new ArrayList<>(3);
@@ -41,7 +43,7 @@ public class MoralNPC extends MonologNPC {
     private String getWord() {
         StringBuilder result = new StringBuilder(32);
         for (List<String> list : wordLists) {
-            result.append(" ").append(list.get((int) (Math.random() * list.size())));
+            result.append(" ").append(list.get(new Random().nextInt(list.size())));
         }
         return result.toString().trim();
     }
