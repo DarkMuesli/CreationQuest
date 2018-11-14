@@ -1,5 +1,5 @@
 laufen
-beißen
+beiÃŸen
 springen
 sammeln
 heulen
@@ -7,7 +7,7 @@ liegen
 mogeln
 begeistern
 experimentieren
-mögen
+mÃ¶gen
 hassen
 verstehen
 leiten
@@ -40,12 +40,12 @@ Hummel
 Aufsatz
 Punkt
 ###
-vielfältig
+vielfÃ¤ltig
 enorm
 besonders
 unangenehm
 erheiternd
-persönlich
+persÃ¶nlich
 genau
 ekelhaft
 bezaubernd
@@ -55,7 +55,7 @@ rau
 schimmernd
 wechselnd
 katzenhaft
-plötzlich
+plÃ¶tzlich
 primitiv
 ignorant
 lieblich
