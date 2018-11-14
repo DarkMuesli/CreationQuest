@@ -1,13 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id=":desktop" external.linked.project.path="$MODULE_DIR$/../../../desktop" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="CreationQuest" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
+        <compilerSettings />
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../desktop/build/classes/kotlin/main" />
+          <option name="classpath" value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.10/71d0fa967493eb76648b575edf1762cb2d0c7f10/kotlin-stdlib-jdk8-1.3.10.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-tools/1.9.8/5c32820fccee957cc77990d353297ceed1a63159/gdx-tools-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.9.8/b7c138f14ed67ad830ae7597da3d86ae02b20eee/gdx-backend-lwjgl-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-platform/1.9.8/604a2ef2c7c92a5900114757cbd3fb4dcbb8270c/gdx-platform-1.9.8-natives-desktop.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-platform/1.9.8/3195b56f82751d7cd7de85edb6824d17bf479781/gdx-box2d-platform-1.9.8-natives-desktop.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers-desktop/1.9.8/631f8e4bc387dbf8a7122e2e8729ec1cdc0dc45a/gdx-controllers-desktop-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers-platform/1.9.8/deef23cee3884f579312b2987afd6a377b6eda2e/gdx-controllers-platform-1.9.8-natives-desktop.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.10/4d147bf43060dc43d61b096e24da1e67dfe0c032/kotlin-stdlib-jdk7-1.3.10.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.10/b178c1501609c6e4ee8be635513cb023a466457d/kotlin-stdlib-1.3.10.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.9.8/6f0497b7958216464101adfb7bdc3a0f7b88d6d3/gdx-box2d-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.9.8/8cdc9ab6826a74594c3b0084d8a7669f8124592b/gdx-controllers-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-headless/1.9.8/c90fcd61d78d3b3d3ee7e493030b06df984df53b/gdx-backend-headless-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.9.8/d92b5b8beab10e3b3c0dd836d4fc186f95e7ea4b/gdx-freetype-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.8/a35a0076fbce873f9c2d5a1a1c8066244231bb3c/gdx-1.9.8.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl_util/2.9.2/4b9e37300a87799856e0bd15ed81663cdb6b0947/lwjgl_util-2.9.2.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl/2.9.2/a9d80fe5935c7a9149f6584d9777cfd471f65489/lwjgl-2.9.2.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.jlayer/jlayer/1.0.1-gdx/7cca83cec5c1b2f011362f4d85aabd71a73b049d/jlayer-1.0.1-gdx.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype-platform/1.9.8/b21a8def0c70ec49ea5e2658e788b7a9177399f8/gdx-freetype-platform-1.9.8-natives-desktop.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.10/1b19d99229dcedad7caf50534dce38fe82845269/kotlin-stdlib-common-1.3.10.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/510c7d317f5e9e700b9cfaac5fd38bdebf0702e0/lwjgl-platform-2.9.2-natives-windows.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/d276cdf61fe2b516c7b7f4aa1b8dea91dbdc8d56/lwjgl-platform-2.9.2-natives-linux.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/d55b46b40b40249d627a83a7f7f22649709d70c3/lwjgl-platform-2.9.2-natives-osx.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput/2.0.5/39c7796b469a600f72380316f6b1f11db6c2c7c4/jinput-2.0.5.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/net.java.jutils/jutils/1.0.0/e12fe1fda814bd348c1579329c86943d2cd3c6a6/jutils-1.0.0.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/7ff832a6eb9ab6a767f1ade2b548092d0fa64795/jinput-platform-2.0.5-natives-linux.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/385ee093e01f587f30ee1c8a2ee7d408fd732e16/jinput-platform-2.0.5-natives-windows.jar;C:/Users/Matze/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/53f9c919f34d2ca9de8c51fc4e1e8282029a9232/jinput-platform-2.0.5-natives-osx.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="desktop" />
+          <option name="jvmTarget" value="1.8" />
+          <option name="addCompilerBuiltIns" value="true" />
+          <option name="loadBuiltInsFromDependencies" value="true" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../../../desktop/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../desktop/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../desktop">
+      <sourceFolder url="file://$MODULE_DIR$/../../../desktop/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../../desktop/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../desktop/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../desktop/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="core" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-tools:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-platform:1.9.8:natives-desktop" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-box2d-platform:1.9.8:natives-desktop" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-controllers-desktop:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-controllers-platform:1.9.8:natives-desktop" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.10" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-box2d:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-controllers:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-backend-headless:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-freetype:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx:1.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl_util:2.9.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl:2.9.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.jlayer:jlayer:1.0.1-gdx" level="project" />
+    <orderEntry type="library" name="Gradle: org.jcraft:jorbis:0.0.17" level="project" />
+    <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-freetype-platform:1.9.8:natives-desktop" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:2.9.2:natives-windows" level="project" />
+    <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:2.9.2:natives-linux" level="project" />
+    <orderEntry type="library" name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:2.9.2:natives-osx" level="project" />
+    <orderEntry type="library" name="Gradle: net.java.jinput:jinput:2.0.5" level="project" />
+    <orderEntry type="library" name="Gradle: net.java.jutils:jutils:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-linux" level="project" />
+    <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-windows" level="project" />
+    <orderEntry type="library" name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-osx" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.platform:junit-platform-commons:1.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.opentest4j:opentest4j:1.1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.platform:junit-platform-engine:1.3.1" level="project" />
   </component>
 </module>
